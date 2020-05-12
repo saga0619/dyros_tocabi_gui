@@ -34,6 +34,7 @@ TocabiGui::TocabiGui()
     //initPlugin()
     pointsub = nh_.subscribe("/tocabi/point", 1, &TocabiGui::pointCallback, this);
     timesub = nh_.subscribe("/tocabi/time", 1, &TocabiGui::timerCallback, this);
+    sysstatesub = nh_.subscribe("/tocabi/systemstate", 1, &TocabiGui::sysstateCallback, this);
     com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 1);
     guilogsub = nh_.subscribe("/tocabi/guilog", 1000, &TocabiGui::guiLogCallback, this);
     gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 100);
@@ -106,8 +107,6 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     rfoot_c = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
     lfoot_c = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
 
-
-    
     zmp = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
 
     scene->addLine(-20, 0, 40, 0, blackpen);
@@ -122,6 +121,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(this, &TocabiGui::guiLogCallback, this, &TocabiGui::plainTextEditcb);
     connect(this, &TocabiGui::pointCallback, this, &TocabiGui::pointcb);
     connect(this, &TocabiGui::imuCallback, this, &TocabiGui::imucb);
+    connect(this, &TocabiGui::sysstateCallback, this, &TocabiGui::sysstatecb);
 
     //connect(ui_)
     connect(ui_.initializebtn, SIGNAL(pressed()), this, SLOT(initializebtncb()));
@@ -365,6 +365,73 @@ void TocabiGui::saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::
 
 void TocabiGui::restoreSettings(const qt_gui_cpp::Settings &plugin_settings, const qt_gui_cpp::Settings &instance_settings)
 {
+}
+
+void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
+{
+    if (msg->data[0] == 0) //imu
+    {
+        ui_.label_imustatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+        ui_.label_imustatus->setText(QString::fromUtf8("NOT OK"));
+    }
+    else if (msg->data[0] == 1)
+    {
+        ui_.label_imustatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+        ui_.label_imustatus->setText(QString::fromUtf8("waiting"));
+    }
+    else if (msg->data[0] == 2)
+    {
+        ui_.label_imustatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_imustatus->setText(QString::fromUtf8("OK"));
+    }
+
+    if (msg->data[1] == 0) // zp
+    {
+        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+        ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
+    }
+    else if (msg->data[1] == 1)
+    {
+        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+    }
+    else if (msg->data[1] == 2)
+    {
+        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+    }
+
+    if (msg->data[2] == 0) //ft
+    {
+        ui_.label_ftstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+        ui_.label_ftstatus->setText(QString::fromUtf8("NOT OK"));
+    }
+    else if (msg->data[1] == 1)
+    {
+        ui_.label_ftstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        ui_.label_ftstatus->setText(QString::fromUtf8("INIT REQ"));
+    }
+    else if (msg->data[1] == 2)
+    {
+        ui_.label_ftstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_ftstatus->setText(QString::fromUtf8("OK"));
+    }
+
+    if (msg->data[3] == 0) //ecat
+    {
+        ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+        ui_.label_ecatstatus->setText(QString::fromUtf8("NOT OK"));
+    }
+    else if (msg->data[1] == 1)
+    {
+        ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
+    }
+    else if (msg->data[1] == 2)
+    {
+        ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
+    }
 }
 
 void TocabiGui::que_downbtn()

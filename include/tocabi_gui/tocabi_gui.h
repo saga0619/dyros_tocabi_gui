@@ -19,6 +19,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Int32MultiArray.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <std_msgs/String.h>
 #include <QMetaType>
@@ -141,6 +142,7 @@ protected slots:
     virtual void que_sendbtn();
     virtual void que_addquebtn();
     virtual void shutdown_robot();
+    virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
 
 private:
     //ROS_DEPRECATED virtual QList<QString>
@@ -190,6 +192,8 @@ public:
     ros::Publisher task_que_pub;
     tocabi_controller::TaskCommandQue task_que_msg;
 
+    ros::Subscriber sysstatesub;
+
     ros::Subscriber imusub;
 
     //void guiLogCallback(const std_msgs::StringConstPtr &msg);
@@ -200,6 +204,7 @@ signals:
     void pointCallback(const geometry_msgs::PolygonStampedConstPtr &msg);
     void timerCallback(const std_msgs::Float32ConstPtr &msg);
     void imuCallback(const sensor_msgs::ImuConstPtr &msg);
+    void sysstateCallback(const std_msgs::Int32MultiArrayConstPtr &msg);
     virtual void guiLogSignal();
 };
 
@@ -208,5 +213,6 @@ Q_DECLARE_METATYPE(std_msgs::StringConstPtr);
 Q_DECLARE_METATYPE(geometry_msgs::PolygonStampedConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Float32ConstPtr);
 Q_DECLARE_METATYPE(sensor_msgs::ImuConstPtr);
+Q_DECLARE_METATYPE(std_msgs::Int32MultiArrayConstPtr);
 
 #endif
