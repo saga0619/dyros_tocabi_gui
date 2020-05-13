@@ -195,8 +195,8 @@ OFF</string>
     <widget class="QFrame" name="frame_10">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>450</y>
+       <x>670</x>
+       <y>480</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -302,8 +302,8 @@ OFF</string>
     <widget class="QFrame" name="frame_3">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>130</y>
+       <x>670</x>
+       <y>160</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -409,8 +409,8 @@ OFF</string>
     <widget class="QFrame" name="frame_5">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>130</y>
+       <x>500</x>
+       <y>160</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -516,8 +516,8 @@ OFF</string>
     <widget class="QFrame" name="frame_6">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>10</y>
+       <x>500</x>
+       <y>30</y>
        <width>151</width>
        <height>111</height>
       </rect>
@@ -623,8 +623,8 @@ OFF</string>
     <widget class="QFrame" name="frame_9">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>450</y>
+       <x>500</x>
+       <y>480</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -1398,8 +1398,8 @@ OFF</string>
     <widget class="QFrame" name="frame_7">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>10</y>
+       <x>670</x>
+       <y>30</y>
        <width>151</width>
        <height>111</height>
       </rect>
@@ -1482,8 +1482,8 @@ OFF</string>
     <widget class="QFrame" name="frame_12">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>290</y>
+       <x>670</x>
+       <y>320</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -1589,8 +1589,8 @@ OFF</string>
     <widget class="QFrame" name="frame_15">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>290</y>
+       <x>500</x>
+       <y>320</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -1696,8 +1696,8 @@ OFF</string>
     <widget class="QFrame" name="frame_16">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>610</y>
+       <x>500</x>
+       <y>640</y>
        <width>151</width>
        <height>141</height>
       </rect>
@@ -1803,8 +1803,8 @@ OFF</string>
     <widget class="QFrame" name="frame_17">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>610</y>
+       <x>670</x>
+       <y>640</y>
        <width>151</width>
        <height>141</height>
       </rect>

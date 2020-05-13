@@ -115,6 +115,10 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     QGraphicsTextItem *front = scene->addText("front");
     front->setPos(0, 50);
 
+    
+
+    
+
     //ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
 
     connect(this, &TocabiGui::timerCallback, this, &TocabiGui::timercb);
