@@ -143,6 +143,8 @@ protected slots:
     virtual void que_addquebtn();
     virtual void shutdown_robot();
     virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
+    virtual void solvermode_cb(int state);
+    void handletaskmsg();
 
 private:
     //ROS_DEPRECATED virtual QList<QString>

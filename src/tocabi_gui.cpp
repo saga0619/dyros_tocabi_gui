@@ -81,6 +81,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
 
     connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
+    connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
 
     connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
 
@@ -114,10 +115,6 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
 
     QGraphicsTextItem *front = scene->addText("front");
     front->setPos(0, 50);
-
-    
-
-    
 
     //ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
 
@@ -371,6 +368,20 @@ void TocabiGui::restoreSettings(const qt_gui_cpp::Settings &plugin_settings, con
 {
 }
 
+void TocabiGui::solvermode_cb(int state)
+{
+    if (state == 0)
+    {
+        ui_.cr_mode->setEnabled(true);
+        ui_.cr_mode->setCurrentIndex(0);
+    }
+    else
+    {
+        ui_.cr_mode->setDisabled(true);
+        ui_.cr_mode->setCurrentIndex(2);
+    }
+}
+
 void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
 {
     if (msg->data[0] == 0) //imu
@@ -471,60 +482,6 @@ void TocabiGui::shutdown_robot()
 {
     com_msg.data = std::string("terminate");
     com_pub.publish(com_msg);
-}
-
-void TocabiGui::que_addquebtn()
-{
-    task_que tq_temp;
-    tq_temp.task_title = ui_.text_que->text().toStdString();
-
-    tq_temp.tc_.roll = ui_.com_roll->text().toFloat();
-    tq_temp.tc_.pitch = ui_.com_pitch->text().toFloat();
-
-    tq_temp.tc_.pelv_pitch = ui_.pelv_pitch->text().toFloat();
-    tq_temp.tc_.yaw = ui_.com_yaw->text().toFloat();
-    tq_temp.tc_.ratio = ui_.com_pos->text().toFloat();
-    tq_temp.tc_.height = ui_.com_height->text().toFloat();
-
-    tq_temp.tc_.l_x = ui_.text_l_x->text().toFloat();
-    tq_temp.tc_.l_y = ui_.text_l_y->text().toFloat();
-    tq_temp.tc_.l_z = ui_.text_l_z->text().toFloat();
-    tq_temp.tc_.l_roll = ui_.text_l_roll->text().toFloat();
-    tq_temp.tc_.l_pitch = ui_.text_l_pitch->text().toFloat();
-    tq_temp.tc_.l_yaw = ui_.text_l_yaw->text().toFloat();
-
-    tq_temp.tc_.r_x = ui_.text_r_x->text().toFloat();
-    tq_temp.tc_.r_y = ui_.text_r_y->text().toFloat();
-    tq_temp.tc_.r_z = ui_.text_r_z->text().toFloat();
-
-    tq_temp.tc_.r_roll = ui_.text_r_roll->text().toFloat();
-    tq_temp.tc_.r_pitch = ui_.text_r_pitch->text().toFloat();
-    tq_temp.tc_.r_yaw = ui_.text_r_yaw->text().toFloat();
-
-    tq_temp.tc_.time = ui_.text_traj_time->text().toFloat();
-    tq_temp.tc_.mode = ui_.task_mode->currentIndex();
-
-    tq_temp.tc_.customTaskGain = ui_.customtaskgain->isChecked();
-    if (tq_temp.tc_.customTaskGain)
-    {
-        tq_temp.tc_.pos_p = ui_.pospgain->text().toFloat();
-        tq_temp.tc_.pos_d = ui_.posdgain->text().toFloat();
-        tq_temp.tc_.ang_p = ui_.angpgain->text().toFloat();
-        tq_temp.tc_.ang_d = ui_.angdgain->text().toFloat();
-    }
-
-    //ui_.text_que->text().toStdString();
-
-    std::stringstream ss;
-    ss << "task " << tq_.size() + 1 << " : ";
-
-    ui_.que_listwidget->addItem(ss.str().c_str() + ui_.text_que->text());
-
-    tq_.push_back(tq_temp);
-
-    //list.append(ui_.text_que->text());
-
-    //ui_.que_list->set
 }
 
 void TocabiGui::customtaskgaincb(int state)
@@ -765,6 +722,16 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     ui_.label_120->setText(QString::number(msg->polygon.points[6].y, 'f', 5));
     ui_.label_121->setText(QString::number(msg->polygon.points[6].z, 'f', 5));
 
+    //LF orient
+    ui_.label_105->setText(QString::number(msg->polygon.points[8].x, 'f', 5));
+    ui_.label_106->setText(QString::number(msg->polygon.points[8].y, 'f', 5));
+    ui_.label_107->setText(QString::number(msg->polygon.points[8].z, 'f', 5));
+
+    //RF orient
+    ui_.label_112->setText(QString::number(msg->polygon.points[9].x, 'f', 5));
+    ui_.label_113->setText(QString::number(msg->polygon.points[9].y, 'f', 5));
+    ui_.label_114->setText(QString::number(msg->polygon.points[9].z, 'f', 5));
+
     double com_x = msg->polygon.points[0].x;
     double com_y = msg->polygon.points[0].y;
 
@@ -850,7 +817,7 @@ void TocabiGui::ftcalibbtn()
     com_pub.publish(com_msg);
 }
 
-void TocabiGui::tasksendcb()
+void TocabiGui::handletaskmsg()
 {
     task_msg.pelv_pitch = ui_.pelv_pitch->text().toFloat();
     task_msg.roll = ui_.com_roll->text().toFloat();
@@ -877,6 +844,13 @@ void TocabiGui::tasksendcb()
     task_msg.mode = ui_.task_mode->currentIndex();
 
     task_msg.customTaskGain = ui_.customtaskgain->isChecked();
+
+    task_msg.solver = ui_.solver_mode->currentIndex();
+
+    task_msg.contactredis = ui_.cr_mode->currentIndex();
+
+    task_msg.acc_p = ui_.accgain->text().toFloat();
+
     if (task_msg.customTaskGain)
     {
         task_msg.pos_p = ui_.pospgain->text().toFloat();
@@ -884,6 +858,31 @@ void TocabiGui::tasksendcb()
         task_msg.ang_p = ui_.angpgain->text().toFloat();
         task_msg.ang_d = ui_.angdgain->text().toFloat();
     }
+}
+
+void TocabiGui::que_addquebtn()
+{
+    task_que tq_temp;
+
+    handletaskmsg();
+    tq_temp.tc_ = task_msg;
+    //ui_.text_que->text().toStdString();
+
+    std::stringstream ss;
+    ss << "task " << tq_.size() + 1 << " : ";
+
+    ui_.que_listwidget->addItem(ss.str().c_str() + ui_.text_que->text());
+
+    tq_.push_back(tq_temp);
+
+    //list.append(ui_.text_que->text());
+
+    //ui_.que_list->set
+}
+
+void TocabiGui::tasksendcb()
+{
+    handletaskmsg();
 
     task_pub.publish(task_msg);
 
