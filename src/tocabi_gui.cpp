@@ -29,6 +29,7 @@ TocabiGui::TocabiGui()
     qRegisterMetaType<geometry_msgs::PolygonStampedConstPtr>();
     qRegisterMetaType<std_msgs::Float32ConstPtr>();
     qRegisterMetaType<sensor_msgs::ImuConstPtr>();
+    qRegisterMetaType<std_msgs::Int32MultiArrayConstPtr>();
     setObjectName("TocabiGui");
 
     //initPlugin()
