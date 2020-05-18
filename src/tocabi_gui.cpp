@@ -423,12 +423,12 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
         ui_.label_ftstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
         ui_.label_ftstatus->setText(QString::fromUtf8("NOT OK"));
     }
-    else if (msg->data[1] == 1)
+    else if (msg->data[2] == 1)
     {
         ui_.label_ftstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
         ui_.label_ftstatus->setText(QString::fromUtf8("INIT REQ"));
     }
-    else if (msg->data[1] == 2)
+    else if (msg->data[2] == 2)
     {
         ui_.label_ftstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         ui_.label_ftstatus->setText(QString::fromUtf8("OK"));
@@ -439,12 +439,12 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
         ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
         ui_.label_ecatstatus->setText(QString::fromUtf8("NOT OK"));
     }
-    else if (msg->data[1] == 1)
+    else if (msg->data[3] == 1)
     {
         ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
     }
-    else if (msg->data[1] == 2)
+    else if (msg->data[3] == 2)
     {
         ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
         ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
