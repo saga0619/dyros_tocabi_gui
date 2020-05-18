@@ -151,6 +151,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.que_up, SIGNAL(pressed()), this, SLOT(que_upbtn()));
     connect(ui_.que_reset, SIGNAL(pressed()), this, SLOT(que_resetbtn()));
     connect(ui_.que_send, SIGNAL(pressed()), this, SLOT(que_sendbtn()));
+    connect(ui_.iybtn, SIGNAL(pressed()), this, SLOT(inityaw()));
 
     if (mode == "simulation")
     {
@@ -530,6 +531,12 @@ void TocabiGui::torquerediscb()
 void TocabiGui::qp2ndcb()
 {
     com_msg.data = std::string("qp2nd");
+    com_pub.publish(com_msg);
+}
+
+void TocabiGui::inityaw()
+{
+    com_msg.data = std::string("inityaw");
     com_pub.publish(com_msg);
 }
 

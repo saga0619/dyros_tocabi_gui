@@ -144,6 +144,7 @@ protected slots:
     virtual void shutdown_robot();
     virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
     virtual void solvermode_cb(int state);
+    virtual void inityaw();
     void handletaskmsg();
 
 private:
