@@ -2731,7 +2731,7 @@ OFF</string>
          <item>
           <widget class="QLineEdit" name="com_height">
            <property name="text">
-            <string>0.75</string>
+            <string>0.85</string>
            </property>
           </widget>
          </item>
@@ -3611,6 +3611,19 @@ OFF</string>
      </property>
      <property name="text">
       <string>Init Yaw</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="vjbtn">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>90</y>
+       <width>121</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>virtual joint(sim)</string>
      </property>
     </widget>
    </widget>

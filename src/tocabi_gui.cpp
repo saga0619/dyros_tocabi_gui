@@ -11,15 +11,42 @@ namespace tocabi_gui
 MyQGraphicsScene::MyQGraphicsScene(QWidget *parent) : QGraphicsScene(parent)
 {
 }
+
+MyQGraphicsView::MyQGraphicsView(QWidget *parent) : QGraphicsView(parent)
+{
+}
 /*
 void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     std::cout << "press" << std::endl;
-}
-*/
+}*/
 void MyQGraphicsScene::wheelEvent(QGraphicsSceneWheelEvent *event)
 {
-    //std::cout << "wheel" << event->delta() << std::endl;
+    //std::cout << parent()->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
+
+    QGraphicsView *view_ = parent()->findChild<QGraphicsView *>("graphicsViewCustom");
+
+    //view_->setViewport();
+
+    double scaleFactor = 0.1;
+    const qreal minFactor = 1.0;
+    const qreal maxFactor = 10.0;
+    static qreal h11 = 1.0;
+    static qreal h22 = 1.0;
+
+    if (event->delta() == 120)
+    {
+        h11 = (h11 >= maxFactor) ? h11 : (h11 + scaleFactor);
+        h22 = (h22 >= maxFactor) ? h22 : (h22 + scaleFactor);
+    }
+    else if (event->delta() == -120)
+    {
+        h11 = (h11 <= minFactor) ? minFactor : (h11 - scaleFactor);
+        h22 = (h22 <= minFactor) ? minFactor : (h22 - scaleFactor);
+    }
+    view_->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    view_->setTransform(QTransform(h11, 0, 0, 0, h22, 0, 0, 0, 1));
+
 }
 
 TocabiGui::TocabiGui()
@@ -93,31 +120,6 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     ui_.command_btn->setShortcut(QKeySequence(Qt::Key_3));
     ui_.mtunebtn->setShortcut(QKeySequence(Qt::Key_4));
     ui_.walkingbtn->setShortcut(QKeySequence(Qt::Key_5));
-
-    scene = new MyQGraphicsScene(widget_);
-    ui_.graphicsView->setScene(scene);
-    QBrush redbrush(Qt::red);
-    QPen blackpen(Qt::black);
-
-    lfoot_d = new QGraphicsRectItem(QRectF(-85 / 4, -120 / 4, 170 / 4, 300 / 4));
-    scene->addItem(lfoot_d);
-
-    rfoot_d = new QGraphicsRectItem(QRectF(-85 / 4, -120 / 4, 170 / 4, 300 / 4));
-    scene->addItem(rfoot_d);
-
-    com_d = scene->addEllipse(-10, -10, 20, 20, blackpen, redbrush);
-    rfoot_c = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
-    lfoot_c = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
-
-    zmp = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
-
-    scene->addLine(-20, 0, 40, 0, blackpen);
-    scene->addLine(0, -20, 0, 40, blackpen);
-
-    QGraphicsTextItem *front = scene->addText("front");
-    front->setPos(0, 50);
-
-    //ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
 
     connect(this, &TocabiGui::timerCallback, this, &TocabiGui::timercb);
     connect(this, &TocabiGui::guiLogCallback, this, &TocabiGui::plainTextEditcb);
@@ -286,6 +288,57 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
         safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
     }
     ui_.taskgain->setDisabled(true);
+
+    ui_.graphicsView->setDisabled(true);
+    ui_.graphicsView->setHidden(true);
+
+    view = new MyQGraphicsView(widget_);
+    view->setObjectName(QStringLiteral("graphicsViewCustom"));
+    view->setGeometry(QRect(1180, 80, 411, 371));
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+    view->setInteractive(true);
+    view->setDragMode(QGraphicsView::ScrollHandDrag);
+    view->setTransformationAnchor(QGraphicsView::NoAnchor);
+    view->setResizeAnchor(QGraphicsView::NoAnchor);
+
+    scene = new MyQGraphicsScene(widget_);
+    //scene->setSceneRect(0, 0, view->width(), view->height());
+
+    view->setScene(scene);
+
+    //std::cout << widget_->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
+
+    QBrush redbrush(Qt::red);
+    QBrush bluebrush(Qt::blue);
+    QBrush yellowbrush(Qt::yellow);
+    QBrush blackbrush(Qt::black);
+    QPen blackpen(Qt::black);
+    Pelv = new QGraphicsRectItem(QRectF(-150 / 4, -40 / 4, 300 / 4, 80 / 4));
+    scene->addItem(Pelv);
+
+    lfoot_d = new QGraphicsRectItem(QRectF(-85 / 4, -120 / 4, 170 / 4, 300 / 4));
+    scene->addItem(lfoot_d);
+
+    rfoot_d = new QGraphicsRectItem(QRectF(-85 / 4, -120 / 4, 170 / 4, 300 / 4));
+    scene->addItem(rfoot_d);
+
+    com_d = scene->addEllipse(-10, -10, 20, 20, blackpen, yellowbrush);
+    rfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+    lfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+
+    zmp = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
+
+    scene->addLine(-20, 0, 40, 0, blackpen);
+    scene->addLine(0, -20, 0, 40, blackpen);
+
+    QGraphicsTextItem *front = scene->addText("front");
+    front->setPos(0, 50);
+
+    //ui_.graphicsView->scale(10, 10);
+
+    //ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
 
     //for(int i=0;i<)
 
@@ -692,15 +745,18 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     ui_.label_2->setText(QString::number(msg->polygon.points[0].y, 'f', 5));
 
     rfoot_d->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
-    rfoot_d->setRotation(msg->polygon.points[1].z * -180.0 / 3.141592);
+    rfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
     rfoot_c->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
 
     ui_.label_73->setText(QString::number(msg->polygon.points[1].x, 'f', 5));
     ui_.label_74->setText(QString::number(msg->polygon.points[1].y, 'f', 5));
 
     lfoot_d->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
-    lfoot_d->setRotation(msg->polygon.points[2].z * -180.0 / 3.141592);
+    lfoot_d->setRotation(msg->polygon.points[9].z * -180.0 / 3.141592);
     lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
+
+    Pelv->setPos(QPointF(msg->polygon.points[3].y * 250, msg->polygon.points[3].x * 250));
+    Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
 
     zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
 
@@ -773,7 +829,7 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
 
     ui_.label_42->setText(QString::number(dis, 'f', 5));
 
-    ui_.graphicsView->setSceneRect(0, 0, 0, 0);
+    //ui_.graphicsView->setSceneRect(0, 0, 0, 0);
 }
 
 void TocabiGui::initializebtncb()

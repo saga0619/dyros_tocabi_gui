@@ -90,6 +90,19 @@ public slots:
 private:
 };
 
+class MyQGraphicsView : public QGraphicsView
+{
+    Q_OBJECT
+public:
+    explicit MyQGraphicsView(QWidget *parent = 0);
+    //virtual void wheelEvent(QGraphicsViewWheelEvent *event);
+    //virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+
+public slots:
+
+private:
+};
+
 class TocabiGui : public rqt_gui_cpp::Plugin
 {
     Q_OBJECT
@@ -161,6 +174,7 @@ private:
     std::vector<QLabel *> safetylabels;
     std::vector<QLineEdit *> ecattexts;
     MyQGraphicsScene *scene;
+    MyQGraphicsView *view;
 
     QGraphicsEllipseItem *com_d;
     QGraphicsRectItem *rfoot_d;
@@ -169,6 +183,7 @@ private:
     QGraphicsRectItem *lfoot_d;
     QGraphicsLineItem *lfoot_l1;
     QGraphicsLineItem *lfoot_l2;
+    QGraphicsRectItem *Pelv;
     QGraphicsEllipseItem *zmp;
 
     QGraphicsEllipseItem *rfoot_c;
