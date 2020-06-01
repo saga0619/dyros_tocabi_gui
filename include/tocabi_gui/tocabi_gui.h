@@ -195,7 +195,7 @@ private:
 
 public:
     ros::Subscriber timesub;
-
+    ros::Subscriber jointsub;
     ros::Subscriber pointsub;
 
     ros::Subscriber guilogsub;
