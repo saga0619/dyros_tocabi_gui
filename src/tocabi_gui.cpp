@@ -464,8 +464,8 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
     }
     else if (msg->data[1] == 1)
     {
-        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-        ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        ui_.label_zpstatus->setText(QString::fromUtf8("FIND REQ"));
     }
     else if (msg->data[1] == 2)
     {
