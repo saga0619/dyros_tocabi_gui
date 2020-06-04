@@ -759,14 +759,14 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     ui_.label_2->setText(QString::number(msg->polygon.points[0].y, 'f', 5));
 
     rfoot_d->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
-    rfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
+    rfoot_d->setRotation(msg->polygon.points[9].z * -180.0 / 3.141592);
     rfoot_c->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
 
     ui_.label_73->setText(QString::number(msg->polygon.points[1].x, 'f', 5));
     ui_.label_74->setText(QString::number(msg->polygon.points[1].y, 'f', 5));
 
     lfoot_d->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
-    lfoot_d->setRotation(msg->polygon.points[9].z * -180.0 / 3.141592);
+    lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
     lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
 
     Pelv->setPos(QPointF(msg->polygon.points[3].y * 250, msg->polygon.points[3].x * 250));
