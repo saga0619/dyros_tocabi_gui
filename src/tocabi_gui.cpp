@@ -46,7 +46,6 @@ void MyQGraphicsScene::wheelEvent(QGraphicsSceneWheelEvent *event)
     }
     view_->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     view_->setTransform(QTransform(h11, 0, 0, 0, h22, 0, 0, 0, 1));
-
 }
 
 TocabiGui::TocabiGui()
@@ -155,6 +154,9 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.que_reset, SIGNAL(pressed()), this, SLOT(que_resetbtn()));
     connect(ui_.que_send, SIGNAL(pressed()), this, SLOT(que_sendbtn()));
     connect(ui_.iybtn, SIGNAL(pressed()), this, SLOT(inityaw()));
+
+    connect(ui_.vjbtn, SIGNAL(pressed()), this, SLOT(simvj()));
+    connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
 
     if (mode == "simulation")
     {
@@ -550,6 +552,18 @@ void TocabiGui::customtaskgaincb(int state)
         ui_.taskgain->setDisabled(true);
     }
 }
+
+void TocabiGui::simvj()
+{
+    com_msg.data = std::string("simvirtualjoint");
+    com_pub.publish(com_msg);
+}
+void TocabiGui::imureset()
+{
+    com_msg.data = std::string("imureset");
+    com_pub.publish(com_msg);
+}
+
 void TocabiGui::ecatinitlow()
 {
     com_msg.data = std::string("ecatinitlower");
@@ -764,9 +778,9 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     ui_.label_65->setText(QString::number(msg->polygon.points[2].y, 'f', 5));
 
     //pelvis rpy
-    ui_.label_14->setText(QString::number(msg->polygon.points[4].x*180.0/3.141592, 'f', 5));
-    ui_.label_15->setText(QString::number(msg->polygon.points[4].y*180.0/3.141592, 'f', 5));
-    ui_.label_16->setText(QString::number(msg->polygon.points[4].z*180.0/3.141592, 'f', 5));
+    ui_.label_14->setText(QString::number(msg->polygon.points[4].x * 180.0 / 3.141592, 'f', 5));
+    ui_.label_15->setText(QString::number(msg->polygon.points[4].y * 180.0 / 3.141592, 'f', 5));
+    ui_.label_16->setText(QString::number(msg->polygon.points[4].z * 180.0 / 3.141592, 'f', 5));
 
     ui_.label_13->setText(QString::number(msg->polygon.points[3].x, 'f', 5));
     ui_.label_21->setText(QString::number(msg->polygon.points[3].y, 'f', 5));
@@ -788,14 +802,14 @@ void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     ui_.label_121->setText(QString::number(msg->polygon.points[6].z, 'f', 5));
 
     //LF orient
-    ui_.label_105->setText(QString::number(msg->polygon.points[8].x*180.0/3.141592, 'f', 5));
-    ui_.label_106->setText(QString::number(msg->polygon.points[8].y*180.0/3.141592, 'f', 5));
-    ui_.label_107->setText(QString::number(msg->polygon.points[8].z*180.0/3.141592, 'f', 5));
+    ui_.label_105->setText(QString::number(msg->polygon.points[8].x * 180.0 / 3.141592, 'f', 5));
+    ui_.label_106->setText(QString::number(msg->polygon.points[8].y * 180.0 / 3.141592, 'f', 5));
+    ui_.label_107->setText(QString::number(msg->polygon.points[8].z * 180.0 / 3.141592, 'f', 5));
 
     //RF orient
-    ui_.label_112->setText(QString::number(msg->polygon.points[9].x*180.0/3.141592, 'f', 5));
-    ui_.label_113->setText(QString::number(msg->polygon.points[9].y*180.0/3.141592, 'f', 5));
-    ui_.label_114->setText(QString::number(msg->polygon.points[9].z*180.0/3.141592, 'f', 5));
+    ui_.label_112->setText(QString::number(msg->polygon.points[9].x * 180.0 / 3.141592, 'f', 5));
+    ui_.label_113->setText(QString::number(msg->polygon.points[9].y * 180.0 / 3.141592, 'f', 5));
+    ui_.label_114->setText(QString::number(msg->polygon.points[9].z * 180.0 / 3.141592, 'f', 5));
 
     double com_x = msg->polygon.points[0].x;
     double com_y = msg->polygon.points[0].y;

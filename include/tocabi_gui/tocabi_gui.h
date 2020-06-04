@@ -158,6 +158,8 @@ protected slots:
     virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
     virtual void solvermode_cb(int state);
     virtual void inityaw();
+    virtual void simvj();
+    virtual void imureset();
     void handletaskmsg();
 
 private:
