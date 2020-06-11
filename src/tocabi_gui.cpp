@@ -158,6 +158,8 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.vjbtn, SIGNAL(pressed()), this, SLOT(simvj()));
     connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
 
+    connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
+
     if (mode == "simulation")
     {
         ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
@@ -888,6 +890,12 @@ void TocabiGui::resettunebtn()
     {
         ecattexts[elng[i]]->setText(QString::number(NM2CNT[i], 'f', 3));
     }
+}
+
+void TocabiGui::printdata()
+{
+    com_msg.data = std::string("printdata");
+    com_pub.publish(com_msg);
 }
 
 void TocabiGui::ftcalibbtn()

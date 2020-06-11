@@ -160,6 +160,7 @@ protected slots:
     virtual void inityaw();
     virtual void simvj();
     virtual void imureset();
+    virtual void printdata();
     void handletaskmsg();
 
 private:
