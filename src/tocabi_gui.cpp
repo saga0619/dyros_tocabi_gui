@@ -171,13 +171,18 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
         ui_.label_imustatus->setText(QString::fromUtf8("SIM MODE"));
         ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
         ui_.label_ftstatus->setText(QString::fromUtf8("SIM MODE"));
+
+        ui_.stackedWidget->setCurrentIndex(2);
     }
     else
     {
+        ui_.vjbtn->setDisabled(true);
+
         ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
         ui_.label_imustatus->setStyleSheet("QLabel { background-color : red; color : white; }");
         ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
         ui_.label_ftstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+        ui_.stackedWidget->setCurrentIndex(0);
     }
 
     ecatlabels.resize(33);
@@ -298,7 +303,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
 
     view = new MyQGraphicsView(widget_);
     view->setObjectName(QStringLiteral("graphicsViewCustom"));
-    view->setGeometry(QRect(1180, 80, 411, 371));
+    view->setGeometry(ui_.graphicsView->geometry());
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
@@ -458,6 +463,11 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
         ui_.label_imustatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         ui_.label_imustatus->setText(QString::fromUtf8("OK"));
     }
+    else if (msg->data[0] == 3)
+    {
+        ui_.label_imustatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+        ui_.label_imustatus->setText(QString::fromUtf8("SIM MODE"));
+    }
 
     if (msg->data[1] == 0) // zp
     {
@@ -473,6 +483,11 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
     {
         ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+    }
+    else if (msg->data[1] == 3)
+    {
+        ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+        ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
     }
 
     if (msg->data[2] == 0) //ft
@@ -490,6 +505,11 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
         ui_.label_ftstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         ui_.label_ftstatus->setText(QString::fromUtf8("OK"));
     }
+    else if (msg->data[2] == 3)
+    {
+        ui_.label_ftstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+        ui_.label_ftstatus->setText(QString::fromUtf8("SIM MODE"));
+    }
 
     if (msg->data[3] == 0) //ecat
     {
@@ -505,6 +525,43 @@ void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
     {
         ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
         ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
+    }
+    else if (msg->data[3] == 3)
+    {
+        ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+        ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
+    }
+
+    if (msg->data[4] == 1) //se
+    {
+        ui_.label_sestatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_sestatus->setText(QString::fromUtf8("ON"));
+    }
+    else if (msg->data[4] == 0)
+    {
+        ui_.label_sestatus->setStyleSheet("QLabel { background-color : red ; color : black; }");
+        ui_.label_sestatus->setText(QString::fromUtf8("OFF"));
+    }
+
+    if (msg->data[5] == 0) //tc
+    {
+        ui_.label_tcstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        ui_.label_tcstatus->setText(QString::fromUtf8("ON"));
+    }
+    else if (msg->data[5] == 1)
+    {
+        ui_.label_tcstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        ui_.label_tcstatus->setText(QString::fromUtf8("WARN"));
+    }
+    else if (msg->data[5] == 2)
+    {
+        ui_.label_tcstatus->setStyleSheet("QLabel { background-color : red ; color : black; }");
+        ui_.label_tcstatus->setText(QString::fromUtf8("ERROR"));
+    }
+    else if (msg->data[5] == 3)
+    {
+        ui_.label_tcstatus->setStyleSheet("QLabel { background-color : rgba(0, 0, 0, 0) ; color : black; }");
+        ui_.label_tcstatus->setText(QString::fromUtf8("OFF"));
     }
 }
 

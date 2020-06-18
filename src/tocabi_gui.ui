@@ -190,6 +190,19 @@ OFF</string>
       <string>DISABLE SAFETY</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="imuresetbtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IMU EF RESET</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="STAT">
     <widget class="QFrame" name="frame_10">
@@ -2127,9 +2140,9 @@ OFF</string>
      <property name="geometry">
       <rect>
        <x>650</x>
-       <y>210</y>
+       <y>20</y>
        <width>181</width>
-       <height>311</height>
+       <height>491</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -2142,9 +2155,9 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
+        <y>170</y>
         <width>141</width>
-        <height>291</height>
+        <height>182</height>
        </rect>
       </property>
       <property name="windowTitle">
@@ -2193,13 +2206,18 @@ OFF</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="data_button_4">
-         <property name="text">
-          <string>Show Data</string>
-         </property>
-        </widget>
-       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_44">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>390</y>
+        <width>141</width>
+        <height>89</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_38">
        <item>
         <widget class="QPushButton" name="helpbutton_4">
          <property name="text">
@@ -2207,7 +2225,102 @@ OFF</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="printdatabutton">
+         <property name="text">
+          <string>Print Data</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="data_button_4">
+         <property name="text">
+          <string>Show Data</string>
+         </property>
+        </widget>
+       </item>
       </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_45">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>141</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_39">
+       <item>
+        <widget class="QPushButton" name="iybtn">
+         <property name="text">
+          <string>Init Yaw</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sebutton">
+         <property name="text">
+          <string>State Estimation</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="vjbtn">
+         <property name="text">
+          <string>virtual joint(sim)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_138">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Global Position</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_139">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Robot Control</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_140">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>370</y>
+        <width>141</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Data</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </widget>
     <widget class="QFrame" name="frame_13">
@@ -3845,8 +3958,8 @@ OFF</string>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>470</y>
+     <x>610</x>
+     <y>10</y>
      <width>191</width>
      <height>41</height>
     </rect>
@@ -3874,8 +3987,8 @@ OFF</string>
   <widget class="QLabel" name="label_32">
    <property name="geometry">
     <rect>
-     <x>1180</x>
-     <y>460</y>
+     <x>1130</x>
+     <y>450</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -3893,8 +4006,8 @@ OFF</string>
   <widget class="QLabel" name="label_imustatus">
    <property name="geometry">
     <rect>
-     <x>1280</x>
-     <y>460</y>
+     <x>1230</x>
+     <y>450</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -3915,8 +4028,8 @@ OFF</string>
   <widget class="QLabel" name="label_34">
    <property name="geometry">
     <rect>
-     <x>1180</x>
-     <y>490</y>
+     <x>1130</x>
+     <y>480</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -3934,8 +4047,8 @@ OFF</string>
   <widget class="QLabel" name="label_zpstatus">
    <property name="geometry">
     <rect>
-     <x>1280</x>
-     <y>490</y>
+     <x>1230</x>
+     <y>480</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -3959,8 +4072,8 @@ OFF</string>
   <widget class="QLabel" name="label_35">
    <property name="geometry">
     <rect>
-     <x>1400</x>
-     <y>490</y>
+     <x>1350</x>
+     <y>480</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -3978,8 +4091,8 @@ OFF</string>
   <widget class="QLabel" name="label_ecatstatus">
    <property name="geometry">
     <rect>
-     <x>1500</x>
-     <y>490</y>
+     <x>1450</x>
+     <y>480</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -4003,8 +4116,8 @@ OFF</string>
   <widget class="QLabel" name="label_36">
    <property name="geometry">
     <rect>
-     <x>1400</x>
-     <y>460</y>
+     <x>1350</x>
+     <y>450</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -4022,8 +4135,8 @@ OFF</string>
   <widget class="QLabel" name="label_ftstatus">
    <property name="geometry">
     <rect>
-     <x>1500</x>
-     <y>460</y>
+     <x>1450</x>
+     <y>450</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -4047,10 +4160,10 @@ OFF</string>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>1180</x>
-     <y>80</y>
-     <width>411</width>
-     <height>371</height>
+     <x>940</x>
+     <y>90</y>
+     <width>591</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="verticalScrollBarPolicy">
@@ -4079,7 +4192,7 @@ OFF</string>
    <property name="geometry">
     <rect>
      <x>860</x>
-     <y>80</y>
+     <y>520</y>
      <width>311</width>
      <height>371</height>
     </rect>
@@ -4286,69 +4399,86 @@ OFF</string>
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="iybtn">
+  <widget class="QLabel" name="label_136">
    <property name="geometry">
     <rect>
-     <x>1030</x>
-     <y>620</y>
-     <width>121</width>
-     <height>27</height>
+     <x>910</x>
+     <y>450</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
    <property name="text">
-    <string>Init Yaw</string>
+    <string>SE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="vjbtn">
+  <widget class="QLabel" name="label_sestatus">
    <property name="geometry">
     <rect>
-     <x>1030</x>
-     <y>540</y>
-     <width>121</width>
-     <height>27</height>
+     <x>1010</x>
+     <y>450</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
    <property name="text">
-    <string>virtual joint(sim)</string>
+    <string>OFF</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="sebutton">
+  <widget class="QLabel" name="label_137">
    <property name="geometry">
     <rect>
-     <x>1030</x>
-     <y>660</y>
-     <width>121</width>
-     <height>27</height>
+     <x>910</x>
+     <y>480</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
    <property name="text">
-    <string>State Estimation</string>
+    <string>TC</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="imuresetbtn">
+  <widget class="QLabel" name="label_tcstatus">
    <property name="geometry">
     <rect>
-     <x>1030</x>
-     <y>580</y>
-     <width>121</width>
-     <height>27</height>
+     <x>1010</x>
+     <y>480</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
-   <property name="text">
-    <string>imu EF reset</string>
+   <property name="autoFillBackground">
+    <bool>false</bool>
    </property>
-  </widget>
-  <widget class="QPushButton" name="printdatabutton">
-   <property name="geometry">
-    <rect>
-     <x>1030</x>
-     <y>700</y>
-     <width>121</width>
-     <height>27</height>
-    </rect>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string>Print Data</string>
+    <string>NOT OK</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
