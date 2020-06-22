@@ -161,6 +161,7 @@ protected slots:
     virtual void simvj();
     virtual void imureset();
     virtual void printdata();
+    virtual void enablelpf();
     void handletaskmsg();
 
 private:

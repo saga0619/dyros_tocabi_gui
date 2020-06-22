@@ -159,6 +159,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
 
     connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
+    connect(ui_.qdot_lpf, SIGNAL(pressed()), this, SLOT(enablelpf()));
 
     if (mode == "simulation")
     {
@@ -698,6 +699,11 @@ void TocabiGui::mtunebtn()
 void TocabiGui::walkingbtn()
 {
     ui_.stackedWidget->setCurrentIndex(4);
+}
+void TocabiGui::enablelpf()
+{
+    com_msg.data = std::string("enablelpf");
+    com_pub.publish(com_msg);
 }
 
 /*

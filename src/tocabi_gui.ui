@@ -2155,7 +2155,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>170</y>
+        <y>180</y>
         <width>141</width>
         <height>182</height>
        </rect>
@@ -2247,7 +2247,7 @@ OFF</string>
         <x>20</x>
         <y>30</y>
         <width>141</width>
-        <height>101</height>
+        <height>120</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_39">
@@ -2255,6 +2255,13 @@ OFF</string>
         <widget class="QPushButton" name="iybtn">
          <property name="text">
           <string>Init Yaw</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qdot_lpf">
+         <property name="text">
+          <string>qdot Lpf</string>
          </property>
         </widget>
        </item>
@@ -2294,7 +2301,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>150</y>
+        <y>160</y>
         <width>141</width>
         <height>17</height>
        </rect>
