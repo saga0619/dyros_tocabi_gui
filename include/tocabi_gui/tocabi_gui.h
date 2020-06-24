@@ -31,6 +31,7 @@
 
 #include "tocabi_controller/TaskCommand.h"
 #include "tocabi_controller/TaskCommandQue.h"
+#include "tocabi_controller/TaskGainCommand.h"
 
 const double NM2CNT[33] =
     {       //Elmo 순서
@@ -162,6 +163,8 @@ protected slots:
     virtual void imureset();
     virtual void printdata();
     virtual void enablelpf();
+    virtual void sendtaskgaincommand();
+    virtual void resettaskgaincommand();
     void handletaskmsg();
 
 private:
@@ -213,6 +216,9 @@ public:
 
     ros::Publisher task_que_pub;
     tocabi_controller::TaskCommandQue task_que_msg;
+
+    ros::Publisher taskgain_pub;
+    tocabi_controller::TaskGainCommand taskgain_msg;
 
     ros::Subscriber sysstatesub;
 

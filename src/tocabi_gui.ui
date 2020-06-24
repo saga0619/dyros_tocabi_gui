@@ -2142,7 +2142,7 @@ OFF</string>
        <x>650</x>
        <y>20</y>
        <width>181</width>
-       <height>491</height>
+       <height>501</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -2166,6 +2166,9 @@ OFF</string>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QPushButton" name="gravity_button_4">
+         <property name="toolTip">
+          <string>disable task control, enable gravity compensation</string>
+         </property>
          <property name="text">
           <string>GravityControl</string>
          </property>
@@ -2173,6 +2176,9 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="task_button_4">
+         <property name="toolTip">
+          <string>position control with current joint pos.</string>
+         </property>
          <property name="text">
           <string>PositionControl</string>
          </property>
@@ -2180,20 +2186,19 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="task_button_5">
+         <property name="toolTip">
+          <string>position control + gravity compensation</string>
+         </property>
          <property name="text">
           <string>Position(Grav)</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="contact_button_4">
-         <property name="text">
-          <string>fixedGravity</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="torqueredis">
+         <property name="toolTip">
+          <string>Contact Redistribution Mode Select</string>
+         </property>
          <property name="text">
           <string>torqueredis</string>
          </property>
@@ -2201,8 +2206,27 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="qp2nd">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
          <property name="text">
           <string>qp 2nd</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="contact_button_4">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>gravity compensation test with fixed gravity. </string>
+         </property>
+         <property name="text">
+          <string>fixedGravity</string>
          </property>
         </widget>
        </item>
@@ -2212,7 +2236,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>390</y>
+        <y>400</y>
         <width>141</width>
         <height>89</height>
        </rect>
@@ -2227,6 +2251,9 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="printdatabutton">
+         <property name="toolTip">
+          <string>print data to dc.data_out. See codes for detail</string>
+         </property>
          <property name="text">
           <string>Print Data</string>
          </property>
@@ -2234,6 +2261,9 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="data_button_4">
+         <property name="toolTip">
+          <string>dc.tocabi_.showdata = true for data printing.</string>
+         </property>
          <property name="text">
           <string>Show Data</string>
          </property>
@@ -2253,13 +2283,25 @@ OFF</string>
       <layout class="QVBoxLayout" name="verticalLayout_39">
        <item>
         <widget class="QPushButton" name="iybtn">
+         <property name="toolTip">
+          <string>Initialize Current Yaw to Zero</string>
+         </property>
+         <property name="statusTip">
+          <string>statustip</string>
+         </property>
+         <property name="whatsThis">
+          <string>whatsThis</string>
+         </property>
          <property name="text">
-          <string>Init Yaw</string>
+          <string extracomment="what is comment">Init Yaw</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="qdot_lpf">
+         <property name="toolTip">
+          <string>joint velocity low pass filter on/off</string>
+         </property>
          <property name="text">
           <string>qdot Lpf</string>
          </property>
@@ -2267,6 +2309,9 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="sebutton">
+         <property name="toolTip">
+          <string>state estimation on/off</string>
+         </property>
          <property name="text">
           <string>State Estimation</string>
          </property>
@@ -2274,6 +2319,9 @@ OFF</string>
        </item>
        <item>
         <widget class="QPushButton" name="vjbtn">
+         <property name="toolTip">
+          <string>use mujoco's virtual joint value</string>
+         </property>
          <property name="text">
           <string>virtual joint(sim)</string>
          </property>
@@ -2317,7 +2365,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>370</y>
+        <y>380</y>
         <width>141</width>
         <height>17</height>
        </rect>
@@ -3713,8 +3761,8 @@ OFF</string>
     <widget class="QFrame" name="frame_11">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>80</y>
+       <x>400</x>
+       <y>20</y>
        <width>431</width>
        <height>491</height>
       </rect>
@@ -3827,8 +3875,8 @@ OFF</string>
     <widget class="QPushButton" name="resettunebtn">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>260</y>
+       <x>190</x>
+       <y>80</y>
        <width>201</width>
        <height>41</height>
       </rect>
@@ -3840,8 +3888,8 @@ OFF</string>
     <widget class="QPushButton" name="sendtunebtn">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>200</y>
+       <x>190</x>
+       <y>20</y>
        <width>201</width>
        <height>41</height>
       </rect>
@@ -3850,8 +3898,349 @@ OFF</string>
       <string>Send Tune Constant</string>
      </property>
     </widget>
+    <widget class="QFrame" name="frame">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>520</y>
+       <width>431</width>
+       <height>381</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget_52">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>70</y>
+        <width>71</width>
+        <height>182</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_40">
+       <item>
+        <widget class="QLineEdit" name="gainx">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainy">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainz">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainr">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainp">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainyaw">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QComboBox" name="taskgain_combo">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>70</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>COM</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelvis</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>UpperBody</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Foot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hand</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R_Foot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>L_Foot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R_Hand</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>L_Hand</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="taskgain_resetbtn">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>170</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RESET GAIN</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="taskgain_sendbtn">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>120</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SEND GAIN</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_53">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>70</y>
+        <width>31</width>
+        <height>182</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_41">
+       <item>
+        <widget class="QLabel" name="label_144">
+         <property name="text">
+          <string>X</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_145">
+         <property name="text">
+          <string>Y</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_146">
+         <property name="text">
+          <string>Z</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_147">
+         <property name="text">
+          <string>R</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_148">
+         <property name="text">
+          <string>P</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_143">
+         <property name="text">
+          <string>Y</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_54">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>70</y>
+        <width>71</width>
+        <height>182</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_42">
+       <item>
+        <widget class="QLineEdit" name="gainx_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainy_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainz_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainr_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainp_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="gainyaw_2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_149">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>40</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>P</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_150">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>40</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>D</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_151">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>10</y>
+        <width>201</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Task PD gain command</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
    </widget>
-   <widget class="QWidget" name="WALKING"/>
+   <widget class="QWidget" name="WALKING">
+    <widget class="QLabel" name="label_141">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>100</y>
+       <width>501</width>
+       <height>591</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>How to use TOCABI 
+1 : 
+2.</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QPushButton" name="ecat_btn">
    <property name="geometry">
@@ -3915,7 +4304,7 @@ OFF</string>
     </rect>
    </property>
    <property name="text">
-    <string>??</string>
+    <string>Instruction</string>
    </property>
   </widget>
   <widget class="QPushButton" name="torqueoff_button">

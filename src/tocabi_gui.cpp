@@ -68,6 +68,10 @@ TocabiGui::TocabiGui()
     imusub = nh_.subscribe("/tocabi/imu", 1, &TocabiGui::imuCallback, this);
     task_pub = nh_.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
     task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
+    taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
+
+    taskgain_msg.pgain.resize(6);
+    taskgain_msg.dgain.resize(6);
 
     gain_msg.data.resize(33);
     //ecatlabels = {ui_.}
@@ -160,6 +164,8 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
 
     connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
     connect(ui_.qdot_lpf, SIGNAL(pressed()), this, SLOT(enablelpf()));
+    connect(ui_.taskgain_sendbtn, SIGNAL(pressed()), this, SLOT(sendtaskgaincommand()));
+    connect(ui_.taskgain_resetbtn, SIGNAL(pressed()), this, SLOT(resettaskgaincommand()));
 
     if (mode == "simulation")
     {
@@ -1181,6 +1187,39 @@ void TocabiGui::posgravconcb()
 {
     com_msg.data = std::string("positiongravcontrol");
     com_pub.publish(com_msg);
+}
+
+void TocabiGui::sendtaskgaincommand()
+{
+    taskgain_msg.mode = ui_.taskgain_combo->currentIndex() + 1;
+
+    taskgain_msg.pgain[0] = ui_.gainx->text().toFloat();
+    taskgain_msg.pgain[1] = ui_.gainy->text().toFloat();
+    taskgain_msg.pgain[2] = ui_.gainz->text().toFloat();
+    taskgain_msg.pgain[3] = ui_.gainr->text().toFloat();
+    taskgain_msg.pgain[4] = ui_.gainp->text().toFloat();
+    taskgain_msg.pgain[5] = ui_.gainyaw->text().toFloat();
+
+    taskgain_msg.dgain[0] = ui_.gainx_2->text().toFloat();
+    taskgain_msg.dgain[1] = ui_.gainy_2->text().toFloat();
+    taskgain_msg.dgain[2] = ui_.gainz_2->text().toFloat();
+    taskgain_msg.dgain[3] = ui_.gainr_2->text().toFloat();
+    taskgain_msg.dgain[4] = ui_.gainp_2->text().toFloat();
+    taskgain_msg.dgain[5] = ui_.gainyaw_2->text().toFloat();
+
+    taskgain_pub.publish(taskgain_msg);
+}
+void TocabiGui::resettaskgaincommand()
+{
+    taskgain_msg.mode = 0;
+
+    for (int i = 0; i < 6; i++)
+    {
+        taskgain_msg.pgain[i] = 0.0;
+        taskgain_msg.dgain[i] = 0.0;
+    }
+
+    taskgain_pub.publish(taskgain_msg);
 }
 
 } // namespace tocabi_gui
