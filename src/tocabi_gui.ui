@@ -3304,7 +3304,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>440</x>
-        <y>0</y>
+        <y>-10</y>
         <width>201</width>
         <height>61</height>
        </rect>
@@ -3324,12 +3324,12 @@ OFF</string>
       </property>
       <item>
        <property name="text">
-        <string>Previewcontrol</string>
+        <string>DCM</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>DCM</string>
+        <string>Previewcontrol</string>
        </property>
       </item>
       <item>
@@ -3741,6 +3741,19 @@ OFF</string>
        <width>331</width>
        <height>171</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_IMU">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>520</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IMU</string>
      </property>
     </widget>
    </widget>
