@@ -1106,6 +1106,15 @@ void TocabiGui::walkinginitbtncb()
         task_msg.dob = false;
     }
 
+    if (ui_.checkBox_IMU->isChecked() == true)
+    {
+        task_msg.imu = true;
+    }
+    else
+    {
+        task_msg.imu = false;
+    }
+
     task_msg.first_foot_step = ui_.step_mode->currentIndex();
 
     task_msg.x = ui_.text_walking_x->text().toFloat();
@@ -1144,6 +1153,15 @@ void TocabiGui::walkingstartbtncb()
     else
     {
         task_msg.dob = false;
+    }
+
+    if (ui_.checkBox_IMU->isChecked() == true)
+    {
+        task_msg.imu = true;
+    }
+    else
+    {
+        task_msg.imu = false;
     }
 
     task_msg.first_foot_step = ui_.step_mode->currentIndex();
