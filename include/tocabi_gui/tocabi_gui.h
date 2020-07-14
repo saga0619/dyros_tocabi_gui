@@ -166,6 +166,7 @@ protected slots:
     virtual void enablelpf();
     virtual void sendtaskgaincommand();
     virtual void resettaskgaincommand();
+    virtual void sebyftbtn();
     void handletaskmsg();
 
 private:

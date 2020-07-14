@@ -2155,9 +2155,9 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>200</y>
+        <y>250</y>
         <width>141</width>
-        <height>182</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="windowTitle">
@@ -2204,41 +2204,15 @@ OFF</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="qp2nd">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string/>
-         </property>
-         <property name="text">
-          <string>qp 2nd</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="contact_button_4">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>gravity compensation test with fixed gravity. </string>
-         </property>
-         <property name="text">
-          <string>fixedGravity</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="verticalLayoutWidget_44">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>400</y>
+        <y>398</y>
         <width>141</width>
-        <height>89</height>
+        <height>91</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_38">
@@ -2275,9 +2249,9 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>30</y>
+        <y>40</y>
         <width>141</width>
-        <height>151</height>
+        <height>182</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_39">
@@ -2318,6 +2292,16 @@ OFF</string>
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="sebyftbtn">
+         <property name="toolTip">
+          <string>use mujoco's virtual joint value</string>
+         </property>
+         <property name="text">
+          <string>SE by FT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="vjbtn">
          <property name="toolTip">
           <string>use mujoco's virtual joint value</string>
@@ -2343,7 +2327,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
+        <y>20</y>
         <width>141</width>
         <height>17</height>
        </rect>
@@ -2359,7 +2343,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>180</y>
+        <y>230</y>
         <width>141</width>
         <height>17</height>
        </rect>
