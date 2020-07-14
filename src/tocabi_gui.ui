@@ -3220,6 +3220,11 @@ OFF</string>
         <string>QP2_junhee</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>QP3</string>
+       </property>
+      </item>
      </widget>
      <widget class="QComboBox" name="cr_mode">
       <property name="geometry">

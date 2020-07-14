@@ -123,6 +123,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     ui_.command_btn->setShortcut(QKeySequence(Qt::Key_3));
     ui_.mtunebtn->setShortcut(QKeySequence(Qt::Key_4));
     ui_.walkingbtn->setShortcut(QKeySequence(Qt::Key_5));
+    ui_.gravity_button_4->setShortcut(QKeySequence(Qt::Key_G));
 
     connect(this, &TocabiGui::timerCallback, this, &TocabiGui::timercb);
     connect(this, &TocabiGui::guiLogCallback, this, &TocabiGui::plainTextEditcb);
