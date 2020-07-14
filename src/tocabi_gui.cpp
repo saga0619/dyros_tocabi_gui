@@ -160,6 +160,7 @@ void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     connect(ui_.iybtn, SIGNAL(pressed()), this, SLOT(inityaw()));
 
     connect(ui_.vjbtn, SIGNAL(pressed()), this, SLOT(simvj()));
+    connect(ui_.IgIMUbtn, SIGNAL(pressed()), this, SLOT(igimubtn()));
     connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
 
     connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
@@ -624,6 +625,13 @@ void TocabiGui::simvj()
     com_msg.data = std::string("simvirtualjoint");
     com_pub.publish(com_msg);
 }
+
+void TocabiGui::igimubtn()
+{
+    com_msg.data = std::string("imuignore");
+    com_pub.publish(com_msg);
+}
+
 void TocabiGui::imureset()
 {
     com_msg.data = std::string("imureset");
@@ -1144,6 +1152,15 @@ void TocabiGui::walkingstartbtncb()
     else
     {
         task_msg.pattern = 2;
+    }
+
+    if (ui_.walking_pattern_2->currentIndex() == 0)
+    {
+        task_msg.pattern2 = 0;
+    }
+    else if (ui_.walking_pattern_2->currentIndex() == 1)
+    {
+        task_msg.pattern2 = 1;
     }
 
     if (ui_.checkBox_dob->isChecked() == true)

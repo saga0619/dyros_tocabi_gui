@@ -160,6 +160,7 @@ protected slots:
     virtual void solvermode_cb(int state);
     virtual void inityaw();
     virtual void simvj();
+    virtual void igimubtn();
     virtual void imureset();
     virtual void printdata();
     virtual void enablelpf();
