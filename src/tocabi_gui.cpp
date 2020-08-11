@@ -173,9 +173,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(slidervelcommand()));
         connect(ui_.horizontalSlider_2, SIGNAL(valueChanged(int)), this, SLOT(slidervelcommand()));
+        connect(ui_.horizontalSlider_3, SIGNAL(valueChanged(int)), this, SLOT(slidervelcommand()));
 
         connect(ui_.horizontalSlider, SIGNAL(sliderReleased()), this, SLOT(sliderrel1()));
         connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
+        connect(ui_.horizontalSlider_3, SIGNAL(sliderReleased()), this, SLOT(sliderrel3()));
 
         if (mode == "simulation")
         {
@@ -444,8 +446,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     void TocabiGui::slidervelcommand()
     {
         velcmd_msg.des_vel.resize(6);
+
+        velcmd_msg.task_link = ui_.comboBox->currentIndex();
         velcmd_msg.des_vel[0] = (ui_.horizontalSlider->value() - 50) / 200.0;
         velcmd_msg.des_vel[1] = (ui_.horizontalSlider_2->value() - 50) / 200.0;
+        velcmd_msg.des_vel[2] = (ui_.horizontalSlider_3->value() - 50) / 200.0;
 
         velcommand_pub.publish(velcmd_msg);
     }
@@ -458,6 +463,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     void TocabiGui::sliderrel2()
     {
         ui_.horizontalSlider_2->setValue(50);
+    }
+    void TocabiGui::sliderrel3()
+    {
+        ui_.horizontalSlider_3->setValue(50);
     }
 
     void TocabiGui::saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::Settings &instance_settings) const

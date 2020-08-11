@@ -171,6 +171,7 @@ protected slots:
     virtual void slidervelcommand();
     virtual void sliderrel1();
     virtual void sliderrel2();
+    virtual void sliderrel3();
     void handletaskmsg();
 
 private:
