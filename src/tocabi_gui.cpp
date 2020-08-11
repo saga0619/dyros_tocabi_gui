@@ -69,6 +69,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         task_pub = nh_.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
         task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
         taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
+        velcommand_pub = nh_.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -169,6 +170,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.qdot_lpf, SIGNAL(pressed()), this, SLOT(enablelpf()));
         connect(ui_.taskgain_sendbtn, SIGNAL(pressed()), this, SLOT(sendtaskgaincommand()));
         connect(ui_.taskgain_resetbtn, SIGNAL(pressed()), this, SLOT(resettaskgaincommand()));
+
+        connect(ui_.horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(slidervelcommand()));
+        connect(ui_.horizontalSlider_2, SIGNAL(valueChanged(int)), this, SLOT(slidervelcommand()));
+
+        connect(ui_.horizontalSlider, SIGNAL(sliderReleased()), this, SLOT(sliderrel1()));
+        connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
 
         if (mode == "simulation")
         {
@@ -432,6 +439,25 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     void TocabiGui::shutdownPlugin()
     {
+    }
+
+    void TocabiGui::slidervelcommand()
+    {
+        velcmd_msg.des_vel.resize(6);
+        velcmd_msg.des_vel[0] = (ui_.horizontalSlider->value() - 50) / 200.0;
+        velcmd_msg.des_vel[1] = (ui_.horizontalSlider_2->value() - 50) / 200.0;
+
+        velcommand_pub.publish(velcmd_msg);
+    }
+
+    void TocabiGui::sliderrel1()
+    {
+        ui_.horizontalSlider->setValue(50);
+    }
+
+    void TocabiGui::sliderrel2()
+    {
+        ui_.horizontalSlider_2->setValue(50);
     }
 
     void TocabiGui::saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::Settings &instance_settings) const

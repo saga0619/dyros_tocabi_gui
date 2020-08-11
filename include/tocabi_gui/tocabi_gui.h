@@ -32,6 +32,7 @@
 #include "tocabi_controller/TaskCommand.h"
 #include "tocabi_controller/TaskCommandQue.h"
 #include "tocabi_controller/TaskGainCommand.h"
+#include "tocabi_controller/VelocityCommand.h"
 
 const double NM2CNT[33] =
     {       //Elmo 순서
@@ -167,6 +168,9 @@ protected slots:
     virtual void sendtaskgaincommand();
     virtual void resettaskgaincommand();
     virtual void sebyftbtn();
+    virtual void slidervelcommand();
+    virtual void sliderrel1();
+    virtual void sliderrel2();
     void handletaskmsg();
 
 private:
@@ -221,6 +225,9 @@ public:
 
     ros::Publisher taskgain_pub;
     tocabi_controller::TaskGainCommand taskgain_msg;
+
+    ros::Publisher velcommand_pub;
+    tocabi_controller::VelocityCommand velcmd_msg;
 
     ros::Subscriber sysstatesub;
 
