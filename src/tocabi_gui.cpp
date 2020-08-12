@@ -446,11 +446,46 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     void TocabiGui::slidervelcommand()
     {
         velcmd_msg.des_vel.resize(6);
-
-        velcmd_msg.task_link = ui_.comboBox->currentIndex();
-        velcmd_msg.des_vel[0] = (ui_.horizontalSlider->value() - 50) / 200.0;
-        velcmd_msg.des_vel[1] = (ui_.horizontalSlider_2->value() - 50) / 200.0;
-        velcmd_msg.des_vel[2] = (ui_.horizontalSlider_3->value() - 50) / 200.0;
+        int gui_selected = ui_.comboBox->currentIndex();
+        int start_index = 0;
+        if (gui_selected == 0)
+        {
+            velcmd_msg.task_link = 0;
+            start_index = 0;
+        }
+        else if(gui_selected == 1)
+        {
+            velcmd_msg.task_link = 0;
+            start_index = 3;
+        }
+        else if(gui_selected == 2)
+        {
+            velcmd_msg.task_link = 1;
+            start_index = 3;
+        }
+        else if(gui_selected == 3)
+        {
+            velcmd_msg.task_link = 2;
+            start_index = 0;
+        }
+        else if(gui_selected == 4)
+        {
+            velcmd_msg.task_link = 2;
+            start_index = 3;
+        }
+        else if(gui_selected == 5)
+        {
+            velcmd_msg.task_link = 3;
+            start_index = 0;
+        }
+        else if(gui_selected == 6)
+        {
+            velcmd_msg.task_link = 3;
+            start_index = 3;
+        }
+        velcmd_msg.des_vel[start_index + 0] = (ui_.horizontalSlider->value() - 50) / 200.0 * ui_.horizontalSlider_4->value();
+        velcmd_msg.des_vel[start_index + 1] = (ui_.horizontalSlider_2->value() - 50) / 200.0 * ui_.horizontalSlider_4->value();
+        velcmd_msg.des_vel[start_index + 2] = (ui_.horizontalSlider_3->value() - 50) / 200.0 * ui_.horizontalSlider_4->value();
 
         velcommand_pub.publish(velcmd_msg);
     }

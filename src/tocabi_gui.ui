@@ -2711,9 +2711,9 @@ OFF</string>
      <widget class="QLabel" name="label_80">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>375</y>
-        <width>101</width>
+        <x>380</x>
+        <y>380</y>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -2727,9 +2727,9 @@ OFF</string>
      <widget class="QLabel" name="label_84">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>417</y>
-        <width>101</width>
+        <x>400</x>
+        <y>420</y>
+        <width>51</width>
         <height>20</height>
        </rect>
       </property>
@@ -2743,9 +2743,9 @@ OFF</string>
      <widget class="QLineEdit" name="text_traj_time">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>460</x>
         <y>370</y>
-        <width>181</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
@@ -2759,9 +2759,9 @@ OFF</string>
      <widget class="QPushButton" name="task_send_button">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>460</x>
         <y>450</y>
-        <width>181</width>
+        <width>161</width>
         <height>41</height>
        </rect>
       </property>
@@ -2907,9 +2907,9 @@ OFF</string>
      <widget class="QComboBox" name="task_mode">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>460</x>
         <y>412</y>
-        <width>181</width>
+        <width>161</width>
         <height>27</height>
        </rect>
       </property>
@@ -3286,9 +3286,9 @@ OFF</string>
      <widget class="QSlider" name="horizontalSlider">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>100</x>
         <y>380</y>
-        <width>281</width>
+        <width>271</width>
         <height>20</height>
        </rect>
       </property>
@@ -3302,9 +3302,9 @@ OFF</string>
      <widget class="QSlider" name="horizontalSlider_2">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>100</x>
         <y>400</y>
-        <width>281</width>
+        <width>271</width>
         <height>20</height>
        </rect>
       </property>
@@ -3318,9 +3318,9 @@ OFF</string>
      <widget class="QSlider" name="horizontalSlider_3">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>100</x>
         <y>420</y>
-        <width>281</width>
+        <width>271</width>
         <height>20</height>
        </rect>
       </property>
@@ -3334,12 +3334,22 @@ OFF</string>
      <widget class="QComboBox" name="comboBox">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>440</y>
-        <width>71</width>
+        <x>10</x>
+        <y>390</y>
+        <width>81</width>
         <height>25</height>
        </rect>
       </property>
+      <item>
+       <property name="text">
+        <string>COM pos</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelv Rot</string>
+       </property>
+      </item>
       <item>
        <property name="text">
         <string>UpperBody rotation</string>
@@ -3365,6 +3375,28 @@ OFF</string>
         <string>LeftHand rot</string>
        </property>
       </item>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>420</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>20</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
      </widget>
     </widget>
     <widget class="QFrame" name="frame_14">
