@@ -165,6 +165,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.IgIMUbtn, SIGNAL(pressed()), this, SLOT(igimubtn()));
         connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
         connect(ui_.sebyftbtn, SIGNAL(pressed()), this, SLOT(sebyftbtn()));
+        connect(ui_.lowerdisable, SIGNAL(pressed()), this, SLOT(disablelower()));
 
         connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
         connect(ui_.qdot_lpf, SIGNAL(pressed()), this, SLOT(enablelpf()));
@@ -766,6 +767,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.currenttime->setText(QString::number(msg->data, 'f', 3));
     }
 
+    void TocabiGui::disablelower()
+    {
+        com_msg.data = std::string("disablelower");
+        com_pub.publish(com_msg);
+    }
+
     void TocabiGui::ecatpbtn()
     {
         ui_.stackedWidget->setCurrentIndex(0);
@@ -791,13 +798,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_msg.data = std::string("enablelpf");
         com_pub.publish(com_msg);
     }
-
-    /*
-void TocabiGui::guiLogCallback(const std_msgs::StringConstPtr &msg)
-{
-    guiLogSignal();
-    logtext = msg->data;
-}*/
 
     void TocabiGui::plainTextEditcb(const std_msgs::StringConstPtr &msg)
     {

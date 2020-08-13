@@ -103,7 +103,7 @@ OFF</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -201,6 +201,19 @@ OFF</string>
      </property>
      <property name="text">
       <string>IMU EF RESET</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="lowerdisable">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>420</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>DISABLE LOWER</string>
      </property>
     </widget>
    </widget>
@@ -4372,19 +4385,122 @@ OFF</string>
     </widget>
    </widget>
    <widget class="QWidget" name="WALKING">
-    <widget class="QLabel" name="label_141">
+    <widget class="QFrame" name="frame_20">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>40</x>
+       <y>60</y>
+       <width>431</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_141">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>50</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>left</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_142">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>50</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>right</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_46">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>80</y>
+        <width>72</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="leftarm_layout_3"/>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_47">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>80</y>
+        <width>71</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="rightarm_layout_3"/>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_50">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>50</y>
+        <width>71</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="head_layout_3"/>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_51">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>140</y>
+        <width>71</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="waist_layout_3"/>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
        <y>100</y>
-       <width>501</width>
-       <height>591</height>
+       <width>89</width>
+       <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>How to use TOCABI 
-1 : 
-2.</string>
+      <string>PushButton</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>140</y>
+       <width>89</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
      </property>
     </widget>
    </widget>
@@ -4451,7 +4567,7 @@ OFF</string>
     </rect>
    </property>
    <property name="text">
-    <string>Instruction</string>
+    <string>UB CMD</string>
    </property>
   </widget>
   <widget class="QPushButton" name="torqueoff_button">
