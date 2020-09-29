@@ -454,32 +454,32 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             velcmd_msg.task_link = 0;
             start_index = 0;
         }
-        else if(gui_selected == 1)
+        else if (gui_selected == 1)
         {
             velcmd_msg.task_link = 0;
             start_index = 3;
         }
-        else if(gui_selected == 2)
+        else if (gui_selected == 2)
         {
             velcmd_msg.task_link = 1;
             start_index = 3;
         }
-        else if(gui_selected == 3)
+        else if (gui_selected == 3)
         {
             velcmd_msg.task_link = 2;
             start_index = 0;
         }
-        else if(gui_selected == 4)
+        else if (gui_selected == 4)
         {
             velcmd_msg.task_link = 2;
             start_index = 3;
         }
-        else if(gui_selected == 5)
+        else if (gui_selected == 5)
         {
             velcmd_msg.task_link = 3;
             start_index = 0;
         }
-        else if(gui_selected == 6)
+        else if (gui_selected == 6)
         {
             velcmd_msg.task_link = 3;
             start_index = 3;
@@ -920,7 +920,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
         lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
 
-        Pelv->setPos(QPointF(msg->polygon.points[3].y * 250, msg->polygon.points[3].x * 250));
+        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x + 0.11) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
 
         zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
@@ -1092,6 +1092,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         task_msg.contactredis = ui_.cr_mode->currentIndex();
 
         task_msg.acc_p = ui_.accgain->text().toFloat();
+
+        task_msg.maintain_lc = ui_.checkBox->isChecked();
 
         if (task_msg.customTaskGain)
         {
