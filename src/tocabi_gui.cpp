@@ -1210,6 +1210,15 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.imu = false;
         }
 
+	if (ui_.checkBox_mom->isChecked() == true)
+	{
+	    task_msg.mom = true;
+	}
+	else
+	{
+	    task_msg.mom = false;
+	}
+
         task_msg.first_foot_step = ui_.step_mode->currentIndex();
 
         task_msg.x = ui_.text_walking_x->text().toFloat();
@@ -1267,6 +1276,16 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             task_msg.imu = false;
         }
+
+	if (ui_.checkBox_mom->isChecked() == true)
+	{
+	    task_msg.mom = true;
+	}
+	else
+	{
+	    task_msg.mom = false;
+	}
+
 
         task_msg.first_foot_step = ui_.step_mode->currentIndex();
 
