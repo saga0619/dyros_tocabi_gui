@@ -33,6 +33,7 @@
 #include "tocabi_controller/TaskCommandQue.h"
 #include "tocabi_controller/TaskGainCommand.h"
 #include "tocabi_controller/VelocityCommand.h"
+#include "tocabi_controller/positionCommand.h"
 
 const double NM2CNT[33] =
     {       //Elmo 순서
@@ -69,6 +70,22 @@ const double NM2CNT[33] =
         3.46,
         3.52,
         12.33};
+
+//leftleg rightleg waist leftarm head rightarm 
+
+
+const double posStandard[33] = {0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
+								0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
+								0, 0, 0, 
+								0.3, 0.3, 1.5, -1.27, -1, 0, -1, 0,
+                                0, 0,
+								-0.3, -0.3, -1.5, 1.27, 1, 0, 1, 0};
+const double posStandard2[33] = {0.0, 0.0, -0.595, 1.24, -0.65, 0.0, 
+								0.0, 0.0, -0.595, 1.24, -0.65, 0.0,
+								0, 0.5, 0, 
+								-0.3, -1.2, 1, -0.42, -1.57, 2.39, -1.57, 0,
+                                0, 0,
+								0.3, 1.2, -1, 0.42, 1.57, -2.39, 1.57, 0};
 
 struct task_que
 {
@@ -173,6 +190,11 @@ protected slots:
     virtual void sliderrel2();
     virtual void sliderrel3();
     virtual void disablelower();
+    virtual void positionCommand();
+    virtual void positionPreset1();
+    virtual void positionPreset2();
+
+    virtual void torqueCommand();
     void handletaskmsg();
 
 private:
@@ -218,6 +240,9 @@ public:
     std_msgs::Float32MultiArray gain_msg;
     ros::Publisher com_pub;
     std_msgs::String com_msg;
+
+    ros::Publisher poscom_pub;
+    tocabi_controller::positionCommand poscom_msg;
 
     ros::Publisher task_pub;
     tocabi_controller::TaskCommand task_msg;

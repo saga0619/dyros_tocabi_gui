@@ -5,6 +5,8 @@
 #include <vector>
 
 int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
+int elng2[33] = {23, 24,15,16,17,18,19,20,21,22, 25,26,27,28,29,30,31,32,12,13,14,0,1,2,3,4,5,6,7,8,9,10,11};
+
 
 namespace tocabi_gui
 {
@@ -70,6 +72,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
         taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
         velcommand_pub = nh_.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
+        poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand",100);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -109,6 +112,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.sendtunebtn, SIGNAL(pressed()), this, SLOT(sendtunebtn()));
         connect(ui_.resettunebtn, SIGNAL(pressed()), this, SLOT(resettunebtn()));
+
+        connect(ui_.pcSendCommand, SIGNAL(pressed()),this, SLOT(positionCommand()));
+        connect(ui_.pcTorqueStandard, SIGNAL(pressed()),this, SLOT(positionPreset1()));
+        connect(ui_.pc4ConStandard, SIGNAL(pressed()),this, SLOT(positionPreset2()));
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
         connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
 
@@ -312,7 +319,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             ecatlabels[i]->setAlignment(Qt::AlignCenter);
             ecattexts[i]->setText(QString::fromUtf8("0.0"));
-            ecattexts[i]->setValidator(new QDoubleValidator(0, 1000, 3, this));
+            ecattexts[i]->setValidator(new QDoubleValidator(-1000, 1000, 3, this));
 
             safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
         }
@@ -1335,6 +1342,41 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         }
 
         taskgain_pub.publish(taskgain_msg);
+    }
+
+    void TocabiGui::positionCommand()
+    {
+        poscom_msg.traj_time = ui_.poscom_trajtime->text().toFloat();
+        for (int i = 0; i < 33; i++)
+        {
+            poscom_msg.position[elng2[i]] = ecattexts[i]->text().toFloat();
+        }
+        poscom_pub.publish(poscom_msg);
+
+    }
+
+    void TocabiGui::positionPreset1()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            ecattexts[i]->setText(QString::number(posStandard[elng2[i]], 'f', 3));
+        }
+    }
+
+    
+    void TocabiGui::positionPreset2()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            ecattexts[i]->setText(QString::number(posStandard2[elng2[i]], 'f', 3));
+        }
+    }
+
+    
+
+    void TocabiGui::torqueCommand()
+    {
+
     }
 
 } // namespace tocabi_gui
