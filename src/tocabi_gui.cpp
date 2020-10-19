@@ -1192,6 +1192,19 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.pattern = 2;
         }
 
+        if (ui_.controlmode->currentIndex() == 0)
+        {
+            task_msg.comcontrol = 0;
+        }
+        else if(ui_.controlmode->currentIndex() == 1)
+        {
+            task_msg.comcontrol = 1;
+        }
+        else
+        {
+            task_msg.comcontrol = 2;
+        }
+
         if (ui_.checkBox_dob->isChecked() == true)
         {
             task_msg.dob = true;
@@ -1210,14 +1223,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.imu = false;
         }
 
-	if (ui_.checkBox_mom->isChecked() == true)
-	{
-	    task_msg.mom = true;
-	}
-	else
-	{
-	    task_msg.mom = false;
-	}
+        if (ui_.checkBox_mom->isChecked() == true)
+        {
+            task_msg.mom = true;
+        }
+        else
+        {
+            task_msg.mom = false;
+        }
 
         task_msg.first_foot_step = ui_.step_mode->currentIndex();
 
@@ -1250,6 +1263,15 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.pattern = 2;
         }
 
+        if (ui_.controlmode->currentIndex() == 0)
+        {
+            task_msg.comcontrol = 0;
+        }
+        else
+        {
+            task_msg.comcontrol = 1;
+        }
+
         if (ui_.walking_pattern_2->currentIndex() == 0)
         {
             task_msg.pattern2 = 0;
@@ -1277,14 +1299,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.imu = false;
         }
 
-	if (ui_.checkBox_mom->isChecked() == true)
-	{
-	    task_msg.mom = true;
-	}
-	else
-	{
-	    task_msg.mom = false;
-	}
+        if (ui_.checkBox_mom->isChecked() == true)
+        {
+            task_msg.mom = true;
+        }
+        else
+        {
+            task_msg.mom = false;
+        }
 
 
         task_msg.first_foot_step = ui_.step_mode->currentIndex();

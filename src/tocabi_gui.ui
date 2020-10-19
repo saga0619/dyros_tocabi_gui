@@ -3457,7 +3457,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>440</x>
-        <y>60</y>
+        <y>50</y>
         <width>121</width>
         <height>28</height>
        </rect>
@@ -3482,7 +3482,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>440</x>
-        <y>150</y>
+        <y>170</y>
         <width>121</width>
         <height>28</height>
        </rect>
@@ -3502,7 +3502,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>440</x>
-        <y>120</y>
+        <y>110</y>
         <width>121</width>
         <height>28</height>
        </rect>
@@ -3818,7 +3818,7 @@ OFF</string>
       <property name="geometry">
        <rect>
         <x>440</x>
-        <y>90</y>
+        <y>80</y>
         <width>121</width>
         <height>28</height>
        </rect>
@@ -3846,6 +3846,31 @@ OFF</string>
       <property name="text">
        <string>mom</string>
       </property>
+     </widget>
+     <widget class="QComboBox" name="controlmode">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>140</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>COM Damping</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PELV_CLIK</string>
+       </property>
+      </item>
      </widget>
     </widget>
     <widget class="QPushButton" name="que_send">
