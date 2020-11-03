@@ -82,10 +82,10 @@ const double posStandard[33] = {0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
 								-0.3, -0.3, -1.5, 1.27, 1, 0, 1, 0};
 const double posStandard2[33] = {0.0, 0.0, -0.83, 1.24, -0.5, 0.0, 
 								0.0, 0.0, -0.83, 1.24, -0.5, 0.0,
-								0, 0.44, 0, 
-								-0.35, -1.3, 1, -0.42, -1.38, 2.3, -1.53, -0.1,
+								0, 0.54, 0, 
+								-0.39, -1.205, 1, -0.375, -1.18, 2.31, -1.76, -0.178,
                                 0, 0,
-								0.35, 1.3, -1, 0.42, 1.38, -2.3, 1.53, 0.1};
+								0.39, 1.205, -1, 0.375, 1.18, -2.31, 1.176, 0.178};
 
 struct task_que
 {
@@ -149,6 +149,7 @@ protected slots:
     virtual void walkinginitbtncb();
     virtual void walkingstartbtncb();
     virtual void walkingbtn();
+    virtual void dgbtn();
     virtual void sendtunebtn();
     virtual void resettunebtn();
     virtual void pointcb(const geometry_msgs::PolygonStampedConstPtr &msg);
@@ -193,6 +194,13 @@ protected slots:
     virtual void positionCommand();
     virtual void positionPreset1();
     virtual void positionPreset2();
+
+    //dg
+    virtual void walkingspeedcb(int value);
+    virtual void walkingdurationcb(int value);
+    virtual void walkingangvelcb(int value);
+    virtual void kneetargetanglecb(int value);
+    virtual void footheightcb(int value);
 
     virtual void torqueCommand();
     void handletaskmsg();
@@ -255,6 +263,18 @@ public:
 
     ros::Publisher velcommand_pub;
     tocabi_controller::VelocityCommand velcmd_msg;
+
+    //dg
+    ros::Publisher walkingspeed_pub;
+    std_msgs::Float32 walkingspeed_msg;
+    ros::Publisher walkingduration_pub;
+    std_msgs::Float32 walkingduration_msg;
+    ros::Publisher walkingangvel_pub;
+    std_msgs::Float32 walkingangvel_msg;
+    ros::Publisher kneetargetangle_pub;
+    std_msgs::Float32 kneetargetangle_msg;
+    ros::Publisher footheight_pub;
+    std_msgs::Float32 footheight_msg;
 
     ros::Subscriber sysstatesub;
 
