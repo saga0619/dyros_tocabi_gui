@@ -5,8 +5,7 @@
 #include <vector>
 
 int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
-int elng2[33] = {23, 24,15,16,17,18,19,20,21,22, 25,26,27,28,29,30,31,32,12,13,14,0,1,2,3,4,5,6,7,8,9,10,11};
-
+int elng2[33] = {23, 24, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 30, 31, 32, 12, 13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 namespace tocabi_gui
 {
@@ -72,10 +71,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
         taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
         velcommand_pub = nh_.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
-        poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand",100);
+        poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand", 100);
 
         //dg
-        walkingspeed_pub = nh_.advertise<std_msgs::Float32 >("/tocabi/walkingspeedcommand", 100);
+        walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
         walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
         walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
         kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
@@ -121,9 +120,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.sendtunebtn, SIGNAL(pressed()), this, SLOT(sendtunebtn()));
         connect(ui_.resettunebtn, SIGNAL(pressed()), this, SLOT(resettunebtn()));
 
-        connect(ui_.pcSendCommand, SIGNAL(pressed()),this, SLOT(positionCommand()));
-        connect(ui_.pcTorqueStandard, SIGNAL(pressed()),this, SLOT(positionPreset1()));
-        connect(ui_.pc4ConStandard, SIGNAL(pressed()),this, SLOT(positionPreset2()));
+        connect(ui_.pcSendCommand, SIGNAL(pressed()), this, SLOT(positionCommand()));
+        connect(ui_.pcTorqueStandard, SIGNAL(pressed()), this, SLOT(positionPreset1()));
+        connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
         connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
 
@@ -167,6 +166,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.task_button_5, SIGNAL(pressed()), this, SLOT(posgravconcb()));
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 
+        connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
+
         //connect(ui_.)
 
         connect(ui_.que_add, SIGNAL(pressed()), this, SLOT(que_addquebtn()));
@@ -196,11 +197,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
         connect(ui_.horizontalSlider_3, SIGNAL(sliderReleased()), this, SLOT(sliderrel3()));
 
-        connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int) ));
-        connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int) ));
-        connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int) ));
-        connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int) ));
-        connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int) ));
+        connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
+        connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
+        connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
+        connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
+        connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
         if (mode == "simulation")
         {
             ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
@@ -532,6 +533,24 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::restoreSettings(const qt_gui_cpp::Settings &plugin_settings, const qt_gui_cpp::Settings &instance_settings)
     {
+    }
+
+    void TocabiGui::taskmodecb(int index)
+    {
+        if (index == 7)
+        {
+            ui_.label_83->setText(QString::fromUtf8("X Axis"));
+            ui_.label_86->setText(QString::fromUtf8("Y Axis"));
+            ui_.com_pos->setText(QString::number(0.0));
+            ui_.com_height->setText(QString::number(0.0));
+        }
+        else
+        {
+            ui_.label_83->setText(QString::fromUtf8("COM Pos"));
+            ui_.label_86->setText(QString::fromUtf8("Height"));
+            ui_.com_pos->setText(QString::number(0.5));
+            ui_.com_height->setText(QString::number(com_height));
+        }
     }
 
     void TocabiGui::solvermode_cb(int state)
@@ -933,7 +952,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         ui_.label->setText(QString::number(msg->polygon.points[0].x, 'f', 5));
         ui_.label_2->setText(QString::number(msg->polygon.points[0].y, 'f', 5));
-
+        com_height = msg->polygon.points[0].z;
         rfoot_d->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
         rfoot_d->setRotation(msg->polygon.points[9].z * -180.0 / 3.141592);
         rfoot_c->setPos(QPointF(msg->polygon.points[1].y * 250, msg->polygon.points[1].x * 250));
@@ -945,7 +964,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
         lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
 
-        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x + 0.11) * 250));
+        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
 
         zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
@@ -1093,6 +1112,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         task_msg.ratio = ui_.com_pos->text().toFloat();
         task_msg.height = ui_.com_height->text().toFloat();
 
+        task_msg.left_foot = ui_.cb_lf->isChecked();
+        task_msg.right_foot = ui_.cb_rf->isChecked();
+        task_msg.left_hand = ui_.cb_lh->isChecked();
+        task_msg.right_hand = ui_.cb_rh->isChecked();
+
         task_msg.l_x = ui_.text_l_x->text().toFloat();
         task_msg.l_y = ui_.text_l_y->text().toFloat();
         task_msg.l_z = ui_.text_l_z->text().toFloat();
@@ -1214,7 +1238,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             task_msg.comcontrol = 0;
         }
-        else if(ui_.controlmode->currentIndex() == 1)
+        else if (ui_.controlmode->currentIndex() == 1)
         {
             task_msg.comcontrol = 1;
         }
@@ -1326,7 +1350,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.mom = false;
         }
 
-
         task_msg.first_foot_step = ui_.step_mode->currentIndex();
 
         task_msg.x = ui_.text_walking_x->text().toFloat();
@@ -1411,7 +1434,6 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
             poscom_msg.position[elng2[i]] = ecattexts[i]->text().toFloat();
         }
         poscom_pub.publish(poscom_msg);
-
     }
 
     void TocabiGui::positionPreset1()
@@ -1422,7 +1444,6 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         }
     }
 
-    
     void TocabiGui::positionPreset2()
     {
         for (int i = 0; i < 33; i++)
@@ -1436,8 +1457,8 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double max_speed = 0.6;
         double min_speed = -0.4;
         double scale = value;
-        
-        walkingspeed_msg.data = scale/100*(max_speed - min_speed) + min_speed;
+
+        walkingspeed_msg.data = scale / 100 * (max_speed - min_speed) + min_speed;
         walkingspeed_pub.publish(walkingspeed_msg);
     }
 
@@ -1447,7 +1468,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double min_duration = 0.2;
         double scale = value;
 
-        walkingduration_msg.data = scale/100*(max_duration - min_duration) + min_duration;
+        walkingduration_msg.data = scale / 100 * (max_duration - min_duration) + min_duration;
         walkingduration_pub.publish(walkingduration_msg);
     }
 
@@ -1457,18 +1478,18 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double min_angvel = -1;
         double scale = value;
 
-        walkingangvel_msg.data = scale/100*(max_angvel - min_angvel) + min_angvel;
+        walkingangvel_msg.data = scale / 100 * (max_angvel - min_angvel) + min_angvel;
         walkingangvel_pub.publish(walkingangvel_msg);
     }
 
     void TocabiGui::kneetargetanglecb(int value)
     {
-        double max_knee = M_PI/2;
+        double max_knee = M_PI / 2;
         double min_knee = 0;
         double scale = value;
 
         // kneetargetangle_msg.data = scale/100*(max_knee - min_knee) + min_knee;
-        kneetargetangle_msg.data = scale/180*M_PI;
+        kneetargetangle_msg.data = scale / 180 * M_PI;
         kneetargetangle_pub.publish(kneetargetangle_msg);
     }
 
@@ -1479,13 +1500,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double scale = value;
 
         // footheight_msg.data = scale/100*(max_footz - min_footz) + min_footz;
-        footheight_msg.data = scale/100;
+        footheight_msg.data = scale / 100;
         footheight_pub.publish(footheight_msg);
     }
 
     void TocabiGui::torqueCommand()
     {
-
     }
 
 } // namespace tocabi_gui
