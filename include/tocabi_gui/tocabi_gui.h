@@ -195,6 +195,8 @@ protected slots:
     virtual void positionPreset1();
     virtual void positionPreset2();
 
+    virtual void taskmodecb(int index);
+
     //dg
     virtual void walkingspeedcb(int value);
     virtual void walkingdurationcb(int value);
@@ -282,6 +284,8 @@ public:
 
     //void guiLogCallback(const std_msgs::StringConstPtr &msg);
     std::string logtext;
+
+    double com_height = 0;
 
 signals:
     void guiLogCallback(const std_msgs::StringConstPtr &msg);
