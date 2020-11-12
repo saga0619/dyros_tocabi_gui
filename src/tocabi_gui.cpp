@@ -890,6 +890,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             int num = elng[atoi(words[1].c_str())];
             safetylabels[num]->setStyleSheet("QLabel { background-color : red ; color : white; }");
         }
+        else if (words[0] == "DOB")
+        {
+            int num = elng[atoi(words[1].c_str())];
+            ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
+            ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : white; }");
+        }
         else if (msg->data == "imuvalid")
         {
             ui_.label_imustatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
