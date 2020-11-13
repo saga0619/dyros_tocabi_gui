@@ -103,7 +103,7 @@ OFF</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -4521,9 +4521,9 @@ OFF</string>
     <widget class="QLineEdit" name="poscom_trajtime">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>212</x>
        <y>280</y>
-       <width>113</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -4534,7 +4534,7 @@ OFF</string>
     <widget class="QLabel" name="label_152">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>90</x>
        <y>280</y>
        <width>111</width>
        <height>31</height>
@@ -4556,6 +4556,19 @@ OFF</string>
      </property>
      <property name="text">
       <string>4 Con Standard</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="poscomgravity">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>330</y>
+       <width>92</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Gravity</string>
      </property>
     </widget>
    </widget>

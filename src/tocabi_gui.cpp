@@ -1477,6 +1477,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
             poscom_msg.position[elng2[i]] = ecattexts[i]->text().toFloat();
         }
+        poscom_msg.gravity = ui_.poscomgravity->isChecked();
         poscom_pub.publish(poscom_msg);
     }
 
