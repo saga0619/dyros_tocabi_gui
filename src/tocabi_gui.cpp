@@ -6,6 +6,7 @@
 
 int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
 int elng2[33] = {23, 24, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 30, 31, 32, 12, 13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+int mo2g[33] = {21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 18, 19, 20, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 10, 11, 12, 13, 14, 15, 16, 17};
 
 namespace tocabi_gui
 {
@@ -892,9 +893,16 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else if (words[0] == "DOB")
         {
-            int num = elng[atoi(words[1].c_str())];
-            ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
-            ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : white; }");
+            int num = mo2g[atoi(words[1].c_str())];
+            if ((num < 0) || (num > 32))
+            {
+                std::cout<<"Joint Number Exceed"<<std::endl;
+            }
+            else
+            {
+                ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
+                ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : white; }");
+            }
         }
         else if (msg->data == "imuvalid")
         {
