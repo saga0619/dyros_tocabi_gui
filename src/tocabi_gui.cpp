@@ -686,10 +686,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_tcstatus->setText(QString::fromUtf8("OFF"));
         }
 
-        if (msg->data[5] == -2)
+        if (msg->data[6] == -2)
         {
         }
-        else if (msg->data[5] == -1)
+        else if (msg->data[6] == -1)
         {
             for(int i=0;i<33;i++)
             {
@@ -699,7 +699,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else
         {
-            if ((msg->data[5] >= 0) && (msg->data[5] < 33))
+            if ((msg->data[6] >= 0) && (msg->data[5] < 33))
             {
                 ecatlabels[mo2g[msg->data[5]]]->setText(QString::fromUtf8("CONTACT"));
                 ecatlabels[mo2g[msg->data[5]]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
