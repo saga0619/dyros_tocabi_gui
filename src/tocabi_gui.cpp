@@ -699,10 +699,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else
         {
-            if ((msg->data[6] >= 0) && (msg->data[5] < 33))
+            if ((msg->data[6] >= 0) && (msg->data[6] < 33))
             {
-                ecatlabels[mo2g[msg->data[5]]]->setText(QString::fromUtf8("CONTACT"));
-                ecatlabels[mo2g[msg->data[5]]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+                ecatlabels[mo2g[msg->data[6]]]->setText(QString::fromUtf8("CONTACT"));
+                ecatlabels[mo2g[msg->data[6]]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
         }
     }
