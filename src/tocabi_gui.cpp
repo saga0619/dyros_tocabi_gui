@@ -61,13 +61,13 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         setObjectName("TocabiGui");
 
         //initPlugin()
-        pointsub = nh_.subscribe("/tocabi/point", 1, &TocabiGui::pointCallback, this);
-        timesub = nh_.subscribe("/tocabi/time", 1, &TocabiGui::timerCallback, this);
-        sysstatesub = nh_.subscribe("/tocabi/systemstate", 1, &TocabiGui::sysstateCallback, this);
-        com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 1);
+        pointsub = nh_.subscribe("/tocabi/point", 100, &TocabiGui::pointCallback, this);
+        timesub = nh_.subscribe("/tocabi/time", 100, &TocabiGui::timerCallback, this);
+        sysstatesub = nh_.subscribe("/tocabi/systemstate", 1000, &TocabiGui::sysstateCallback, this);
+        com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 100);
         guilogsub = nh_.subscribe("/tocabi/guilog", 1000, &TocabiGui::guiLogCallback, this);
         gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 100);
-        imusub = nh_.subscribe("/tocabi/imu", 1, &TocabiGui::imuCallback, this);
+        imusub = nh_.subscribe("/tocabi/imu", 100, &TocabiGui::imuCallback, this);
         task_pub = nh_.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
         task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
         taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
@@ -685,6 +685,26 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_tcstatus->setStyleSheet("QLabel { background-color : rgba(0, 0, 0, 0) ; color : black; }");
             ui_.label_tcstatus->setText(QString::fromUtf8("OFF"));
         }
+
+        if (msg->data[5] == -2)
+        {
+        }
+        else if (msg->data[5] == -1)
+        {
+            for(int i=0;i<33;i++)
+            {
+                ecatlabels[i]->setText(QString::fromUtf8(""));
+                ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+            }
+        }
+        else
+        {
+            if ((msg->data[5] >= 0) && (msg->data[5] < 33))
+            {
+                ecatlabels[mo2g[msg->data[5]]]->setText(QString::fromUtf8("CONTACT"));
+                ecatlabels[mo2g[msg->data[5]]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+        }
     }
 
     void TocabiGui::que_downbtn()
@@ -896,12 +916,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             int num = mo2g[atoi(words[1].c_str())];
             if ((num < 0) || (num > 32))
             {
-                std::cout<<"Joint Number Exceed"<<std::endl;
+                //std::cout << "Joint Number Exceed" << std::endl;
             }
             else
             {
-                ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
-                ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : white; }");
+            //    ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
+              //  ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
         }
         else if (msg->data == "imuvalid")

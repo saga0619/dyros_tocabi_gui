@@ -19,6 +19,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Int32.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <std_msgs/String.h>
@@ -244,7 +245,6 @@ public:
     ros::Subscriber timesub;
     ros::Subscriber jointsub;
     ros::Subscriber pointsub;
-
     ros::Subscriber guilogsub;
     ros::Publisher gain_pub;
     std_msgs::Float32MultiArray gain_msg;
