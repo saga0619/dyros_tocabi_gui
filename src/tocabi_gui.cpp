@@ -75,16 +75,43 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand",100);
 
         //dg
-        walkingspeed_pub = nh_.advertise<std_msgs::Float32 >("/tocabi/walkingspeedcommand", 100);
-        walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
-        walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
-        kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
-        footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
+        walkingslidercommand_pub = nh_.advertise<std_msgs::Float32MultiArray >("/tocabi/dg/walkingslidercommand", 100);
+    
+        upperbodymode_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/upperbodymodecommand", 100);
+        nextswingleg_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/nextswinglegcommand", 100);
+        
+        com_walking_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/compospdgain", 100);
+        pelv_ori_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/pelvoripdgain", 100);
+        support_foot_damping_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/supportfootdampinggain", 100);
+        dg_leg_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/legpdgain", 100);
+                
+        alpha_x_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/alpha_x", 100);
+        alpha_y_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/alpha_y", 100);
+        step_width_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/stepwidthcommand", 100);
+
+        test1_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/test1command", 100);
+        test2_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/test2command", 100);
+
+        arm_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
+        waist_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/waistpdgain", 100);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
 
+        walkingslidercommand_msg.data.resize(5);
+        walkingslidercommand_msg.data[0] = 0;
+        walkingslidercommand_msg.data[1] = 0.7;
+        walkingslidercommand_msg.data[2] = 0;
+        walkingslidercommand_msg.data[3] = 18*M_PI/180;
+        walkingslidercommand_msg.data[4] = 0.07;
+
         gain_msg.data.resize(33);
+        com_walking_pd_gain_msg.data.resize(6);
+        pelv_ori_pd_gain_msg.data.resize(6);
+        support_foot_damping_gain_msg.data.resize(3);
+        dg_leg_pd_gain_msg.data.resize(24);
+        arm_pd_gain_msg.data.resize(16);
+        waist_pd_gain_msg.data.resize(6);
         //ecatlabels = {ui_.}
     }
 
@@ -201,6 +228,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int) ));
         connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int) ));
         connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int) ));
+
+        connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
+        connect(ui_.send_next_swing_leg_button, SIGNAL(pressed()), this, SLOT(sendnextswinglegcb()));
+
+        connect(ui_.com_gain_send_button, SIGNAL(pressed()), this, SLOT(sendcomposgaincb()));
+        connect(ui_.pelv_gain_send_button, SIGNAL(pressed()), this, SLOT(sendpelvorigaincb()));
+        connect(ui_.support_foot_damping_gain_send_button, SIGNAL(pressed()), this, SLOT(sendsupportfootdampinggaincb()));
+        connect(ui_.leg_gain_send_button, SIGNAL(pressed()), this, SLOT(sendleggaincb()));
+        connect(ui_.alpha_x_send_button, SIGNAL(pressed()), this, SLOT(sendalphaxcb()));
+        connect(ui_.alpha_y_send_button, SIGNAL(pressed()), this, SLOT(sendalphaycb()));
+        connect(ui_.step_width_send_button, SIGNAL(pressed()), this, SLOT(sendstepwidthcb()));
+        connect(ui_.test1_send_button, SIGNAL(pressed()), this, SLOT(sendtest1cb()));
+        connect(ui_.test2_send_button, SIGNAL(pressed()), this, SLOT(sendtest2cb()));
+
+        connect(ui_.arm_gain_send_button, SIGNAL(pressed()), this, SLOT(sendarmgaincb()));
+        connect(ui_.waist_gain_send_button, SIGNAL(pressed()), this, SLOT(sendwaistgaincb()));
+
         if (mode == "simulation")
         {
             ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
@@ -1437,28 +1481,34 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double min_speed = -0.4;
         double scale = value;
         
-        walkingspeed_msg.data = scale/100*(max_speed - min_speed) + min_speed;
-        walkingspeed_pub.publish(walkingspeed_msg);
+        // walkingspeed_msg.data = scale/100*(max_speed - min_speed) + min_speed;
+        // walkingspeed_pub.publish(walkingspeed_msg);
+        walkingslidercommand_msg.data[0] = scale/100*(max_speed - min_speed) + min_speed;
+        walkingslidercommand_pub.publish(walkingslidercommand_msg);
     }
 
     void TocabiGui::walkingdurationcb(int value)
     {
         double max_duration = 1;
-        double min_duration = 0.2;
+        double min_duration = 0.4;
         double scale = value;
 
-        walkingduration_msg.data = scale/100*(max_duration - min_duration) + min_duration;
-        walkingduration_pub.publish(walkingduration_msg);
+        // walkingduration_msg.data = scale/100*(max_duration - min_duration) + min_duration;
+        // walkingduration_pub.publish(walkingduration_msg);
+        walkingslidercommand_msg.data[1] = scale/100*(max_duration - min_duration) + min_duration;
+        walkingslidercommand_pub.publish(walkingslidercommand_msg);
     }
 
     void TocabiGui::walkingangvelcb(int value)
     {
-        double max_angvel = 1;
-        double min_angvel = -1;
+        double max_angvel = 0.3;
+        double min_angvel = -0.3;
         double scale = value;
 
-        walkingangvel_msg.data = scale/100*(max_angvel - min_angvel) + min_angvel;
-        walkingangvel_pub.publish(walkingangvel_msg);
+        // walkingangvel_msg.data = scale/100*(max_angvel - min_angvel) + min_angvel;
+        // walkingangvel_pub.publish(walkingangvel_msg);
+        walkingslidercommand_msg.data[2] = scale/100*(max_angvel - min_angvel) + min_angvel;
+        walkingslidercommand_pub.publish(walkingslidercommand_msg);
     }
 
     void TocabiGui::kneetargetanglecb(int value)
@@ -1468,8 +1518,10 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double scale = value;
 
         // kneetargetangle_msg.data = scale/100*(max_knee - min_knee) + min_knee;
-        kneetargetangle_msg.data = scale/180*M_PI;
-        kneetargetangle_pub.publish(kneetargetangle_msg);
+        // kneetargetangle_msg.data = scale/180*M_PI;
+        // kneetargetangle_pub.publish(kneetargetangle_msg);
+        walkingslidercommand_msg.data[3] = scale/180*M_PI;
+        walkingslidercommand_pub.publish(walkingslidercommand_msg);
     }
 
     void TocabiGui::footheightcb(int value)
@@ -1479,8 +1531,147 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         double scale = value;
 
         // footheight_msg.data = scale/100*(max_footz - min_footz) + min_footz;
-        footheight_msg.data = scale/100;
-        footheight_pub.publish(footheight_msg);
+        // footheight_msg.data = scale/100;
+        // footheight_pub.publish(footheight_msg);
+        walkingslidercommand_msg.data[4] =  scale/100;
+        walkingslidercommand_pub.publish(walkingslidercommand_msg);
+    }
+
+    void TocabiGui::sendupperbodymodecb()
+    {
+        upperbodymode_msg.data = ui_.upperbody_mode->currentIndex()+1;
+        upperbodymode_pub.publish(upperbodymode_msg);
+    }
+    void TocabiGui::sendnextswinglegcb()
+    {
+        nextswingleg_msg.data = ui_.next_swing_leg_mode->currentIndex()*2 - 1;
+        nextswingleg_pub.publish(nextswingleg_msg);
+    }
+
+    void TocabiGui::sendcomposgaincb()
+    {
+        com_walking_pd_gain_msg.data[0] = ui_.com_pos_kp_x->text().toFloat();
+        com_walking_pd_gain_msg.data[1] = ui_.com_pos_kp_y->text().toFloat();
+        com_walking_pd_gain_msg.data[2] = ui_.com_pos_kp_z->text().toFloat();
+        com_walking_pd_gain_msg.data[3] = ui_.com_pos_kd_x->text().toFloat();
+        com_walking_pd_gain_msg.data[4] = ui_.com_pos_kd_y->text().toFloat();
+        com_walking_pd_gain_msg.data[5] = ui_.com_pos_kd_z->text().toFloat();
+
+        com_walking_pd_gain_pub.publish(com_walking_pd_gain_msg);
+    }
+    void TocabiGui::sendpelvorigaincb()
+    {
+        pelv_ori_pd_gain_msg.data[0] = ui_.pelv_ori_kp_x->text().toFloat();
+        pelv_ori_pd_gain_msg.data[1] = ui_.pelv_ori_kp_y->text().toFloat();
+        pelv_ori_pd_gain_msg.data[2] = ui_.pelv_ori_kp_z->text().toFloat();
+        pelv_ori_pd_gain_msg.data[3] = ui_.pelv_ori_kd_x->text().toFloat();
+        pelv_ori_pd_gain_msg.data[4] = ui_.pelv_ori_kd_y->text().toFloat();
+        pelv_ori_pd_gain_msg.data[5] = ui_.pelv_ori_kd_z->text().toFloat();
+
+        pelv_ori_pd_gain_pub.publish(pelv_ori_pd_gain_msg);
+    }
+    void TocabiGui::sendsupportfootdampinggaincb()
+    {
+        support_foot_damping_gain_msg.data[0] = ui_.support_foot_kd_x->text().toFloat();
+        support_foot_damping_gain_msg.data[1] = ui_.support_foot_kd_y->text().toFloat();
+        support_foot_damping_gain_msg.data[2] = ui_.support_foot_kd_z->text().toFloat();
+
+        support_foot_damping_gain_pub.publish(support_foot_damping_gain_msg);
+    }
+    void TocabiGui::sendleggaincb()
+    {
+        dg_leg_pd_gain_msg.data[0]  = ui_.lleg_kp_hipyaw->text().toFloat();
+        dg_leg_pd_gain_msg.data[1]  = ui_.lleg_kp_hiproll->text().toFloat();
+        dg_leg_pd_gain_msg.data[2]  = ui_.lleg_kp_hippitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[3]  = ui_.lleg_kp_kneepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[4]  = ui_.lleg_kp_anklepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[5]  = ui_.lleg_kp_ankleroll->text().toFloat();
+        
+        dg_leg_pd_gain_msg.data[6]  = ui_.rleg_kp_hipyaw->text().toFloat();
+        dg_leg_pd_gain_msg.data[7]  = ui_.rleg_kp_hiproll->text().toFloat();
+        dg_leg_pd_gain_msg.data[8]  = ui_.rleg_kp_hippitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[9]  = ui_.rleg_kp_kneepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[10] = ui_.rleg_kp_anklepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[11] = ui_.rleg_kp_ankleroll->text().toFloat();
+
+        dg_leg_pd_gain_msg.data[12] = ui_.lleg_kd_hipyaw->text().toFloat();
+        dg_leg_pd_gain_msg.data[13] = ui_.lleg_kd_hiproll->text().toFloat();
+        dg_leg_pd_gain_msg.data[14] = ui_.lleg_kd_hippitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[15] = ui_.lleg_kp_kneepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[16] = ui_.lleg_kd_anklepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[17] = ui_.lleg_kd_ankleroll->text().toFloat();
+
+        dg_leg_pd_gain_msg.data[18] = ui_.rleg_kd_hipyaw->text().toFloat();
+        dg_leg_pd_gain_msg.data[19] = ui_.rleg_kd_hiproll->text().toFloat();
+        dg_leg_pd_gain_msg.data[20] = ui_.rleg_kd_hippitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[21] = ui_.rleg_kd_kneepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[22] = ui_.rleg_kd_anklepitch->text().toFloat();
+        dg_leg_pd_gain_msg.data[23] = ui_.rleg_kd_ankleroll->text().toFloat();
+
+        dg_leg_pd_gain_pub.publish(dg_leg_pd_gain_msg);
+    }
+    void TocabiGui::sendalphaxcb()
+    {
+        alpha_x_msg.data = ui_.alpha_x->text().toFloat();
+
+        alpha_x_pub.publish(alpha_x_msg);
+    }
+    void TocabiGui::sendalphaycb()
+    {
+        alpha_y_msg.data = ui_.alpha_y->text().toFloat();
+
+        alpha_y_pub.publish(alpha_y_msg);
+    }
+    void TocabiGui::sendstepwidthcb()
+    {
+        step_width_msg.data = ui_.step_width->text().toFloat();
+
+        step_width_pub.publish(step_width_msg);
+    }
+    void TocabiGui::sendtest1cb()
+    {
+        test1_msg.data = ui_.test1->text().toFloat();
+
+        test1_pub.publish(test1_msg);
+    }
+    void TocabiGui::sendtest2cb()
+    {
+        test2_msg.data = ui_.test2->text().toFloat();
+
+        test2_pub.publish(test2_msg);
+    }
+    void TocabiGui::sendarmgaincb()
+    {
+        arm_pd_gain_msg.data[0]  = ui_.arm_kp_shoulder1->text().toFloat();
+        arm_pd_gain_msg.data[1]  = ui_.arm_kp_shoulder2->text().toFloat();
+        arm_pd_gain_msg.data[2]  = ui_.arm_kp_shoulder3->text().toFloat();
+        arm_pd_gain_msg.data[3]  = ui_.arm_kp_arm->text().toFloat();
+        arm_pd_gain_msg.data[4]  = ui_.arm_kp_elbow->text().toFloat();
+        arm_pd_gain_msg.data[5]  = ui_.arm_kp_forearm->text().toFloat();
+        arm_pd_gain_msg.data[6]  = ui_.arm_kp_wrist1->text().toFloat();
+        arm_pd_gain_msg.data[7]  = ui_.arm_kp_wrist2->text().toFloat();
+
+        arm_pd_gain_msg.data[8]  = ui_.arm_kd_shoulder1->text().toFloat();
+        arm_pd_gain_msg.data[9]  = ui_.arm_kd_shoulder2->text().toFloat();
+        arm_pd_gain_msg.data[10] = ui_.arm_kd_shoulder3->text().toFloat();
+        arm_pd_gain_msg.data[11] = ui_.arm_kd_arm->text().toFloat();
+        arm_pd_gain_msg.data[12] = ui_.arm_kd_elbow->text().toFloat();
+        arm_pd_gain_msg.data[13] = ui_.arm_kd_forearm->text().toFloat();
+        arm_pd_gain_msg.data[14] = ui_.arm_kd_wrist1->text().toFloat();
+        arm_pd_gain_msg.data[15] = ui_.arm_kd_wrist2->text().toFloat();
+
+        arm_pd_gain_pub.publish(arm_pd_gain_msg);
+    }
+    void TocabiGui::sendwaistgaincb()
+    {
+        waist_pd_gain_msg.data[0]  = ui_.waist_yaw_kp->text().toFloat();
+        waist_pd_gain_msg.data[1]  = ui_.waist_roll_kp->text().toFloat();
+        waist_pd_gain_msg.data[2]  = ui_.waist_pitch_kp->text().toFloat();
+        waist_pd_gain_msg.data[3]  = ui_.waist_yaw_kd->text().toFloat();
+        waist_pd_gain_msg.data[4]  = ui_.waist_roll_kd->text().toFloat();
+        waist_pd_gain_msg.data[5]  = ui_.waist_pitch_kd->text().toFloat();
+
+        waist_pd_gain_pub.publish(waist_pd_gain_msg);
     }
 
     void TocabiGui::torqueCommand()

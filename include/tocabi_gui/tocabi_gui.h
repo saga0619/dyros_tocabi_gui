@@ -202,6 +202,22 @@ protected slots:
     virtual void kneetargetanglecb(int value);
     virtual void footheightcb(int value);
 
+    virtual void sendupperbodymodecb();
+    virtual void sendnextswinglegcb();
+
+    virtual void sendcomposgaincb();
+    virtual void sendpelvorigaincb();
+    virtual void sendsupportfootdampinggaincb();
+    virtual void sendleggaincb();
+    virtual void sendalphaxcb();
+    virtual void sendalphaycb();
+    virtual void sendstepwidthcb();
+    virtual void sendtest1cb();
+    virtual void sendtest2cb();
+
+    virtual void sendarmgaincb();
+    virtual void sendwaistgaincb();
+
     virtual void torqueCommand();
     void handletaskmsg();
 
@@ -265,16 +281,39 @@ public:
     tocabi_controller::VelocityCommand velcmd_msg;
 
     //dg
-    ros::Publisher walkingspeed_pub;
-    std_msgs::Float32 walkingspeed_msg;
-    ros::Publisher walkingduration_pub;
-    std_msgs::Float32 walkingduration_msg;
-    ros::Publisher walkingangvel_pub;
-    std_msgs::Float32 walkingangvel_msg;
-    ros::Publisher kneetargetangle_pub;
-    std_msgs::Float32 kneetargetangle_msg;
-    ros::Publisher footheight_pub;
-    std_msgs::Float32 footheight_msg;
+    ros::Publisher walkingslidercommand_pub;
+    std_msgs::Float32MultiArray walkingslidercommand_msg;
+
+    ros::Publisher upperbodymode_pub;
+    std_msgs::Float32 upperbodymode_msg;
+    ros::Publisher nextswingleg_pub;
+    std_msgs::Float32 nextswingleg_msg;
+
+    ros::Publisher com_walking_pd_gain_pub;
+    std_msgs::Float32MultiArray com_walking_pd_gain_msg;
+    ros::Publisher pelv_ori_pd_gain_pub;
+    std_msgs::Float32MultiArray pelv_ori_pd_gain_msg;
+    ros::Publisher support_foot_damping_gain_pub;
+    std_msgs::Float32MultiArray support_foot_damping_gain_msg;
+    ros::Publisher dg_leg_pd_gain_pub;
+    std_msgs::Float32MultiArray dg_leg_pd_gain_msg;
+    
+    ros::Publisher alpha_x_pub;
+    std_msgs::Float32 alpha_x_msg;
+    ros::Publisher alpha_y_pub;
+    std_msgs::Float32 alpha_y_msg;
+    ros::Publisher step_width_pub;
+    std_msgs::Float32 step_width_msg;
+    
+    ros::Publisher test1_pub;
+    std_msgs::Float32 test1_msg;
+    ros::Publisher test2_pub;
+    std_msgs::Float32 test2_msg;
+
+    ros::Publisher arm_pd_gain_pub;
+    std_msgs::Float32MultiArray arm_pd_gain_msg;
+    ros::Publisher waist_pd_gain_pub;
+    std_msgs::Float32MultiArray waist_pd_gain_msg;
 
     ros::Subscriber sysstatesub;
 
