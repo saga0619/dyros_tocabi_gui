@@ -19,6 +19,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Int32.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <std_msgs/String.h>
@@ -80,12 +81,19 @@ const double posStandard[33] = {0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
 								0.3, 0.3, 1.5, -1.27, -1, 0, -1, 0,
                                 0, 0,
 								-0.3, -0.3, -1.5, 1.27, 1, 0, 1, 0};
-const double posStandard2[33] = {0.0, 0.0, -0.83, 1.24, -0.5, 0.0, 
-								0.0, 0.0, -0.83, 1.24, -0.5, 0.0,
-								0, 0.54, 0, 
-								-0.39, -1.205, 1, -0.375, -1.18, 2.31, -1.76, -0.178,
+const double posStandard3[33] = {0.0, 0.0, -0.93, 1.24, -0.5, 0.0, 
+								0.0, 0.0, -0.93, 1.24, -0.5, 0.0,
+								0, 0.44, 0, 
+								-0.39, -1.205, 1, -0.375, -1.18, 2.31, -1.176, -0.178,
                                 0, 0,
 								0.39, 1.205, -1, 0.375, 1.18, -2.31, 1.176, 0.178};
+const double posStandard2[33] = {0.01920543546875, 0.014871940644527501, -0.9358508043751563, 1.338121842500375, -0.5674653948051875, 0.050828442832027504, 
+0.0705680103, -0.06239465556640125, -0.8990736226364687, 1.1964587462107499, -0.4385266665035625, 0.0016720387109400003, 
+0.00085875627915, 0.4494140928808593, 0.04510635186519375, 
+-0.5609804923725624, -1.1437550122563438, 0.9443183765642187, -0.34260309411968737, -1.0029662848342813, 2.2997703634082023, -1.0719877360214063, 0.1035897010547, 
+0.0015608251269812537, 0.014461600869112495, 
+0.5184163693160313, 1.1251018097560312, -0.931678377501875, 0.36133671315124993, 1.0657751151269375, -2.643443347626953, 1.121776907089875, 0.23148915758789498};
+
 
 struct task_que
 {
@@ -195,6 +203,8 @@ protected slots:
     virtual void positionPreset1();
     virtual void positionPreset2();
 
+    virtual void taskmodecb(int index);
+
     //dg
     virtual void walkingspeedcb(int value);
     virtual void walkingdurationcb(int value);
@@ -258,7 +268,6 @@ public:
     ros::Subscriber timesub;
     ros::Subscriber jointsub;
     ros::Subscriber pointsub;
-
     ros::Subscriber guilogsub;
     ros::Publisher gain_pub;
     std_msgs::Float32MultiArray gain_msg;
@@ -321,6 +330,8 @@ public:
 
     //void guiLogCallback(const std_msgs::StringConstPtr &msg);
     std::string logtext;
+
+    double com_height = 0;
 
 signals:
     void guiLogCallback(const std_msgs::StringConstPtr &msg);
