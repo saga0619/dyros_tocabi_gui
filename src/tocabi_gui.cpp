@@ -73,6 +73,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
         velcommand_pub = nh_.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
         poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand", 100);
+        //joint_sub = nh_.subscribe("/tocabi/jointstates", 100, &Tocabi::jsCallback,this);
 
         //dg
         walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
@@ -124,8 +125,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.pcSendCommand, SIGNAL(pressed()), this, SLOT(positionCommand()));
         connect(ui_.pcTorqueStandard, SIGNAL(pressed()), this, SLOT(positionPreset1()));
         connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
+        //connect(ui_.pcTorquecurrent, SIGNAL(pressed()), this, SLOT(positionCurrent()));
+        connect(ui_.pcTorquepos3, SIGNAL(pressed()), this, SLOT(positionPreset3()));
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
         connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
+        connect(ui_.poscomrelative, SIGNAL(stateChanged(int)), this, SLOT(positionRelative(int)));
 
         connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
         connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
@@ -1478,6 +1482,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
             poscom_msg.position[elng2[i]] = ecattexts[i]->text().toFloat();
         }
         poscom_msg.gravity = ui_.poscomgravity->isChecked();
+        poscom_msg.relative = ui_.poscomrelative->isChecked();
         poscom_pub.publish(poscom_msg);
     }
 
@@ -1494,6 +1499,28 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         for (int i = 0; i < 33; i++)
         {
             ecattexts[i]->setText(QString::number(posStandard2[elng2[i]], 'f', 3));
+        }
+    }
+
+    void TocabiGui::positionPreset3()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            ecattexts[i]->setText(QString::number(posStandard3[elng2[i]], 'f', 3));
+        }
+    }
+
+    void TocabiGui::positionRelative(int index)
+    {
+        if (ui_.poscomrelative->isChecked())
+        {
+            for (int i = 0; i < 33; i++)
+            {
+                ecattexts[i]->setText(QString::number(0));
+            }
+        }
+        else
+        {
         }
     }
 

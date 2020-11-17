@@ -4518,6 +4518,32 @@ OFF</string>
       <string>Torque Standard</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pcTorquecurrent">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>560</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Torque Standard</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pcTorquepos3">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>500</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Torque Standard</string>
+     </property>
+    </widget>
     <widget class="QLineEdit" name="poscom_trajtime">
      <property name="geometry">
       <rect>
@@ -4569,6 +4595,19 @@ OFF</string>
      </property>
      <property name="text">
       <string>Gravity</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="poscomrelative">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>380</y>
+       <width>92</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Relative</string>
      </property>
     </widget>
    </widget>
