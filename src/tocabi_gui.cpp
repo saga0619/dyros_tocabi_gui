@@ -695,7 +695,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else if (msg->data[6] == -1)
         {
-            for (int i = 0; i < 33; i++)
+            for (int i = 15; i < 23; i++)
             {
                 ecatlabels[i]->setText(QString::fromUtf8(""));
                 ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
@@ -705,7 +705,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             int num = mo2g[msg->data[6]];
 
-            for (int i = 0; i < 33; i++)
+            for (int i = 15; i < 23; i++)
             {
                 if (i != num)
                 {
@@ -713,7 +713,37 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                     ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
                 }
             }
-            if ((num >= 0) && (num < 33))
+            if ((num >= 15) && (num < 23))
+            {
+                ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
+                ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+        }
+
+        if (msg->data[7] == -2)
+        {
+        }
+        else if (msg->data[7] == -1)
+        {
+            for (int i = 25; i < 33; i++)
+            {
+                ecatlabels[i]->setText(QString::fromUtf8(""));
+                ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+            }
+        }
+        else
+        {
+            int num = mo2g[msg->data[7]];
+
+            for (int i = 25; i < 33; i++)
+            {
+                if (i != num)
+                {
+                    ecatlabels[i]->setText(QString::fromUtf8(""));
+                    ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+                }
+            }
+            if ((num >= 25) && (num < 33))
             {
                 ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
