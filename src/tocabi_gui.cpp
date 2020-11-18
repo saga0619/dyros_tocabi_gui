@@ -125,7 +125,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.pcSendCommand, SIGNAL(pressed()), this, SLOT(positionCommand()));
         connect(ui_.pcTorqueStandard, SIGNAL(pressed()), this, SLOT(positionPreset1()));
         connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
-        //connect(ui_.pcTorquecurrent, SIGNAL(pressed()), this, SLOT(positionCurrent()));
+        connect(ui_.pcTorque3con, SIGNAL(pressed()), this, SLOT(positionPreset4()));
         connect(ui_.pcTorquepos3, SIGNAL(pressed()), this, SLOT(positionPreset3()));
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
         connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
@@ -1557,6 +1557,15 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
             ecattexts[i]->setText(QString::number(posStandard3[elng2[i]], 'f', 3));
         }
+    }
+
+    void TocabiGui::positionPreset4()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            ecattexts[i]->setText(QString::number(posStandard4[elng2[i]], 'f', 3));
+        }
+
     }
 
     void TocabiGui::positionRelative(int index)
