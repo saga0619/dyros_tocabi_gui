@@ -697,24 +697,21 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             for (int i = 15; i < 23; i++)
             {
-                ecatlabels[i]->setText(QString::fromUtf8(""));
-                ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8(""));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
             }
         }
         else
         {
-            int num = mo2g[msg->data[6]];
-
-            for (int i = 15; i < 23; i++)
+            int jn = msg->data[6];
+            if ((jn >= 15) && (jn < 23))
             {
-                if (i != num)
+                int num = mo2g[jn];
+                for (int i = 15; i < 23; i++)
                 {
-                    ecatlabels[i]->setText(QString::fromUtf8(""));
-                    ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+                    ecatlabels[mo2g[i]]->setText(QString::fromUtf8(""));
+                    ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
                 }
-            }
-            if ((num >= 15) && (num < 23))
-            {
                 ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
@@ -727,24 +724,21 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             for (int i = 25; i < 33; i++)
             {
-                ecatlabels[i]->setText(QString::fromUtf8(""));
-                ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8(""));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
             }
         }
         else
         {
-            int num = mo2g[msg->data[7]];
-
-            for (int i = 25; i < 33; i++)
+            int jn = msg->data[7];
+            if ((jn >= 25) && (jn < 33))
             {
-                if (i != num)
+                int num = mo2g[jn];
+                for (int i = 25; i < 33; i++)
                 {
-                    ecatlabels[i]->setText(QString::fromUtf8(""));
-                    ecatlabels[i]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
+                    ecatlabels[mo2g[i]]->setText(QString::fromUtf8(""));
+                    ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : transparent ; color : black; }");
                 }
-            }
-            if ((num >= 25) && (num < 33))
-            {
                 ecatlabels[num]->setText(QString::fromUtf8("CONTACT"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
