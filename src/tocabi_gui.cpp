@@ -384,6 +384,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         rfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
         lfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
 
+        rhand_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+        lhand_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+
         zmp = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
 
         scene->addLine(-20, 0, 40, 0, blackpen);
@@ -1040,6 +1043,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lfoot_d->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
         lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
         lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
+
+
+        lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
+        rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
+
+
 
         Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);

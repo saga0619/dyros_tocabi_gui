@@ -245,6 +245,8 @@ private:
 
     QGraphicsEllipseItem *rfoot_c;
     QGraphicsEllipseItem *lfoot_c;
+    QGraphicsEllipseItem *rhand_c;
+    QGraphicsEllipseItem *lhand_c;
 
     double robot_time;
 
@@ -304,7 +306,7 @@ signals:
     void timerCallback(const std_msgs::Float32ConstPtr &msg);
     void imuCallback(const sensor_msgs::ImuConstPtr &msg);
     void sysstateCallback(const std_msgs::Int32MultiArrayConstPtr &msg);
-    virtual void guiLogSignal();
+    void guiLogSignal();
 };
 
 } // namespace tocabi_gui
