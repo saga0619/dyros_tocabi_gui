@@ -295,6 +295,8 @@ public:
     std::string logtext;
 
     double com_height = 0;
+    double pelv_pitch = 0;
+    double upper_pitch = 0;
 
 signals:
     void guiLogCallback(const std_msgs::StringConstPtr &msg);

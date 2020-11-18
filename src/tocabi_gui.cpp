@@ -548,6 +548,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_86->setText(QString::fromUtf8("Y Axis"));
             ui_.com_pos->setText(QString::number(0.0));
             ui_.com_height->setText(QString::number(0.0));
+            ui_.pelv_pitch->setText(QString::number(pelv_pitch));
+            ui_.com_pitch->setText(QString::number(upper_pitch));
+
         }
         else
         {
@@ -555,6 +558,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_86->setText(QString::fromUtf8("Height"));
             ui_.com_pos->setText(QString::number(0.5));
             ui_.com_height->setText(QString::number(com_height));
+            ui_.pelv_pitch->setText(QString::number(0));
+            ui_.com_pitch->setText(QString::number(0));
         }
     }
 
@@ -1045,6 +1050,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_65->setText(QString::number(msg->polygon.points[2].y, 'f', 5));
 
         //pelvis rpy
+
+        pelv_pitch = msg->polygon.points[4].y * 180.0 / 3.141592;
+        upper_pitch = msg->polygon.points[14].y * 180.0 / 3.141592;
+
         ui_.label_14->setText(QString::number(msg->polygon.points[4].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_15->setText(QString::number(msg->polygon.points[4].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_16->setText(QString::number(msg->polygon.points[4].z * 180.0 / 3.141592, 'f', 5));
@@ -1077,6 +1086,13 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_112->setText(QString::number(msg->polygon.points[9].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_113->setText(QString::number(msg->polygon.points[9].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_114->setText(QString::number(msg->polygon.points[9].z * 180.0 / 3.141592, 'f', 5));
+
+        
+        //Upper orient
+        ui_.label_96->setText(QString::number(msg->polygon.points[14].x * 180.0 / 3.141592, 'f', 5));
+        ui_.label_97->setText(QString::number(msg->polygon.points[14].y * 180.0 / 3.141592, 'f', 5));
+        ui_.label_98->setText(QString::number(msg->polygon.points[14].z * 180.0 / 3.141592, 'f', 5));
+
 
         double com_x = msg->polygon.points[0].x;
         double com_y = msg->polygon.points[0].y;
