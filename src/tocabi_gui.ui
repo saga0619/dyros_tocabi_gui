@@ -103,7 +103,7 @@ OFF</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -4518,7 +4518,7 @@ OFF</string>
       <string>Torque Standard</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pcTorquecurrent">
+    <widget class="QPushButton" name="pcTorque3con">
      <property name="geometry">
       <rect>
        <x>190</x>
@@ -4528,7 +4528,7 @@ OFF</string>
       </rect>
      </property>
      <property name="text">
-      <string>Torque Standard</string>
+      <string>3 Con</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pcTorquepos3">
@@ -4541,7 +4541,7 @@ OFF</string>
       </rect>
      </property>
      <property name="text">
-      <string>Torque Standard</string>
+      <string>4 Con soft</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="poscom_trajtime">

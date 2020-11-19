@@ -125,7 +125,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.pcSendCommand, SIGNAL(pressed()), this, SLOT(positionCommand()));
         connect(ui_.pcTorqueStandard, SIGNAL(pressed()), this, SLOT(positionPreset1()));
         connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
-        //connect(ui_.pcTorquecurrent, SIGNAL(pressed()), this, SLOT(positionCurrent()));
+        connect(ui_.pcTorque3con, SIGNAL(pressed()), this, SLOT(positionPreset4()));
         connect(ui_.pcTorquepos3, SIGNAL(pressed()), this, SLOT(positionPreset3()));
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
         connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
@@ -384,6 +384,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_d = scene->addEllipse(-10, -10, 20, 20, blackpen, yellowbrush);
         rfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
         lfoot_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+
+        rhand_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
+        lhand_c = scene->addEllipse(-2, -2, 4, 4, blackpen, blackbrush);
 
         zmp = scene->addEllipse(-5, -5, 10, 10, blackpen, redbrush);
 
@@ -1042,6 +1045,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
         lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
 
+
+        lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
+        rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
+
+
+
         Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
 
@@ -1549,6 +1558,15 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
             ecattexts[i]->setText(QString::number(posStandard3[elng2[i]], 'f', 3));
         }
+    }
+
+    void TocabiGui::positionPreset4()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            ecattexts[i]->setText(QString::number(posStandard4[elng2[i]], 'f', 3));
+        }
+
     }
 
     void TocabiGui::positionRelative(int index)
