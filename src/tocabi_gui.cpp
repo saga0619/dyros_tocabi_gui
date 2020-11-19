@@ -145,6 +145,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.walkingbtn->setShortcut(QKeySequence(Qt::Key_5));
         ui_.gravity_button_4->setShortcut(QKeySequence(Qt::Key_G));
         ui_.dg_btn->setShortcut(QKeySequence(Qt::Key_6));
+        ui_.task_button_4->setShortcut(QKeySequence(Qt::Key_P));
 
         connect(this, &TocabiGui::timerCallback, this, &TocabiGui::timercb);
         connect(this, &TocabiGui::guiLogCallback, this, &TocabiGui::plainTextEditcb);
