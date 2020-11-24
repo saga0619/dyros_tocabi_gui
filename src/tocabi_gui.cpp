@@ -75,7 +75,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand", 100);
 
         //dg
-<<<<<<< HEAD
         walkingslidercommand_pub = nh_.advertise<std_msgs::Float32MultiArray >("/tocabi/dg/walkingslidercommand", 100);
     
         upperbodymode_pub = nh_.advertise<std_msgs::Float32>("/tocabi/dg/upperbodymodecommand", 100);
@@ -95,13 +94,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         arm_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
         waist_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/waistpdgain", 100);
-=======
-        walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
-        walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
-        walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
-        kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
-        footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
->>>>>>> 0aad293e7470296f9bb63a74e1a488163be70f01
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -233,7 +225,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
         connect(ui_.horizontalSlider_3, SIGNAL(sliderReleased()), this, SLOT(sliderrel3()));
 
-<<<<<<< HEAD
         connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int) ));
         connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int) ));
         connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int) ));
@@ -256,13 +247,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.arm_gain_send_button, SIGNAL(pressed()), this, SLOT(sendarmgaincb()));
         connect(ui_.waist_gain_send_button, SIGNAL(pressed()), this, SLOT(sendwaistgaincb()));
 
-=======
-        connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
-        connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
-        connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
-        connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
-        connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
->>>>>>> 0aad293e7470296f9bb63a74e1a488163be70f01
         if (mode == "simulation")
         {
             ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
