@@ -170,6 +170,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.gravity_button_4, SIGNAL(pressed()), this, SLOT(gravcompcb()));
         connect(ui_.task_button_4, SIGNAL(pressed()), this, SLOT(posconcb()));
         connect(ui_.task_button_5, SIGNAL(pressed()), this, SLOT(posgravconcb()));
+        connect(ui_.task_button_6, SIGNAL(pressed()), this, SLOT(posdobcb()));
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
@@ -1488,6 +1489,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     void TocabiGui::posgravconcb()
     {
         com_msg.data = std::string("positiongravcontrol");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::posdobcb()
+    {
+        com_msg.data = std::string("positiondobcontrol");
         com_pub.publish(com_msg);
     }
 

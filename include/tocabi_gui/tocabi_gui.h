@@ -173,6 +173,7 @@ namespace tocabi_gui
         virtual void gravcompcb();
         virtual void posconcb();
         virtual void posgravconcb();
+        virtual void posdobcb();
         virtual void dshowbtn();
         virtual void ecatinitlow();
         virtual void safety2btncb();
