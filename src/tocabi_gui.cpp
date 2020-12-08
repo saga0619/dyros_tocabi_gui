@@ -134,7 +134,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
         connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
 
-        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
+        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(turnon_robot()));
+        connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
 
         ui_.stackedWidget->setCurrentIndex(0);
 
@@ -782,6 +783,13 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_que_msg.tque[i] = tq_[i].tc_;
         }
         task_que_pub.publish(task_que_msg);
+    }
+    void TocabiGui::turnon_robot()
+    {
+        system("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'");
+
+        //char output[100];
+        //FILE *p = popen
     }
 
     void TocabiGui::shutdown_robot()

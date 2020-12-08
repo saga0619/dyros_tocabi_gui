@@ -2235,7 +2235,7 @@ OFF</string>
         <x>20</x>
         <y>410</y>
         <width>141</width>
-        <height>81</height>
+        <height>89</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_38">
@@ -5616,7 +5616,7 @@ OFF</string>
     <rect>
      <x>1410</x>
      <y>0</y>
-     <width>181</width>
+     <width>91</width>
      <height>61</height>
     </rect>
    </property>
@@ -5630,7 +5630,7 @@ OFF</string>
    </property>
    <property name="text">
     <string>TOCABI
-OFF</string>
+ON</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5732,6 +5732,37 @@ OFF</string>
    </property>
    <property name="text">
     <string>DG</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="emergencyoff_button_3">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1500</x>
+     <y>0</y>
+     <width>81</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>TOCABI
+OFF</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
