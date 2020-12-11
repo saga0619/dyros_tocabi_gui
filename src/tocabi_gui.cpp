@@ -1258,6 +1258,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.ang_p = ui_.angpgain->text().toFloat();
             task_msg.ang_d = ui_.angdgain->text().toFloat();
         }
+
+        task_msg.x = ui_.text_walking_x->text().toFloat();
+        task_msg.y = ui_.text_walking_y->text().toFloat();
+        task_msg.z = ui_.text_walking_z->text().toFloat();
+        task_msg.walking_height = ui_.text_walking_height->text().toFloat();
+        task_msg.theta = ui_.text_walking_theta->text().toFloat();
+        task_msg.step_length_x = ui_.text_walking_steplengthx->text().toFloat();
+        task_msg.step_length_y = ui_.text_walking_steplengthy->text().toFloat();
     }
 
     void TocabiGui::que_addquebtn()
