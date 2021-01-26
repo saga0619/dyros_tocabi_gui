@@ -103,7 +103,7 @@ OFF</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -5562,6 +5562,56 @@ OFF</string>
         <widget class="QPushButton" name="send_next_swing_leg_button">
          <property name="text">
           <string>Send</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_55">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>222</y>
+        <width>191</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_43">
+       <item>
+        <widget class="QLabel" name="label_219">
+         <property name="text">
+          <string>Avatar Pose Calibration</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="still_pose_button">
+         <property name="text">
+          <string>Still Pose Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="T_pose_button">
+         <property name="text">
+          <string>T Pose Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="forward_pose_button">
+         <property name="text">
+          <string>Forward Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="reset_pose_button">
+         <property name="text">
+          <string>Calibration Reset</string>
          </property>
         </widget>
        </item>

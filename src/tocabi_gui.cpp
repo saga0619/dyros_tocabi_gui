@@ -95,6 +95,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         arm_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
         waist_pd_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/waistpdgain", 100);
 
+        pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/dg/avatar/pose_calibration_flag", 100);
+
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
 
@@ -246,6 +248,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.arm_gain_send_button, SIGNAL(pressed()), this, SLOT(sendarmgaincb()));
         connect(ui_.waist_gain_send_button, SIGNAL(pressed()), this, SLOT(sendwaistgaincb()));
+
+        connect(ui_.still_pose_button,  SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
+        connect(ui_.T_pose_button,  SIGNAL(pressed()), this, SLOT(sendtposecalibration()));
+        connect(ui_.forward_pose_button,  SIGNAL(pressed()), this, SLOT(sendforwardposecalibration()));
+        connect(ui_.reset_pose_button,  SIGNAL(pressed()), this, SLOT(sendresetposecalibration()));
 
         if (mode == "simulation")
         {
@@ -1739,7 +1746,30 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
 
         waist_pd_gain_pub.publish(waist_pd_gain_msg);
     }
-
+    void TocabiGui::sendstillposecalibration()
+    {
+        pose_calibration_msg.data  = 1;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendtposecalibration()
+    {
+        pose_calibration_msg.data  = 2;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendforwardposecalibration()
+    {
+        pose_calibration_msg.data  = 3;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendresetposecalibration()
+    {
+        pose_calibration_msg.data  = 4;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
     void TocabiGui::torqueCommand()
     {
     }
