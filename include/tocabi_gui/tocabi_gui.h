@@ -212,6 +212,8 @@ protected slots:
     virtual void walkingangvelcb(int value);
     virtual void kneetargetanglecb(int value);
     virtual void footheightcb(int value);
+    virtual void vr_eye_depth_cb(int value);
+    virtual void vr_eye_distance_cb(int value);
 
     virtual void sendupperbodymodecb();
     virtual void sendnextswinglegcb();
@@ -336,6 +338,9 @@ public:
     ros::Subscriber sysstatesub;
 
     ros::Subscriber imusub;
+
+    ros::Publisher vr_slider_pub;
+    std_msgs::Float32MultiArray vr_slider_msg;
 
     //void guiLogCallback(const std_msgs::StringConstPtr &msg);
     std::string logtext;
