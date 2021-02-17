@@ -173,6 +173,7 @@ namespace tocabi_gui
         virtual void gravcompcb();
         virtual void posconcb();
         virtual void posgravconcb();
+        virtual void posdobcb();
         virtual void dshowbtn();
         virtual void ecatinitlow();
         virtual void safety2btncb();
@@ -183,6 +184,7 @@ namespace tocabi_gui
         virtual void que_sendbtn();
         virtual void que_addquebtn();
         virtual void shutdown_robot();
+        virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
         virtual void inityaw();

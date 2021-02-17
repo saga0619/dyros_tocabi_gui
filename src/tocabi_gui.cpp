@@ -134,7 +134,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
         connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
 
-        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
+        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(turnon_robot()));
+        connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
 
         ui_.stackedWidget->setCurrentIndex(0);
 
@@ -170,6 +171,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.gravity_button_4, SIGNAL(pressed()), this, SLOT(gravcompcb()));
         connect(ui_.task_button_4, SIGNAL(pressed()), this, SLOT(posconcb()));
         connect(ui_.task_button_5, SIGNAL(pressed()), this, SLOT(posgravconcb()));
+        connect(ui_.task_button_6, SIGNAL(pressed()), this, SLOT(posdobcb()));
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
@@ -791,6 +793,13 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         task_que_pub.publish(task_que_msg);
     }
+    void TocabiGui::turnon_robot()
+    {
+        system("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'");
+
+        //char output[100];
+        //FILE *p = popen
+    }
 
     void TocabiGui::shutdown_robot()
     {
@@ -1253,6 +1262,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             task_msg.ang_p = ui_.angpgain->text().toFloat();
             task_msg.ang_d = ui_.angdgain->text().toFloat();
         }
+
+        task_msg.x = ui_.text_walking_x->text().toFloat();
+        task_msg.y = ui_.text_walking_y->text().toFloat();
+        task_msg.z = ui_.text_walking_z->text().toFloat();
+        task_msg.walking_height = ui_.text_walking_height->text().toFloat();
+        task_msg.theta = ui_.text_walking_theta->text().toFloat();
+        task_msg.step_length_x = ui_.text_walking_steplengthx->text().toFloat();
+        task_msg.step_length_y = ui_.text_walking_steplengthy->text().toFloat();
     }
 
     void TocabiGui::que_addquebtn()
@@ -1499,6 +1516,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     void TocabiGui::posgravconcb()
     {
         com_msg.data = std::string("positiongravcontrol");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::posdobcb()
+    {
+        com_msg.data = std::string("positiondobcontrol");
         com_pub.publish(com_msg);
     }
 
