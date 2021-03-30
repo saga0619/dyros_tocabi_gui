@@ -15,8 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   geometry_msgs
-  mujoco_ros_msgs
   tocabi_controller
+  mujoco_ros
+  mujoco_ros_msgs
 )
 
 find_package(Qt5Widgets REQUIRED)
@@ -80,3 +81,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
