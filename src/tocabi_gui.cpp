@@ -548,25 +548,34 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::taskmodecb(int index)
     {
-        if (index == 7)
-        {
-            ui_.label_83->setText(QString::fromUtf8("X Axis"));
-            ui_.label_86->setText(QString::fromUtf8("Y Axis"));
-            ui_.com_pos->setText(QString::number(0.0));
-            ui_.com_height->setText(QString::number(0.0));
-            ui_.pelv_pitch->setText(QString::number(pelv_pitch));
-            ui_.com_pitch->setText(QString::number(upper_pitch));
+        static int index_before = -1;
 
+        if ((index_before == 2) || (index_before == 3))
+        {
         }
         else
         {
-            ui_.label_83->setText(QString::fromUtf8("COM Pos"));
-            ui_.label_86->setText(QString::fromUtf8("Height"));
-            ui_.com_pos->setText(QString::number(0.5));
-            ui_.com_height->setText(QString::number(com_height));
-            ui_.pelv_pitch->setText(QString::number(0));
-            ui_.com_pitch->setText(QString::number(0));
+            if (index == 7)
+            {
+                ui_.label_83->setText(QString::fromUtf8("X Axis"));
+                ui_.label_86->setText(QString::fromUtf8("Y Axis"));
+                ui_.com_pos->setText(QString::number(0.0));
+                ui_.com_height->setText(QString::number(0.0));
+                ui_.pelv_pitch->setText(QString::number(pelv_pitch));
+                ui_.com_pitch->setText(QString::number(upper_pitch));
+            }
+            else
+            {
+                ui_.label_83->setText(QString::fromUtf8("COM Pos"));
+                ui_.label_86->setText(QString::fromUtf8("Height"));
+                ui_.com_pos->setText(QString::number(0.5));
+                ui_.com_height->setText(QString::number(com_height));
+                ui_.pelv_pitch->setText(QString::number(0));
+                ui_.com_pitch->setText(QString::number(0));
+            }
         }
+
+        index_before = index;
     }
 
     void TocabiGui::solvermode_cb(int state)
@@ -1054,11 +1063,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lfoot_d->setRotation(msg->polygon.points[8].z * -180.0 / 3.141592);
         lfoot_c->setPos(QPointF(msg->polygon.points[2].y * 250, msg->polygon.points[2].x * 250));
 
-
         lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
         rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
-
-
 
         Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
@@ -1106,12 +1112,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_113->setText(QString::number(msg->polygon.points[9].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_114->setText(QString::number(msg->polygon.points[9].z * 180.0 / 3.141592, 'f', 5));
 
-        
         //Upper orient
         ui_.label_96->setText(QString::number(msg->polygon.points[14].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_97->setText(QString::number(msg->polygon.points[14].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_98->setText(QString::number(msg->polygon.points[14].z * 180.0 / 3.141592, 'f', 5));
-
 
         double com_x = msg->polygon.points[0].x;
         double com_y = msg->polygon.points[0].y;
@@ -1294,19 +1298,26 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         task_pub.publish(task_msg);
 
-        ui_.text_l_x->setText(QString::number(0.0, 'f', 1));
-        ui_.text_l_y->setText(QString::number(0.0, 'f', 1));
-        ui_.text_l_z->setText(QString::number(0.0, 'f', 1));
-        ui_.text_l_roll->setText(QString::number(0.0, 'f', 1));
-        ui_.text_l_pitch->setText(QString::number(0.0, 'f', 1));
-        ui_.text_l_yaw->setText(QString::number(0.0, 'f', 1));
+        if ((ui_.task_mode->currentIndex() == 2) || (ui_.task_mode->currentIndex() == 3))
+        {
+        }
+        else
+        {
 
-        ui_.text_r_x->setText(QString::number(0.0, 'f', 1));
-        ui_.text_r_y->setText(QString::number(0.0, 'f', 1));
-        ui_.text_r_z->setText(QString::number(0.0, 'f', 1));
-        ui_.text_r_roll->setText(QString::number(0.0, 'f', 1));
-        ui_.text_r_pitch->setText(QString::number(0.0, 'f', 1));
-        ui_.text_r_yaw->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_x->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_y->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_z->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_roll->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_pitch->setText(QString::number(0.0, 'f', 1));
+            ui_.text_l_yaw->setText(QString::number(0.0, 'f', 1));
+
+            ui_.text_r_x->setText(QString::number(0.0, 'f', 1));
+            ui_.text_r_y->setText(QString::number(0.0, 'f', 1));
+            ui_.text_r_z->setText(QString::number(0.0, 'f', 1));
+            ui_.text_r_roll->setText(QString::number(0.0, 'f', 1));
+            ui_.text_r_pitch->setText(QString::number(0.0, 'f', 1));
+            ui_.text_r_yaw->setText(QString::number(0.0, 'f', 1));
+        }
     }
 
     void TocabiGui::imucb(const sensor_msgs::ImuConstPtr &msg)
@@ -1589,7 +1600,6 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
             ecattexts[i]->setText(QString::number(posStandard4[elng2[i]], 'f', 3));
         }
-
     }
 
     void TocabiGui::positionRelative(int index)
