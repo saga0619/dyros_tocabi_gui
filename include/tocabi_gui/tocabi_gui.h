@@ -235,6 +235,8 @@ protected slots:
     virtual void sendtposecalibration();
     virtual void sendforwardposecalibration();
     virtual void sendresetposecalibration();
+    virtual void sendloadsavedcalibration();
+
 
     virtual void torqueCommand();
     void handletaskmsg();

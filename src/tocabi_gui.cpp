@@ -261,6 +261,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.T_pose_button,  SIGNAL(pressed()), this, SLOT(sendtposecalibration()));
         connect(ui_.forward_pose_button,  SIGNAL(pressed()), this, SLOT(sendforwardposecalibration()));
         connect(ui_.reset_pose_button,  SIGNAL(pressed()), this, SLOT(sendresetposecalibration()));
+        connect(ui_.load_saved_cali_button,  SIGNAL(pressed()), this, SLOT(sendloadsavedcalibration()));
 
         if (mode == "simulation")
         {
@@ -1791,6 +1792,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     void TocabiGui::sendresetposecalibration()
     {
         pose_calibration_msg.data  = 4;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendloadsavedcalibration()
+    {
+        pose_calibration_msg.data  = 5;
         
         pose_calibration_pub.publish(pose_calibration_msg);
     }
