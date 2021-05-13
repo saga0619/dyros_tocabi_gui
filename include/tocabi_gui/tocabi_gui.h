@@ -30,11 +30,11 @@
 
 #include <QStringListModel>
 
-#include "tocabi_controller/TaskCommand.h"
-#include "tocabi_controller/TaskCommandQue.h"
-#include "tocabi_controller/TaskGainCommand.h"
-#include "tocabi_controller/VelocityCommand.h"
-#include "tocabi_controller/positionCommand.h"
+#include "tocabi_msgs/TaskCommand.h"
+#include "tocabi_msgs/TaskCommandQue.h"
+#include "tocabi_msgs/TaskGainCommand.h"
+#include "tocabi_msgs/VelocityCommand.h"
+#include "tocabi_msgs/positionCommand.h"
 
 const double NM2CNT[33] =
     {       //Elmo 순서
@@ -98,7 +98,7 @@ const double posStandard4[33] = {-0.0024006794335925006, -0.0163752415038875, -0
 struct task_que
 {
     std::string task_title;
-    tocabi_controller::TaskCommand tc_;
+    tocabi_msgs::TaskCommand tc_;
 };
 
 namespace tocabi_gui
@@ -266,19 +266,19 @@ namespace tocabi_gui
         std_msgs::String com_msg;
 
         ros::Publisher poscom_pub;
-        tocabi_controller::positionCommand poscom_msg;
+        tocabi_msgs::positionCommand poscom_msg;
 
         ros::Publisher task_pub;
-        tocabi_controller::TaskCommand task_msg;
+        tocabi_msgs::TaskCommand task_msg;
 
         ros::Publisher task_que_pub;
-        tocabi_controller::TaskCommandQue task_que_msg;
+        tocabi_msgs::TaskCommandQue task_que_msg;
 
         ros::Publisher taskgain_pub;
-        tocabi_controller::TaskGainCommand taskgain_msg;
+        tocabi_msgs::TaskGainCommand taskgain_msg;
 
         ros::Publisher velcommand_pub;
-        tocabi_controller::VelocityCommand velcmd_msg;
+        tocabi_msgs::VelocityCommand velcmd_msg;
 
         //dg
         ros::Publisher walkingspeed_pub;
