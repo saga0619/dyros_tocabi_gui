@@ -830,11 +830,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //FILE *p = popen
     }
 
-    void TocabiGui::shutdown_robot()
-    {
-        com_msg.data = std::string("terminate");
-        com_pub.publish(com_msg);
-    }
 
     void TocabiGui::customtaskgaincb(int state)
     {
@@ -846,6 +841,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             ui_.taskgain->setDisabled(true);
         }
+    }
+
+    void TocabiGui::shutdown_robot()
+    {
+        com_msg.data = std::string("terminate");
+        com_pub.publish(com_msg);
     }
 
     void TocabiGui::simvj()
@@ -915,17 +916,68 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_msg.data = std::string("showdata");
         com_pub.publish(com_msg);
     }
+    void TocabiGui::disablelower()
+    {
+        com_msg.data = std::string("disablelower");
+        com_pub.publish(com_msg);
+    }
+    void TocabiGui::enablelpf()
+    {
+        com_msg.data = std::string("enablelpf");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::initializebtncb()
+    {
+        com_msg.data = std::string("ecatinit");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::printdata()
+    {
+        com_msg.data = std::string("printdata");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::ftcalibbtn()
+    {
+        com_msg.data = std::string("ftcalib");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::sebyftbtn()
+    {
+        com_msg.data = std::string("sebyft");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::safetyresetbtncb()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        }
+        com_msg.data = std::string("safetyreset");
+        com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::safety2btncb()
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            safetylabels[i]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        }
+        com_msg.data = std::string("safetydisable");
+        com_pub.publish(com_msg);
+    }
+
+
+
 
     void TocabiGui::timercb(const std_msgs::Float32ConstPtr &msg)
     {
         robot_time = msg->data;
         ui_.currenttime->setText(QString::number(msg->data, 'f', 3));
-    }
-
-    void TocabiGui::disablelower()
-    {
-        com_msg.data = std::string("disablelower");
-        com_pub.publish(com_msg);
     }
 
     void TocabiGui::ecatpbtn()
@@ -951,11 +1003,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     void TocabiGui::dgbtn()
     {
         ui_.stackedWidget->setCurrentIndex(5);
-    }
-    void TocabiGui::enablelpf()
-    {
-        com_msg.data = std::string("enablelpf");
-        com_pub.publish(com_msg);
     }
 
     void TocabiGui::ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
@@ -1276,32 +1323,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //ui_.graphicsView->setSceneRect(0, 0, 0, 0);
     }
 
-    void TocabiGui::initializebtncb()
-    {
-        com_msg.data = std::string("ecatinit");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::safetyresetbtncb()
-    {
-        for (int i = 0; i < 33; i++)
-        {
-            safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-        }
-        com_msg.data = std::string("safetyreset");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::safety2btncb()
-    {
-        for (int i = 0; i < 33; i++)
-        {
-            safetylabels[i]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-        }
-        com_msg.data = std::string("safetydisable");
-        com_pub.publish(com_msg);
-    }
-
     void TocabiGui::sendtunebtn()
     {
         for (int i = 0; i < 33; i++)
@@ -1319,23 +1340,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    void TocabiGui::printdata()
-    {
-        com_msg.data = std::string("printdata");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::ftcalibbtn()
-    {
-        com_msg.data = std::string("ftcalib");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::sebyftbtn()
-    {
-        com_msg.data = std::string("sebyft");
-        com_pub.publish(com_msg);
-    }
 
     void TocabiGui::handletaskmsg()
     {
@@ -1617,36 +1621,6 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
 {
     std::cout << "wheel event" << std::endl;
 }*/
-
-    void TocabiGui::fixedgravcb()
-    {
-        com_msg.data = std::string("fixedgravity");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::gravcompcb()
-    {
-        com_msg.data = std::string("gravity");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::posconcb()
-    {
-        com_msg.data = std::string("positioncontrol");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::posgravconcb()
-    {
-        com_msg.data = std::string("positiongravcontrol");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::posdobcb()
-    {
-        com_msg.data = std::string("positiondobcontrol");
-        com_pub.publish(com_msg);
-    }
 
     void TocabiGui::sendtaskgaincommand()
     {

@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   geometry_msgs
   tocabi_controller
+  tocabi_msgs
   mujoco_ros
   mujoco_ros_msgs
 )
@@ -32,7 +33,7 @@ roslint_cpp()
 catkin_package(
 # INCLUDE_DIRS ${tocabi_gui_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp sensor_msgs std_msgs geometry_msgs mujoco_ros_msgs tocabi_controller
+  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp sensor_msgs std_msgs geometry_msgs mujoco_ros_msgs tocabi_controller tocabi_msgs
 #  DEPENDS system_lib
 )
 
