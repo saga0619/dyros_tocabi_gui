@@ -5478,9 +5478,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>260</x>
       <y>40</y>
-      <width>71</width>
+      <width>41</width>
       <height>181</height>
      </rect>
     </property>
@@ -5489,9 +5489,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>60</x>
       <y>40</y>
-      <width>71</width>
+      <width>41</width>
       <height>181</height>
      </rect>
     </property>
@@ -5500,9 +5500,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget_11">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>210</x>
       <y>230</y>
-      <width>71</width>
+      <width>51</width>
       <height>131</height>
      </rect>
     </property>
@@ -5511,9 +5511,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget_17">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>100</x>
       <y>230</y>
-      <width>71</width>
+      <width>51</width>
       <height>131</height>
      </rect>
     </property>
@@ -5522,9 +5522,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget_18">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>10</y>
-      <width>71</width>
+      <width>51</width>
       <height>41</height>
      </rect>
     </property>
@@ -5533,9 +5533,9 @@ OFF</string>
    <widget class="QWidget" name="verticalLayoutWidget_19">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>130</y>
-      <width>71</width>
+      <width>51</width>
       <height>61</height>
      </rect>
     </property>
@@ -5606,6 +5606,72 @@ OFF</string>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="leftleg_safety"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_48">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>31</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="rightarm_elmo"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_49">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>10</y>
+      <width>21</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="head_elmo"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_55">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>130</y>
+      <width>21</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="waist_elmo"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_56">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>31</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="leftarm_elmo"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_57">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>230</y>
+      <width>21</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="rightleg_elmo"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_58">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>230</y>
+      <width>21</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="leftleg_elmo"/>
    </widget>
   </widget>
   <widget class="QPushButton" name="emergencyoff_button_2">

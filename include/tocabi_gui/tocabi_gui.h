@@ -21,6 +21,7 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Int32MultiArray.h>
+#include <std_msgs/Int8MultiArray.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <std_msgs/String.h>
 #include <QMetaType>
@@ -30,11 +31,11 @@
 
 #include <QStringListModel>
 
-#include "tocabi_controller/TaskCommand.h"
-#include "tocabi_controller/TaskCommandQue.h"
-#include "tocabi_controller/TaskGainCommand.h"
-#include "tocabi_controller/VelocityCommand.h"
-#include "tocabi_controller/positionCommand.h"
+#include "tocabi_msgs/TaskCommand.h"
+#include "tocabi_msgs/TaskCommandQue.h"
+#include "tocabi_msgs/TaskGainCommand.h"
+#include "tocabi_msgs/VelocityCommand.h"
+#include "tocabi_msgs/positionCommand.h"
 
 const double NM2CNT[33] =
     {       //Elmo 순서
@@ -98,7 +99,7 @@ const double posStandard4[33] = {-0.0024006794335925006, -0.0163752415038875, -0
 struct task_que
 {
     std::string task_title;
-    tocabi_controller::TaskCommand tc_;
+    tocabi_msgs::TaskCommand tc_;
 };
 
 namespace tocabi_gui
@@ -186,6 +187,7 @@ namespace tocabi_gui
         virtual void shutdown_robot();
         virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
+        virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
         virtual void inityaw();
         virtual void simvj();
@@ -232,6 +234,7 @@ namespace tocabi_gui
 
         std::vector<QLabel *> ecatlabels;
         std::vector<QLabel *> safetylabels;
+        std::vector<QLabel *> zplabels;
         std::vector<QLineEdit *> ecattexts;
         MyQGraphicsScene *scene;
         MyQGraphicsView *view;
@@ -265,20 +268,23 @@ namespace tocabi_gui
         ros::Publisher com_pub;
         std_msgs::String com_msg;
 
+        ros::Subscriber ecat_sub;
+
+
         ros::Publisher poscom_pub;
-        tocabi_controller::positionCommand poscom_msg;
+        tocabi_msgs::positionCommand poscom_msg;
 
         ros::Publisher task_pub;
-        tocabi_controller::TaskCommand task_msg;
+        tocabi_msgs::TaskCommand task_msg;
 
         ros::Publisher task_que_pub;
-        tocabi_controller::TaskCommandQue task_que_msg;
+        tocabi_msgs::TaskCommandQue task_que_msg;
 
         ros::Publisher taskgain_pub;
-        tocabi_controller::TaskGainCommand taskgain_msg;
+        tocabi_msgs::TaskGainCommand taskgain_msg;
 
         ros::Publisher velcommand_pub;
-        tocabi_controller::VelocityCommand velcmd_msg;
+        tocabi_msgs::VelocityCommand velcmd_msg;
 
         //dg
         ros::Publisher walkingspeed_pub;
@@ -309,6 +315,7 @@ namespace tocabi_gui
         void timerCallback(const std_msgs::Float32ConstPtr &msg);
         void imuCallback(const sensor_msgs::ImuConstPtr &msg);
         void sysstateCallback(const std_msgs::Int32MultiArrayConstPtr &msg);
+        void ecatstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void guiLogSignal();
     };
 
@@ -318,5 +325,6 @@ Q_DECLARE_METATYPE(geometry_msgs::PolygonStampedConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Float32ConstPtr);
 Q_DECLARE_METATYPE(sensor_msgs::ImuConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Int32MultiArrayConstPtr);
+Q_DECLARE_METATYPE(std_msgs::Int8MultiArrayConstPtr);
 
 #endif

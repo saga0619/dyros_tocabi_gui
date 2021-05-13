@@ -58,6 +58,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         qRegisterMetaType<std_msgs::Float32ConstPtr>();
         qRegisterMetaType<sensor_msgs::ImuConstPtr>();
         qRegisterMetaType<std_msgs::Int32MultiArrayConstPtr>();
+        qRegisterMetaType<std_msgs::Int8MultiArrayConstPtr>();
         setObjectName("TocabiGui");
 
         //initPlugin()
@@ -68,12 +69,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         guilogsub = nh_.subscribe("/tocabi/guilog", 1000, &TocabiGui::guiLogCallback, this);
         gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 100);
         imusub = nh_.subscribe("/tocabi/imu", 100, &TocabiGui::imuCallback, this);
-        task_pub = nh_.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
-        task_que_pub = nh_.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
-        taskgain_pub = nh_.advertise<tocabi_controller::TaskGainCommand>("/tocabi/taskgaincommand", 100);
-        velcommand_pub = nh_.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
-        poscom_pub = nh_.advertise<tocabi_controller::positionCommand>("/tocabi/positioncommand", 100);
+        task_pub = nh_.advertise<tocabi_msgs::TaskCommand>("/tocabi/taskcommand", 100);
+        task_que_pub = nh_.advertise<tocabi_msgs::TaskCommandQue>("/tocabi/taskquecommand", 100);
+        taskgain_pub = nh_.advertise<tocabi_msgs::TaskGainCommand>("/tocabi/taskgaincommand", 100);
+        velcommand_pub = nh_.advertise<tocabi_msgs::VelocityCommand>("/tocabi/velcommand", 100);
+        poscom_pub = nh_.advertise<tocabi_msgs::positionCommand>("/tocabi/positioncommand", 100);
         //joint_sub = nh_.subscribe("/tocabi/jointstates", 100, &Tocabi::jsCallback,this);
+
+        ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
 
         //dg
         walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
@@ -153,6 +156,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(this, &TocabiGui::pointCallback, this, &TocabiGui::pointcb);
         connect(this, &TocabiGui::imuCallback, this, &TocabiGui::imucb);
         connect(this, &TocabiGui::sysstateCallback, this, &TocabiGui::sysstatecb);
+        connect(this, &TocabiGui::ecatstateCallback, this, &TocabiGui::ecatstatecb);
 
         //connect(ui_)
         connect(ui_.initializebtn, SIGNAL(pressed()), this, SLOT(initializebtncb()));
@@ -237,6 +241,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         ecatlabels.resize(33);
         safetylabels.resize(33);
+        zplabels.resize(33);
 
         //head
         for (int i = 0; i < 2; i++)
@@ -248,6 +253,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.head_safety->parentWidget());
             ui_.head_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.head_elmo->parentWidget());
+            ui_.head_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         for (int i = 2; i < 10; i++)
@@ -259,6 +268,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.leftarm_safety->parentWidget());
             ui_.leftarm_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.leftarm_elmo->parentWidget());
+            ui_.leftarm_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         for (int i = 10; i < 18; i++)
@@ -270,6 +283,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.rightarm_safety->parentWidget());
             ui_.rightarm_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.rightarm_elmo->parentWidget());
+            ui_.rightarm_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         for (int i = 18; i < 21; i++)
@@ -281,6 +298,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.waist_safety->parentWidget());
             ui_.waist_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.waist_elmo->parentWidget());
+            ui_.waist_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         for (int i = 21; i < 27; i++)
@@ -292,6 +313,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.leftleg_safety->parentWidget());
             ui_.leftleg_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.leftleg_elmo->parentWidget());
+            ui_.leftleg_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         for (int i = 27; i < 33; i++)
@@ -303,6 +328,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             safetylabels[i] = new QLabel(ui_.rightleg_safety->parentWidget());
             ui_.rightleg_safety->addWidget(safetylabels[i]);
             safetylabels[i]->setFrameShape(QFrame::Panel);
+
+            zplabels[i] = new QLabel(ui_.rightleg_elmo->parentWidget());
+            ui_.rightleg_elmo->addWidget(zplabels[i]);
+            zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
         //ecat constant tune
@@ -927,6 +956,100 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         com_msg.data = std::string("enablelpf");
         com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
+    {
+
+        for (int i = 0; i < 33; i++)
+        {
+            int num_ecat = msg->data[i];
+            int num_zp = msg->data[i + 33];
+            int num_safety = msg->data[i + 66];
+
+            //safety->elmo->zp
+
+            if (num_safety == 0) 
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("OK"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+            else if (num_safety == 1)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("JL"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_safety == 2)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("VL"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_safety == 3)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("TL"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+
+            if (num_ecat == 0) //zp started
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("0"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+            else if (num_ecat == 1)
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("1"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+            else if (num_ecat == 2)
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("2"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
+            }
+            else if (num_ecat == 3)
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("3"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_ecat == 4)
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("4"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+
+            if (num_zp == 0) //zp started
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("zp"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+            else if (num_zp == 1)
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("sc"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+            else if (num_zp == 2)
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("man"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
+            }
+            else if (num_zp == 3)
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("length"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_zp == 4)
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("go0"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            }
+            else if (num_zp == 5)
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("OK"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+
+
+
+        }
     }
 
     void TocabiGui::plainTextEditcb(const std_msgs::StringConstPtr &msg)
