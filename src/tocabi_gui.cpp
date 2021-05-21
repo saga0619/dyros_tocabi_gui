@@ -170,7 +170,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.sebutton, SIGNAL(pressed()), this, SLOT(stateestimationcb()));
         connect(ui_.torqueredis, SIGNAL(pressed()), this, SLOT(torquerediscb()));
-        // connect(ui_.qp2nd, SIGNAL(pressed()), this, SLOT(qp2ndcb()));
+        //connect(ui_.qp2nd, SIGNAL(pressed()), this, SLOT(qp2ndcb()));
 
         connect(ui_.gravity_button_4, SIGNAL(pressed()), this, SLOT(gravcompcb()));
         connect(ui_.task_button_4, SIGNAL(pressed()), this, SLOT(posconcb()));
@@ -830,7 +830,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //FILE *p = popen
     }
 
-
     void TocabiGui::customtaskgaincb(int state)
     {
         if (ui_.customtaskgain->isChecked())
@@ -904,7 +903,26 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_msg.data = std::string("qp2nd");
         com_pub.publish(com_msg);
     }
-
+    void TocabiGui::gravcompcb()
+    {
+        com_msg.data = std::string("gravity");
+        com_pub.publish(com_msg);
+    }
+    void TocabiGui::posconcb()
+    {
+        com_msg.data = std::string("positioncontrol");
+        com_pub.publish(com_msg);
+    }
+    void TocabiGui::posgravconcb()
+    {
+        com_msg.data = std::string("positiongravcontrol");
+        com_pub.publish(com_msg);
+    }
+    void TocabiGui::posdobcb()
+    {
+        com_msg.data = std::string("positiondobcontrol");
+        com_pub.publish(com_msg);
+    }
     void TocabiGui::inityaw()
     {
         com_msg.data = std::string("inityaw");
@@ -971,9 +989,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_pub.publish(com_msg);
     }
 
-
-
-
     void TocabiGui::timercb(const std_msgs::Float32ConstPtr &msg)
     {
         robot_time = msg->data;
@@ -1016,7 +1031,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             //safety->elmo->zp
 
-            if (num_safety == 0) 
+            if (num_safety == 0)
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("OK"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
@@ -1093,9 +1108,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 zplabels[mo2g[i]]->setText(QString::fromUtf8("OK"));
                 zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
             }
-
-
-
         }
     }
 
@@ -1339,7 +1351,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ecattexts[elng[i]]->setText(QString::number(NM2CNT[i], 'f', 3));
         }
     }
-
 
     void TocabiGui::handletaskmsg()
     {

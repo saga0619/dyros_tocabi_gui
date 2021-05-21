@@ -170,7 +170,7 @@ namespace tocabi_gui
         virtual void torquerediscb();
         virtual void qp2ndcb();
         virtual void customtaskgaincb(int state);
-        virtual void fixedgravcb();
+        //virtual void fixedgravcb();
         virtual void gravcompcb();
         virtual void posconcb();
         virtual void posgravconcb();
