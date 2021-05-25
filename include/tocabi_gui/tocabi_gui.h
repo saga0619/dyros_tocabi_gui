@@ -177,6 +177,7 @@ namespace tocabi_gui
         virtual void posdobcb();
         virtual void dshowbtn();
         virtual void ecatinitlow();
+        virtual void ecatinitwaist();
         virtual void safety2btncb();
         virtual void que_downbtn();
         virtual void que_upbtn();

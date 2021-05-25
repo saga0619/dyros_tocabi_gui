@@ -160,7 +160,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         //connect(ui_)
         connect(ui_.initializebtn, SIGNAL(pressed()), this, SLOT(initializebtncb()));
-        connect(ui_.initializebtn_2, SIGNAL(pressed()), this, SLOT(ecatinitlow()));
+        connect(ui_.initializebtn_2, SIGNAL(pressed()), this, SLOT(ecatinitwaist()));
+        connect(ui_.initializebtn_3, SIGNAL(pressed()), this, SLOT(ecatinitlow()));
         connect(ui_.safetyresetbtn, SIGNAL(pressed()), this, SLOT(safetyresetbtncb()));
         connect(ui_.safetyresetbtn_2, SIGNAL(pressed()), this, SLOT(safety2btncb()));
 
@@ -869,6 +870,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     void TocabiGui::ecatinitlow()
     {
         com_msg.data = std::string("ecatinitlower");
+        com_pub.publish(com_msg);
+    }
+    void TocabiGui::ecatinitwaist()
+    {
+        com_msg.data = std::string("ecatinitwaist");
         com_pub.publish(com_msg);
     }
     void TocabiGui::torqueoncb()
