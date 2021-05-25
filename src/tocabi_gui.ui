@@ -229,6 +229,19 @@ OFF</string>
       <string>INITIALIZE LOWER</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="testbtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>540</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>testbtn</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="STAT">
     <widget class="QFrame" name="frame_10">

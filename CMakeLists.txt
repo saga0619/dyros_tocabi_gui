@@ -9,31 +9,22 @@ add_compile_options(-std=c++11)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  roslint
   rqt_gui
   rqt_gui_cpp
   sensor_msgs
   std_msgs
   geometry_msgs
-  tocabi_controller
-  tocabi_msgs
-  mujoco_ros
-  mujoco_ros_msgs
+  tocabi_msgs  
 )
 
 find_package(Qt5Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 catkin_python_setup()
 
-roslint_cpp()
-
-
-
-
 catkin_package(
 # INCLUDE_DIRS ${tocabi_gui_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp sensor_msgs std_msgs geometry_msgs mujoco_ros_msgs tocabi_controller tocabi_msgs
+  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp sensor_msgs std_msgs geometry_msgs tocabi_msgs
 #  DEPENDS system_lib
 )
 
@@ -50,8 +41,6 @@ set(tocabi_gui_HDRS
 set(tocabi_gui_UIS
   src/tocabi_gui.ui
 )
-
-
 
 
 qt5_wrap_cpp(tocabi_gui_MOCS ${tocabi_gui_HDRS})

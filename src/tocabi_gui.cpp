@@ -92,6 +92,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //ecatlabels = {ui_.}
     }
 
+    void TocabiGui::sendCommand(QString str)
+    {
+        com_msg.data = str.toStdString();
+        com_pub.publish(com_msg);
+    }
+
     void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
     {
         widget_ = new QWidget();
@@ -106,15 +112,100 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         std::string mode;
         nh_.param<std::string>("/tocabi_controller/run_mode", mode, "default");
 
-        connect(ui_.torqueon_button, SIGNAL(pressed()), this, SLOT(torqueoncb()));
-        connect(ui_.torqueoff_button, SIGNAL(pressed()), this, SLOT(torqueoffcb()));
-        connect(ui_.emergencyoff_button, SIGNAL(pressed()), this, SLOT(emergencyoffcb()));
-
         ui_.torqueon_button->setShortcut(QKeySequence(Qt::Key_E));
         ui_.torqueoff_button->setShortcut(QKeySequence(Qt::Key_C));
         ui_.safetyresetbtn->setShortcut(QKeySequence(Qt::Key_R));
         ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
 
+
+        QSignalMapper *signalMapper = new QSignalMapper(this);
+
+
+        connect(ui_.torqueon_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.torqueon_button, "torqueon");
+
+        connect(ui_.torqueoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.torqueoff_button, "torqueoff");
+
+        connect(ui_.emergencyoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));    
+        signalMapper->setMapping(ui_.emergencyoff_button, "emergencyoff");   
+
+        connect(ui_.testbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "testbtn");
+
+        connect(ui_.vjbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "simvirtualjoint");
+
+        connect(ui_.IgIMUbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "imuignore");
+
+        connect(ui_.imuresetbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "imureset");
+
+        connect(ui_.sebyftbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "sebyft");
+
+        connect(ui_.lowerdisable, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "disablelower");
+
+        connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.testbtn, "terminate");
+
+        connect(ui_.initializebtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.initializebtn, "ecatinit");
+
+        connect(ui_.initializebtn_2, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.initializebtn_2, "ecatinitwaist");
+
+        connect(ui_.initializebtn_3, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.initializebtn_3, "ecatinitlower");
+
+        connect(ui_.sebutton, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.sebutton, "stateestimation");
+
+        connect(ui_.torqueredis, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.torqueredis, "torqueredis");
+
+        //connect(ui_.qp2nd, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        //signalMapper->setMapping(ui_.qp2nd, "qp2nd");
+
+        connect(ui_.gravity_button_4, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.gravity_button_4, "gravity");
+
+        connect(ui_.task_button_4, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.task_button_4, "positioncontrol");
+
+        connect(ui_.task_button_5, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.task_button_5, "positiongravcontrol");
+
+        connect(ui_.task_button_6, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.task_button_6, "positiondobcontrol");
+
+        connect(ui_.ftcalibbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.ftcalibbtn, "ftcalib");
+
+        connect(ui_.data_button_4, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.data_button_4, "showdata");
+
+        connect(ui_.iybtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.iybtn, "inityaw");
+
+        connect(ui_.printdatabutton, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.printdatabutton, "printdata");
+
+        connect(ui_.qdot_lpf, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.qdot_lpf, "enablelpf");
+        //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
+
+
+        connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
+
+        //Sending command end!
+
+
+        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(turnon_robot()));
+
+        //Select tabs.. 
         connect(ui_.ecat_btn, SIGNAL(pressed()), this, SLOT(ecatpbtn()));
         connect(ui_.stat_btn, SIGNAL(pressed()), this, SLOT(statpbtn()));
         connect(ui_.command_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
@@ -130,15 +221,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
         connect(ui_.pcTorque3con, SIGNAL(pressed()), this, SLOT(positionPreset4()));
         connect(ui_.pcTorquepos3, SIGNAL(pressed()), this, SLOT(positionPreset3()));
-        connect(ui_.ftcalibbtn, SIGNAL(pressed()), this, SLOT(ftcalibbtn()));
-        connect(ui_.data_button_4, SIGNAL(pressed()), this, SLOT(dshowbtn()));
         connect(ui_.poscomrelative, SIGNAL(stateChanged(int)), this, SLOT(positionRelative(int)));
 
         connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
         connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
 
-        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(turnon_robot()));
-        connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), this, SLOT(shutdown_robot()));
 
         ui_.stackedWidget->setCurrentIndex(0);
 
@@ -159,9 +246,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(this, &TocabiGui::ecatstateCallback, this, &TocabiGui::ecatstatecb);
 
         //connect(ui_)
-        connect(ui_.initializebtn, SIGNAL(pressed()), this, SLOT(initializebtncb()));
-        connect(ui_.initializebtn_2, SIGNAL(pressed()), this, SLOT(ecatinitwaist()));
-        connect(ui_.initializebtn_3, SIGNAL(pressed()), this, SLOT(ecatinitlow()));
         connect(ui_.safetyresetbtn, SIGNAL(pressed()), this, SLOT(safetyresetbtncb()));
         connect(ui_.safetyresetbtn_2, SIGNAL(pressed()), this, SLOT(safety2btncb()));
 
@@ -169,15 +253,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.walkinginit_btn, SIGNAL(pressed()), this, SLOT(walkinginitbtncb()));
         connect(ui_.walkingstart_btn, SIGNAL(pressed()), this, SLOT(walkingstartbtncb()));
 
-        connect(ui_.sebutton, SIGNAL(pressed()), this, SLOT(stateestimationcb()));
-        connect(ui_.torqueredis, SIGNAL(pressed()), this, SLOT(torquerediscb()));
-        //connect(ui_.qp2nd, SIGNAL(pressed()), this, SLOT(qp2ndcb()));
-
-        connect(ui_.gravity_button_4, SIGNAL(pressed()), this, SLOT(gravcompcb()));
-        connect(ui_.task_button_4, SIGNAL(pressed()), this, SLOT(posconcb()));
-        connect(ui_.task_button_5, SIGNAL(pressed()), this, SLOT(posgravconcb()));
-        connect(ui_.task_button_6, SIGNAL(pressed()), this, SLOT(posdobcb()));
-        //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
 
@@ -189,16 +264,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.que_up, SIGNAL(pressed()), this, SLOT(que_upbtn()));
         connect(ui_.que_reset, SIGNAL(pressed()), this, SLOT(que_resetbtn()));
         connect(ui_.que_send, SIGNAL(pressed()), this, SLOT(que_sendbtn()));
-        connect(ui_.iybtn, SIGNAL(pressed()), this, SLOT(inityaw()));
 
-        connect(ui_.vjbtn, SIGNAL(pressed()), this, SLOT(simvj()));
-        connect(ui_.IgIMUbtn, SIGNAL(pressed()), this, SLOT(igimubtn()));
-        connect(ui_.imuresetbtn, SIGNAL(pressed()), this, SLOT(imureset()));
-        connect(ui_.sebyftbtn, SIGNAL(pressed()), this, SLOT(sebyftbtn()));
-        connect(ui_.lowerdisable, SIGNAL(pressed()), this, SLOT(disablelower()));
 
-        connect(ui_.printdatabutton, SIGNAL(pressed()), this, SLOT(printdata()));
-        connect(ui_.qdot_lpf, SIGNAL(pressed()), this, SLOT(enablelpf()));
+
+
         connect(ui_.taskgain_sendbtn, SIGNAL(pressed()), this, SLOT(sendtaskgaincommand()));
         connect(ui_.taskgain_resetbtn, SIGNAL(pressed()), this, SLOT(resettaskgaincommand()));
 
@@ -823,13 +892,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         task_que_pub.publish(task_que_msg);
     }
-    void TocabiGui::turnon_robot()
-    {
-        system("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'");
-
-        //char output[100];
-        //FILE *p = popen
-    }
 
     void TocabiGui::customtaskgaincb(int state)
     {
@@ -843,137 +905,15 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    void TocabiGui::shutdown_robot()
+    void TocabiGui::turnon_robot()
     {
-        com_msg.data = std::string("terminate");
-        com_pub.publish(com_msg);
+        system("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'");
+
+        //char output[100];
+        //FILE *p = popen
     }
 
-    void TocabiGui::simvj()
-    {
-        com_msg.data = std::string("simvirtualjoint");
-        com_pub.publish(com_msg);
-    }
 
-    void TocabiGui::igimubtn()
-    {
-        com_msg.data = std::string("imuignore");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::imureset()
-    {
-        com_msg.data = std::string("imureset");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::ecatinitlow()
-    {
-        com_msg.data = std::string("ecatinitlower");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::ecatinitwaist()
-    {
-        com_msg.data = std::string("ecatinitwaist");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::torqueoncb()
-    {
-        com_msg.data = std::string("torqueon");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::torqueoffcb()
-    {
-        com_msg.data = std::string("torqueoff");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::emergencyoffcb()
-    {
-        com_msg.data = std::string("emergencyoff");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::stateestimationcb()
-    {
-        com_msg.data = std::string("stateestimation");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::torquerediscb()
-    {
-        com_msg.data = std::string("torqueredis");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::qp2ndcb()
-    {
-        com_msg.data = std::string("qp2nd");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::gravcompcb()
-    {
-        com_msg.data = std::string("gravity");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::posconcb()
-    {
-        com_msg.data = std::string("positioncontrol");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::posgravconcb()
-    {
-        com_msg.data = std::string("positiongravcontrol");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::posdobcb()
-    {
-        com_msg.data = std::string("positiondobcontrol");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::inityaw()
-    {
-        com_msg.data = std::string("inityaw");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::dshowbtn()
-    {
-        com_msg.data = std::string("showdata");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::disablelower()
-    {
-        com_msg.data = std::string("disablelower");
-        com_pub.publish(com_msg);
-    }
-    void TocabiGui::enablelpf()
-    {
-        com_msg.data = std::string("enablelpf");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::initializebtncb()
-    {
-        com_msg.data = std::string("ecatinit");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::printdata()
-    {
-        com_msg.data = std::string("printdata");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::ftcalibbtn()
-    {
-        com_msg.data = std::string("ftcalib");
-        com_pub.publish(com_msg);
-    }
-
-    void TocabiGui::sebyftbtn()
-    {
-        com_msg.data = std::string("sebyft");
-        com_pub.publish(com_msg);
-    }
 
     void TocabiGui::safetyresetbtncb()
     {

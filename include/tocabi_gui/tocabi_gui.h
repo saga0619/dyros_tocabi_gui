@@ -28,8 +28,8 @@
 
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneWheelEvent>
-
 #include <QStringListModel>
+#include <QSignalMapper>
 
 #include "tocabi_msgs/TaskCommand.h"
 #include "tocabi_msgs/TaskCommandQue.h"
@@ -143,16 +143,10 @@ namespace tocabi_gui
         virtual void restoreSettings(const qt_gui_cpp::Settings &plugin_settings, const qt_gui_cpp::Settings &instance_settings);
 
     protected slots:
-        //virtual void updateTopicList();
-        virtual void torqueoncb();
-        virtual void torqueoffcb();
-        virtual void emergencyoffcb();
-        //virtual void logbtn();
         virtual void plainTextEditcb(const std_msgs::StringConstPtr &msg);
         virtual void ecatpbtn();
         virtual void statpbtn();
         virtual void commandpbtn();
-        virtual void initializebtncb();
         virtual void safetyresetbtncb();
         virtual void mtunebtn();
         virtual void walkinginitbtncb();
@@ -164,20 +158,10 @@ namespace tocabi_gui
         virtual void pointcb(const geometry_msgs::PolygonStampedConstPtr &msg);
         virtual void imucb(const sensor_msgs::ImuConstPtr &msg);
         virtual void timercb(const std_msgs::Float32ConstPtr &msg);
-        virtual void ftcalibbtn();
         virtual void tasksendcb();
         virtual void stateestimationcb();
         virtual void torquerediscb();
-        virtual void qp2ndcb();
         virtual void customtaskgaincb(int state);
-        //virtual void fixedgravcb();
-        virtual void gravcompcb();
-        virtual void posconcb();
-        virtual void posgravconcb();
-        virtual void posdobcb();
-        virtual void dshowbtn();
-        virtual void ecatinitlow();
-        virtual void ecatinitwaist();
         virtual void safety2btncb();
         virtual void que_downbtn();
         virtual void que_upbtn();
@@ -185,25 +169,19 @@ namespace tocabi_gui
         virtual void que_resetbtn();
         virtual void que_sendbtn();
         virtual void que_addquebtn();
-        virtual void shutdown_robot();
+
+
+
         virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
-        virtual void inityaw();
-        virtual void simvj();
-        virtual void igimubtn();
-        virtual void imureset();
-        virtual void printdata();
-        virtual void enablelpf();
         virtual void sendtaskgaincommand();
         virtual void resettaskgaincommand();
-        virtual void sebyftbtn();
         virtual void slidervelcommand();
         virtual void sliderrel1();
         virtual void sliderrel2();
         virtual void sliderrel3();
-        virtual void disablelower();
         virtual void positionCommand();
         virtual void positionPreset1();
         virtual void positionPreset2();
@@ -212,6 +190,8 @@ namespace tocabi_gui
         virtual void positionRelative(int index);
 
         virtual void taskmodecb(int index);
+
+        virtual void sendCommand(QString str);
 
         //dg
         virtual void walkingspeedcb(int value);
