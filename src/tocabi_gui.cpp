@@ -134,22 +134,22 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         signalMapper->setMapping(ui_.testbtn, "testbtn");
 
         connect(ui_.vjbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "simvirtualjoint");
+        signalMapper->setMapping(ui_.vjbtn, "simvirtualjoint");
 
         connect(ui_.IgIMUbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "imuignore");
+        signalMapper->setMapping(ui_.IgIMUbtn, "imuignore");
 
         connect(ui_.imuresetbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "imureset");
+        signalMapper->setMapping(ui_.imuresetbtn, "imureset");
 
         connect(ui_.sebyftbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "sebyft");
+        signalMapper->setMapping(ui_.sebyftbtn, "sebyft");
 
         connect(ui_.lowerdisable, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "disablelower");
+        signalMapper->setMapping(ui_.lowerdisable, "disablelower");
 
         connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "terminate");
+        signalMapper->setMapping(ui_.emergencyoff_button_3, "terminate");
 
         connect(ui_.initializebtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.initializebtn, "ecatinit");

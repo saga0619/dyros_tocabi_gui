@@ -159,8 +159,6 @@ namespace tocabi_gui
         virtual void imucb(const sensor_msgs::ImuConstPtr &msg);
         virtual void timercb(const std_msgs::Float32ConstPtr &msg);
         virtual void tasksendcb();
-        virtual void stateestimationcb();
-        virtual void torquerediscb();
         virtual void customtaskgaincb(int state);
         virtual void safety2btncb();
         virtual void que_downbtn();
