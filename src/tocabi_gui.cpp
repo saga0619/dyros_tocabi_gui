@@ -3,6 +3,8 @@
 #include <pluginlib/class_list_macros.h>
 #include <iostream>
 #include <vector>
+#include <QDebug>
+#include "qxtglobalshortcut.h"
 
 int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
 int elng2[33] = {23, 24, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 30, 31, 32, 12, 13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
@@ -109,17 +111,16 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         context.addWidget(widget_);
 
-        std::string mode;
-        nh_.param<std::string>("/tocabi_controller/run_mode", mode, "default");
+        bool sim_mode = false;
+        nh_.param("/tocabi_controller/sim_mode", sim_mode, true);
 
         ui_.torqueon_button->setShortcut(QKeySequence(Qt::Key_E));
         ui_.torqueoff_button->setShortcut(QKeySequence(Qt::Key_C));
         ui_.safetyresetbtn->setShortcut(QKeySequence(Qt::Key_R));
-        ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
-
+        //ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
+        //ui_.emergencyoff_button_2->setShortcut(QkeySequence(Qr))
 
         QSignalMapper *signalMapper = new QSignalMapper(this);
-
 
         connect(ui_.torqueon_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.torqueon_button, "torqueon");
@@ -127,8 +128,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.torqueoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.torqueoff_button, "torqueoff");
 
-        connect(ui_.emergencyoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));    
-        signalMapper->setMapping(ui_.emergencyoff_button, "emergencyoff");   
+        connect(ui_.emergencyoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.emergencyoff_button, "emergencyoff");
 
         connect(ui_.testbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.testbtn, "testbtn");
@@ -147,6 +148,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.lowerdisable, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.lowerdisable, "disablelower");
+
+        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.emergencyoff_button_2, "E1");
 
         connect(ui_.emergencyoff_button_3, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.emergencyoff_button_3, "terminate");
@@ -197,15 +201,26 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         signalMapper->setMapping(ui_.qdot_lpf, "enablelpf");
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 
+        QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
+        sc_E0->setShortcut(QKeySequence("F1"));
+        connect(sc_E0, SIGNAL(activated()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(sc_E0, "E0");
+
+        QxtGlobalShortcut *sc_E1 = new QxtGlobalShortcut(this);
+        sc_E1->setShortcut(QKeySequence("F2"));
+        connect(sc_E1, SIGNAL(activated()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(sc_E1, "E1");
+
+        QxtGlobalShortcut *sc_E2 = new QxtGlobalShortcut(this);
+        sc_E2->setShortcut(QKeySequence("F3"));
+        connect(sc_E2, SIGNAL(activated()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(sc_E2, "E2");
 
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
 
         //Sending command end!
 
-
-        connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), this, SLOT(turnon_robot()));
-
-        //Select tabs.. 
+        //Select tabs..
         connect(ui_.ecat_btn, SIGNAL(pressed()), this, SLOT(ecatpbtn()));
         connect(ui_.stat_btn, SIGNAL(pressed()), this, SLOT(statpbtn()));
         connect(ui_.command_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
@@ -225,7 +240,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.customtaskgain, SIGNAL(stateChanged(int)), this, SLOT(customtaskgaincb(int)));
         connect(ui_.solver_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(solvermode_cb(int)));
-
 
         ui_.stackedWidget->setCurrentIndex(0);
 
@@ -253,7 +267,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.walkinginit_btn, SIGNAL(pressed()), this, SLOT(walkinginitbtncb()));
         connect(ui_.walkingstart_btn, SIGNAL(pressed()), this, SLOT(walkingstartbtncb()));
 
-
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
 
         //connect(ui_.)
@@ -264,9 +277,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.que_up, SIGNAL(pressed()), this, SLOT(que_upbtn()));
         connect(ui_.que_reset, SIGNAL(pressed()), this, SLOT(que_resetbtn()));
         connect(ui_.que_send, SIGNAL(pressed()), this, SLOT(que_sendbtn()));
-
-
-
 
         connect(ui_.taskgain_sendbtn, SIGNAL(pressed()), this, SLOT(sendtaskgaincommand()));
         connect(ui_.taskgain_resetbtn, SIGNAL(pressed()), this, SLOT(resettaskgaincommand()));
@@ -284,7 +294,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
         connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
         connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
-        if (mode == "simulation")
+        if (sim_mode)
         {
             ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
             ui_.label_imustatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
@@ -574,6 +584,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     void TocabiGui::shutdownPlugin()
     {
+    }
+
+    void TocabiGui::gs_test()
+    {
+        std::cout << "Hello World!" << std::endl;
     }
 
     void TocabiGui::slidervelcommand()
@@ -905,16 +920,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    void TocabiGui::turnon_robot()
-    {
-        system("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'");
-
-        //char output[100];
-        //FILE *p = popen
-    }
-
-
-
     void TocabiGui::safetyresetbtncb()
     {
         for (int i = 0; i < 33; i++)
@@ -1194,7 +1199,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
         rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
 
-        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x) * 250));
+        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x + 0.07) * 250));
         Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
 
         zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
@@ -1241,9 +1246,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_114->setText(QString::number(msg->polygon.points[9].z * 180.0 / 3.141592, 'f', 5));
 
         //Upper orient
-        ui_.label_96->setText(QString::number(msg->polygon.points[14].x * 180.0 / 3.141592, 'f', 5));
-        ui_.label_97->setText(QString::number(msg->polygon.points[14].y * 180.0 / 3.141592, 'f', 5));
-        ui_.label_98->setText(QString::number(msg->polygon.points[14].z * 180.0 / 3.141592, 'f', 5));
+        ui_.label_96->setText(QString::number(msg->polygon.points[10].x * 180.0 / 3.141592, 'f', 5));
+        ui_.label_97->setText(QString::number(msg->polygon.points[10].y * 180.0 / 3.141592, 'f', 5));
+        ui_.label_98->setText(QString::number(msg->polygon.points[10].z * 180.0 / 3.141592, 'f', 5));
 
         double com_x = msg->polygon.points[0].x;
         double com_y = msg->polygon.points[0].y;

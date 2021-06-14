@@ -81,7 +81,7 @@ color: rgb(238, 238, 236);</string>
    </property>
    <property name="text">
     <string>EMERGENCY
-OFF</string>
+STOP</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -103,7 +103,7 @@ OFF</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -5721,8 +5721,7 @@ OFF</string>
     </font>
    </property>
    <property name="text">
-    <string>TOCABI
-ON</string>
+    <string>E1</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5847,8 +5846,7 @@ ON</string>
     </font>
    </property>
    <property name="text">
-    <string>TOCABI
-OFF</string>
+    <string>E2</string>
    </property>
    <property name="checkable">
     <bool>false</bool>

@@ -17,7 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
   tocabi_msgs  
 )
 
-find_package(Qt5Widgets REQUIRED)
+
+find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
 set(CMAKE_AUTOMOC ON)
 catkin_python_setup()
 
@@ -42,6 +43,14 @@ set(tocabi_gui_UIS
   src/tocabi_gui.ui
 )
 
+set(qxtglobalshortcut
+  core/qxtglobal.cpp
+  gui/qxtwindowsystem.cpp
+  gui/qxtglobalshortcut.cpp
+  gui/qxtwindowsystem_x11.cpp
+  gui/qxtglobalshortcut_x11.cpp
+)
+
 
 qt5_wrap_cpp(tocabi_gui_MOCS ${tocabi_gui_HDRS})
 qt5_wrap_ui(tocabi_gui_UIS_H ${tocabi_gui_UIS})
@@ -55,6 +64,9 @@ qt5_wrap_ui(tocabi_gui_UIS_H ${tocabi_gui_UIS})
 ## Your package locations should be listed before other locations
 include_directories(
   include
+  core
+  gui
+  ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}/..
   ${catkin_INCLUDE_DIRS}
 )
@@ -64,12 +76,13 @@ add_library(${PROJECT_NAME}
   ${tocabi_gui_SRCS}
   ${tocabi_gui_MOCS}
   ${tocabi_gui_UIS_H}
+  ${qxtglobalshortcut}
 )
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::X11Extras Qt5::GuiPrivate)
 
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})

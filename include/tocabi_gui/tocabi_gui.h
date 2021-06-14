@@ -168,9 +168,11 @@ namespace tocabi_gui
         virtual void que_sendbtn();
         virtual void que_addquebtn();
 
+        virtual void gs_test();
 
 
-        virtual void turnon_robot();
+
+        //virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
