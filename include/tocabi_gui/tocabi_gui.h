@@ -173,7 +173,7 @@ namespace tocabi_gui
 
 
         //virtual void turnon_robot();
-        virtual void sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg);
+        virtual void sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
         virtual void sendtaskgaincommand();
@@ -295,7 +295,7 @@ namespace tocabi_gui
         void pointCallback(const geometry_msgs::PolygonStampedConstPtr &msg);
         void timerCallback(const std_msgs::Float32ConstPtr &msg);
         void imuCallback(const sensor_msgs::ImuConstPtr &msg);
-        void sysstateCallback(const std_msgs::Int32MultiArrayConstPtr &msg);
+        void sysstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void ecatstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void guiLogSignal();
     };

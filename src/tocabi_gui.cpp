@@ -214,7 +214,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QxtGlobalShortcut *sc_E2 = new QxtGlobalShortcut(this);
         sc_E2->setShortcut(QKeySequence("F3"));
         connect(sc_E2, SIGNAL(activated()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(sc_E2, "E2");
+        signalMapper->setMapping(sc_E2, "E2");        
+        
+        QxtGlobalShortcut *sc_grav = new QxtGlobalShortcut(this);
+        sc_grav->setShortcut(QKeySequence("g"));
+        connect(sc_grav, SIGNAL(activated()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(sc_grav, "gravity");
 
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
 
@@ -248,7 +253,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.command_btn->setShortcut(QKeySequence(Qt::Key_3));
         ui_.mtunebtn->setShortcut(QKeySequence(Qt::Key_4));
         ui_.walkingbtn->setShortcut(QKeySequence(Qt::Key_5));
-        ui_.gravity_button_4->setShortcut(QKeySequence(Qt::Key_G));
         ui_.dg_btn->setShortcut(QKeySequence(Qt::Key_6));
         ui_.task_button_4->setShortcut(QKeySequence(Qt::Key_P));
 
@@ -706,7 +710,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
-    void TocabiGui::sysstatecb(const std_msgs::Int32MultiArrayConstPtr &msg)
+    void TocabiGui::sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
     {
         if (msg->data[0] == 0) //imu
         {
