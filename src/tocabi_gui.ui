@@ -5466,7 +5466,7 @@ OFF</string>
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>187</width>
+        <width>205</width>
         <height>90</height>
        </rect>
       </property>
@@ -5495,17 +5495,22 @@ OFF</string>
          </item>
          <item>
           <property name="text">
-           <string>3. Swing Arm</string>
+           <string>3. Freezing Pose</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>4. Motion Retargetting</string>
+           <string>4. Motion Retargetting(1)</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string/>
+           <string>5. Motion Retargetting(2)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6. Motion Retargetting(3)</string>
           </property>
          </item>
         </widget>
