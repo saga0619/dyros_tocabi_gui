@@ -217,7 +217,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         signalMapper->setMapping(sc_E2, "E2");        
         
         QxtGlobalShortcut *sc_grav = new QxtGlobalShortcut(this);
-        sc_grav->setShortcut(QKeySequence("g"));
+        sc_grav->setShortcut(QKeySequence("F4"));
         connect(sc_grav, SIGNAL(activated()), signalMapper, SLOT(map()));
         signalMapper->setMapping(sc_grav, "gravity");
 
