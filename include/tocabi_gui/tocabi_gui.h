@@ -21,6 +21,7 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Int32MultiArray.h>
+#include <std_msgs/Int8.h>
 #include <std_msgs/Int8MultiArray.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <std_msgs/String.h>
@@ -152,7 +153,7 @@ namespace tocabi_gui
         virtual void walkinginitbtncb();
         virtual void walkingstartbtncb();
         virtual void walkingbtn();
-        virtual void dgbtn();
+        virtual void avatarbtn();
         virtual void sendtunebtn();
         virtual void resettunebtn();
         virtual void pointcb(const geometry_msgs::PolygonStampedConstPtr &msg);
@@ -194,11 +195,22 @@ namespace tocabi_gui
         virtual void sendCommand(QString str);
 
         //dg
-        virtual void walkingspeedcb(int value);
-        virtual void walkingdurationcb(int value);
-        virtual void walkingangvelcb(int value);
-        virtual void kneetargetanglecb(int value);
-        virtual void footheightcb(int value);
+        // virtual void walkingspeedcb(int value);
+        // virtual void walkingdurationcb(int value);
+        // virtual void walkingangvelcb(int value);
+        // virtual void kneetargetanglecb(int value);
+        // virtual void footheightcb(int value);
+        
+        virtual void sendupperbodymodecb();
+
+        virtual void sendstillposecalibration();
+        virtual void sendtposecalibration();
+        virtual void sendforwardposecalibration();
+        virtual void sendresetposecalibration();
+        virtual void sendloadsavedcalibration();
+
+        virtual void vr_eye_depth_cb(int value);
+        virtual void vr_eye_distance_cb(int value);
 
         virtual void torqueCommand();
         void handletaskmsg();
@@ -268,16 +280,24 @@ namespace tocabi_gui
         tocabi_msgs::VelocityCommand velcmd_msg;
 
         //dg
-        ros::Publisher walkingspeed_pub;
-        std_msgs::Float32 walkingspeed_msg;
-        ros::Publisher walkingduration_pub;
-        std_msgs::Float32 walkingduration_msg;
-        ros::Publisher walkingangvel_pub;
-        std_msgs::Float32 walkingangvel_msg;
-        ros::Publisher kneetargetangle_pub;
-        std_msgs::Float32 kneetargetangle_msg;
-        ros::Publisher footheight_pub;
-        std_msgs::Float32 footheight_msg;
+        // ros::Publisher walkingspeed_pub;
+        // std_msgs::Float32 walkingspeed_msg;
+        // ros::Publisher walkingduration_pub;
+        // std_msgs::Float32 walkingduration_msg;
+        // ros::Publisher walkingangvel_pub;
+        // std_msgs::Float32 walkingangvel_msg;
+        // ros::Publisher kneetargetangle_pub;
+        // std_msgs::Float32 kneetargetangle_msg;
+        // ros::Publisher footheight_pub;
+        // std_msgs::Float32 footheight_msg;
+
+        //avatar
+        ros::Publisher upperbodymode_pub;
+        std_msgs::Int8 upperbodymode_msg;
+        ros::Publisher pose_calibration_pub;
+        std_msgs::Int8 pose_calibration_msg;
+        ros::Publisher vr_slider_pub;
+        std_msgs::Float32MultiArray vr_slider_msg;
 
         ros::Subscriber sysstatesub;
 

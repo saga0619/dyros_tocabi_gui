@@ -81,11 +81,16 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
 
         //dg
-        walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
-        walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
-        walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
-        kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
-        footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
+        // walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
+        // walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
+        // walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
+        // kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
+        // footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
+
+        //avatar
+        upperbodymode_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/upperbodymodecommand", 100);
+        pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/pose_calibration_flag", 100);
+        vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray >("/tocabi/avatar/vr_caliabration_param", 100);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -231,7 +236,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.command_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
         connect(ui_.mtunebtn, SIGNAL(pressed()), this, SLOT(mtunebtn()));
         connect(ui_.walkingbtn, SIGNAL(pressed()), this, SLOT(walkingbtn()));
-        connect(ui_.dg_btn, SIGNAL(pressed()), this, SLOT(dgbtn()));
+        connect(ui_.avatar_btn, SIGNAL(pressed()), this, SLOT(avatarbtn()));
 
         connect(ui_.sendtunebtn, SIGNAL(pressed()), this, SLOT(sendtunebtn()));
         connect(ui_.resettunebtn, SIGNAL(pressed()), this, SLOT(resettunebtn()));
@@ -253,7 +258,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.command_btn->setShortcut(QKeySequence(Qt::Key_3));
         ui_.mtunebtn->setShortcut(QKeySequence(Qt::Key_4));
         ui_.walkingbtn->setShortcut(QKeySequence(Qt::Key_5));
-        ui_.dg_btn->setShortcut(QKeySequence(Qt::Key_6));
+        ui_.avatar_btn->setShortcut(QKeySequence(Qt::Key_6));
         ui_.task_button_4->setShortcut(QKeySequence(Qt::Key_P));
 
         connect(this, &TocabiGui::timerCallback, this, &TocabiGui::timercb);
@@ -293,11 +298,26 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
         connect(ui_.horizontalSlider_3, SIGNAL(sliderReleased()), this, SLOT(sliderrel3()));
 
-        connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
-        connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
-        connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
-        connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
-        connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
+        //dg
+        // connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
+        // connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
+        // connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
+        // connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
+        // connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
+
+        //avatar
+        connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
+
+        connect(ui_.still_pose_button,  SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
+        connect(ui_.T_pose_button,  SIGNAL(pressed()), this, SLOT(sendtposecalibration()));
+        connect(ui_.forward_pose_button,  SIGNAL(pressed()), this, SLOT(sendforwardposecalibration()));
+        connect(ui_.reset_pose_button,  SIGNAL(pressed()), this, SLOT(sendresetposecalibration()));
+        connect(ui_.load_saved_cali_button,  SIGNAL(pressed()), this, SLOT(sendloadsavedcalibration()));
+
+        connect(ui_.vr_eye_distance_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_distance_cb(int) ));
+        connect(ui_.vr_eye_depth_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_depth_cb(int) ));
+
+
         if (sim_mode)
         {
             ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
@@ -970,7 +990,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         ui_.stackedWidget->setCurrentIndex(4);
     }
-    void TocabiGui::dgbtn()
+    void TocabiGui::avatarbtn()
     {
         ui_.stackedWidget->setCurrentIndex(5);
     }
@@ -1678,59 +1698,113 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
         }
     }
+    
+    //dg
+    // void TocabiGui::walkingspeedcb(int value)
+    // {
+    //     double max_speed = 0.6;
+    //     double min_speed = -0.4;
+    //     double scale = value;
 
-    void TocabiGui::walkingspeedcb(int value)
+    //     walkingspeed_msg.data = scale / 100 * (max_speed - min_speed) + min_speed;
+    //     walkingspeed_pub.publish(walkingspeed_msg);
+    // }
+
+    // void TocabiGui::walkingdurationcb(int value)
+    // {
+    //     double max_duration = 1;
+    //     double min_duration = 0.2;
+    //     double scale = value;
+
+    //     walkingduration_msg.data = scale / 100 * (max_duration - min_duration) + min_duration;
+    //     walkingduration_pub.publish(walkingduration_msg);
+    // }
+
+    // void TocabiGui::walkingangvelcb(int value)
+    // {
+    //     double max_angvel = 1;
+    //     double min_angvel = -1;
+    //     double scale = value;
+
+    //     walkingangvel_msg.data = scale / 100 * (max_angvel - min_angvel) + min_angvel;
+    //     walkingangvel_pub.publish(walkingangvel_msg);
+    // }
+
+    // void TocabiGui::kneetargetanglecb(int value)
+    // {
+    //     double max_knee = M_PI / 2;
+    //     double min_knee = 0;
+    //     double scale = value;
+
+    //     // kneetargetangle_msg.data = scale/100*(max_knee - min_knee) + min_knee;
+    //     kneetargetangle_msg.data = scale / 180 * M_PI;
+    //     kneetargetangle_pub.publish(kneetargetangle_msg);
+    // }
+
+    // void TocabiGui::footheightcb(int value)
+    // {
+    //     double max_footz = 0.1;
+    //     double min_footz = 0.005;
+    //     double scale = value;
+
+    //     // footheight_msg.data = scale/100*(max_footz - min_footz) + min_footz;
+    //     footheight_msg.data = scale / 100;
+    //     footheight_pub.publish(footheight_msg);
+    // }
+
+    //avatar
+    void TocabiGui::sendupperbodymodecb()
     {
-        double max_speed = 0.6;
-        double min_speed = -0.4;
-        double scale = value;
-
-        walkingspeed_msg.data = scale / 100 * (max_speed - min_speed) + min_speed;
-        walkingspeed_pub.publish(walkingspeed_msg);
+        upperbodymode_msg.data = ui_.upperbody_mode->currentIndex()+1;
+        upperbodymode_pub.publish(upperbodymode_msg);
     }
 
-    void TocabiGui::walkingdurationcb(int value)
+    void TocabiGui::sendstillposecalibration()
     {
-        double max_duration = 1;
-        double min_duration = 0.2;
-        double scale = value;
-
-        walkingduration_msg.data = scale / 100 * (max_duration - min_duration) + min_duration;
-        walkingduration_pub.publish(walkingduration_msg);
+        pose_calibration_msg.data  = 1;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendtposecalibration()
+    {
+        pose_calibration_msg.data  = 2;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendforwardposecalibration()
+    {
+        pose_calibration_msg.data  = 3;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendresetposecalibration()
+    {
+        pose_calibration_msg.data  = 4;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
+    }
+    void TocabiGui::sendloadsavedcalibration()
+    {
+        pose_calibration_msg.data  = 5;
+        
+        pose_calibration_pub.publish(pose_calibration_msg);
     }
 
-    void TocabiGui::walkingangvelcb(int value)
+    void TocabiGui::vr_eye_depth_cb(int value)
     {
-        double max_angvel = 1;
-        double min_angvel = -1;
         double scale = value;
 
-        walkingangvel_msg.data = scale / 100 * (max_angvel - min_angvel) + min_angvel;
-        walkingangvel_pub.publish(walkingangvel_msg);
+        vr_slider_msg.data[0] =  scale/100;
+        vr_slider_pub.publish(vr_slider_msg);
     }
 
-    void TocabiGui::kneetargetanglecb(int value)
+    void TocabiGui::vr_eye_distance_cb(int value)
     {
-        double max_knee = M_PI / 2;
-        double min_knee = 0;
         double scale = value;
 
-        // kneetargetangle_msg.data = scale/100*(max_knee - min_knee) + min_knee;
-        kneetargetangle_msg.data = scale / 180 * M_PI;
-        kneetargetangle_pub.publish(kneetargetangle_msg);
+        vr_slider_msg.data[1] =  scale/100;
+        vr_slider_pub.publish(vr_slider_msg);
     }
-
-    void TocabiGui::footheightcb(int value)
-    {
-        double max_footz = 0.1;
-        double min_footz = 0.005;
-        double scale = value;
-
-        // footheight_msg.data = scale/100*(max_footz - min_footz) + min_footz;
-        footheight_msg.data = scale / 100;
-        footheight_pub.publish(footheight_msg);
-    }
-
     void TocabiGui::torqueCommand()
     {
     }

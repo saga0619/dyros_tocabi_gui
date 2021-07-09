@@ -103,7 +103,7 @@ STOP</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -2261,7 +2261,7 @@ STOP</string>
         <x>20</x>
         <y>410</y>
         <width>141</width>
-        <height>89</height>
+        <height>95</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_38">
@@ -2300,7 +2300,7 @@ STOP</string>
         <x>20</x>
         <y>20</y>
         <width>141</width>
-        <height>182</height>
+        <height>194</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_39">
@@ -3100,7 +3100,7 @@ STOP</string>
          <x>0</x>
          <y>10</y>
          <width>151</width>
-         <height>161</height>
+         <height>163</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -4245,7 +4245,7 @@ F3 : HARD DAMPING(E2)</string>
         <x>230</x>
         <y>70</y>
         <width>71</width>
-        <height>182</height>
+        <height>194</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_40">
@@ -4452,7 +4452,7 @@ F3 : HARD DAMPING(E2)</string>
         <x>310</x>
         <y>70</y>
         <width>71</width>
-        <height>182</height>
+        <height>194</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_42">
@@ -4788,348 +4788,236 @@ F3 : HARD DAMPING(E2)</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="DG">
-    <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QWidget" name="AVATAR">
+    <widget class="QWidget" name="gridLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>40</y>
-       <width>578</width>
-       <height>231</height>
+       <x>240</x>
+       <y>80</y>
+       <width>411</width>
+       <height>101</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_175">
-        <property name="text">
-         <string>AngVel (rad/s)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="label_184">
-        <property name="text">
-         <string>-0.4                                             0.0                                                                       0.6</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSlider" name="walking_duration_slider_2">
-        <property name="cursor">
-         <cursorShape>SizeHorCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="value">
-         <number>50</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
+     <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
-       <widget class="QLabel" name="label_173">
-        <property name="text">
-         <string>Speed (m/s)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QSlider" name="walking_angvel_slider_2">
-        <property name="cursor">
-         <cursorShape>SizeHorCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="value">
-         <number>50</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="label_185">
-        <property name="text">
-         <string>0.2                                                           0.6                                                          1.0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_174">
-        <property name="text">
-         <string>Duration (s)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSlider" name="walking_speed_slider_2">
-        <property name="cursor">
-         <cursorShape>SizeHorCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="value">
-         <number>40</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLabel" name="label_186">
-        <property name="text">
-         <string>-1.0                                                          0.0                                                          1.0</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_220">
+          <property name="text">
+           <string>  Eye Depth  </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="vr_eye_depth_slider">
+          <property name="cursor">
+           <cursorShape>SizeHorCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>50</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+          <property name="tickInterval">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="2" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
-         <widget class="QLabel" name="label_188">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
+         <widget class="QLabel" name="label_221">
           <property name="text">
-           <string/>
+           <string>Eye Distance</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_187">
-          <property name="text">
-           <string>(%)</string>
+         <widget class="QSlider" name="vr_eye_distance_slider">
+          <property name="cursor">
+           <cursorShape>SizeHorCursor</cursorShape>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="maximum">
+           <number>100</number>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="4" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_16">
-        <item>
-         <widget class="QLabel" name="label_190">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
+          <property name="value">
+           <number>50</number>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="text">
-           <string/>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_189">
-          <property name="text">
-           <string>(%)</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="tickInterval">
+           <number>10</number>
           </property>
          </widget>
         </item>
        </layout>
       </item>
-      <item row="6" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_17">
-        <item>
-         <widget class="QLabel" name="label_192">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_191">
-          <property name="text">
-           <string>(%)</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_222">
+        <property name="text">
+         <string>VR Calibration</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="gridLayoutWidget_2">
+    <widget class="QFrame" name="frame_23">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>290</y>
-       <width>561</width>
-       <height>151</height>
+       <x>20</x>
+       <y>60</y>
+       <width>211</width>
+       <height>381</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="1">
-       <widget class="QSlider" name="knee_target_angle_slider_2">
-        <property name="cursor">
-         <cursorShape>SizeHorCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>90</number>
-        </property>
-        <property name="value">
-         <number>18</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>5</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_177">
-        <property name="text">
-         <string>Foot Height (cm)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_13">
-        <item>
-         <widget class="QLabel" name="label_178">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="lineWidth">
+      <number>10</number>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget_60">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>191</width>
+        <height>184</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_44">
+       <item>
+        <widget class="QLabel" name="label_219">
+         <property name="text">
+          <string>Avatar Pose Calibration</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="still_pose_button">
+         <property name="text">
+          <string>Still Pose Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="T_pose_button">
+         <property name="text">
+          <string>T Pose Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="forward_pose_button">
+         <property name="text">
+          <string>Forward Calibration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="reset_pose_button">
+         <property name="text">
+          <string>Calibration Reset</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="load_saved_cali_button">
+         <property name="text">
+          <string>Load Saved Calibration</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_59">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>191</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_43">
+       <item>
+        <widget class="QLabel" name="label_154">
+         <property name="text">
+          <string>Upper Body Mode</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="upperbody_mode">
+         <item>
           <property name="text">
-           <string/>
+           <string>1. Init Pose</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_179">
+         </item>
+         <item>
           <property name="text">
-           <string>(rad/s)</string>
+           <string>2. Zero Pose</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="foot_height_slider_2">
-        <property name="cursor">
-         <cursorShape>SizeHorCursor</cursorShape>
-        </property>
-        <property name="maximum">
-         <number>10</number>
-        </property>
-        <property name="value">
-         <number>5</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>1</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_176">
-        <property name="text">
-         <string>Knee Angle (degree)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_180">
-        <property name="text">
-         <string>0          10        20        30       40         50       60         70        80      90</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="label_181">
-        <property name="text">
-         <string>0.0                                                   5.0                                               10.0 </string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
-        <item>
-         <widget class="QLabel" name="label_182">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
+         </item>
+         <item>
           <property name="text">
-           <string/>
+           <string>3. Freezing</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_183">
+         </item>
+         <item>
           <property name="text">
-           <string>(cm)</string>
+           <string>4. Motion Retargeting(1)</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+         </item>
+         <item>
+          <property name="text">
+           <string>5. Motion Retargeting(2)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6. Motion Retargeting(3)</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="send_upperbody_mode_button">
+         <property name="text">
+          <string>Send Mode</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -5245,7 +5133,7 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>660</x>
      <y>10</y>
      <width>194</width>
      <height>41</height>
@@ -5458,9 +5346,6 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="horizontalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
    </property>
    <property name="interactive">
     <bool>true</bool>
@@ -5833,17 +5718,17 @@ F3 : HARD DAMPING(E2)</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="dg_btn">
+  <widget class="QPushButton" name="avatar_btn">
    <property name="geometry">
     <rect>
      <x>550</x>
      <y>0</y>
-     <width>31</width>
+     <width>101</width>
      <height>61</height>
     </rect>
    </property>
    <property name="text">
-    <string>DG</string>
+    <string>AVATAR</string>
    </property>
   </widget>
   <widget class="QPushButton" name="emergencyoff_button_3">
@@ -5878,86 +5763,5 @@ F3 : HARD DAMPING(E2)</string>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>walking_speed_slider_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_188</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>449</x>
-     <y>116</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>278</x>
-     <y>155</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>walking_duration_slider_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_190</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>499</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>294</x>
-     <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>walking_angvel_slider_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_192</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>543</x>
-     <y>268</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>291</x>
-     <y>310</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>knee_target_angle_slider_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_178</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>472</x>
-     <y>359</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>292</x>
-     <y>404</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>foot_height_slider_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_182</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>479</x>
-     <y>445</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>298</x>
-     <y>479</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
