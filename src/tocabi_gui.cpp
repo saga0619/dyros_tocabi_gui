@@ -226,6 +226,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(sc_grav, SIGNAL(activated()), signalMapper, SLOT(map()));
         signalMapper->setMapping(sc_grav, "gravity");
 
+        QxtGlobalShortcut *sc_fl = new QxtGlobalShortcut(this);
+        sc_fl->setShortcut(QKeySequence("F5"));
+        connect(sc_fl, SIGNAL(activated()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(sc_fl, "forceload");
+
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
 
         //Sending command end!
