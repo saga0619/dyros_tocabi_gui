@@ -1,0 +1,8 @@
+<launch>
+    <param name="robot_description" textfile="$(find tocabi_description)/robots/dyros_tocabi.urdf" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <remap from="/joint_states" to="/tocabi/jointstates" />
+    </node>
+    <node name="tocabi_rqt_dashboard" pkg="rqt_gui" type="rqt_gui" respawn="false" output="screen" args="--perspective-file $(find tocabi_gui)/config/tocabi_gui.perspective" />
+</launch>
