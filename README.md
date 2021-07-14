@@ -13,7 +13,7 @@
 ```sh
 sudo apt install qtbase5-private-dev libqt5x11extras5*
 cd catkin_ws/src
-git clone --recurse-submodules https://github.com/saga0619/dyros_tocabi_v2
+git clone https://github.com/saga0619/tocabi_gui
 ```
 
 
