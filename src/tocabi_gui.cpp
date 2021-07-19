@@ -4,7 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <QDebug>
+#ifdef COMPILE_MELODIC
 #include "qxtglobalshortcut.h"
+#endif
 
 int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
 int elng2[33] = {23, 24, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 30, 31, 32, 12, 13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
@@ -90,7 +92,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //avatar
         upperbodymode_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/upperbodymodecommand", 100);
         pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/pose_calibration_flag", 100);
-        vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray >("/tocabi/avatar/vr_caliabration_param", 100);
+        vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/avatar/vr_caliabration_param", 100);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -205,7 +207,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.qdot_lpf, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.qdot_lpf, "enablelpf");
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
-
+#ifdef COMPILE_MELODIC
         QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
         sc_E0->setShortcut(QKeySequence("F1"));
         connect(sc_E0, SIGNAL(activated()), signalMapper, SLOT(map()));
@@ -219,13 +221,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QxtGlobalShortcut *sc_E2 = new QxtGlobalShortcut(this);
         sc_E2->setShortcut(QKeySequence("F3"));
         connect(sc_E2, SIGNAL(activated()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(sc_E2, "E2");        
-        
+        signalMapper->setMapping(sc_E2, "E2");
+
         QxtGlobalShortcut *sc_grav = new QxtGlobalShortcut(this);
         sc_grav->setShortcut(QKeySequence("F4"));
         connect(sc_grav, SIGNAL(activated()), signalMapper, SLOT(map()));
         signalMapper->setMapping(sc_grav, "gravity");
 
+#endif
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
 
         //Sending command end!
@@ -308,15 +311,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //avatar
         connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
 
-        connect(ui_.still_pose_button,  SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
-        connect(ui_.T_pose_button,  SIGNAL(pressed()), this, SLOT(sendtposecalibration()));
-        connect(ui_.forward_pose_button,  SIGNAL(pressed()), this, SLOT(sendforwardposecalibration()));
-        connect(ui_.reset_pose_button,  SIGNAL(pressed()), this, SLOT(sendresetposecalibration()));
-        connect(ui_.load_saved_cali_button,  SIGNAL(pressed()), this, SLOT(sendloadsavedcalibration()));
+        connect(ui_.still_pose_button, SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
+        connect(ui_.T_pose_button, SIGNAL(pressed()), this, SLOT(sendtposecalibration()));
+        connect(ui_.forward_pose_button, SIGNAL(pressed()), this, SLOT(sendforwardposecalibration()));
+        connect(ui_.reset_pose_button, SIGNAL(pressed()), this, SLOT(sendresetposecalibration()));
+        connect(ui_.load_saved_cali_button, SIGNAL(pressed()), this, SLOT(sendloadsavedcalibration()));
 
-        connect(ui_.vr_eye_distance_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_distance_cb(int) ));
-        connect(ui_.vr_eye_depth_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_depth_cb(int) ));
-
+        connect(ui_.vr_eye_distance_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_distance_cb(int)));
+        connect(ui_.vr_eye_depth_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_depth_cb(int)));
 
         if (sim_mode)
         {
@@ -1698,7 +1700,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
         }
     }
-    
+
     //dg
     // void TocabiGui::walkingspeedcb(int value)
     // {
@@ -1755,38 +1757,38 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     //avatar
     void TocabiGui::sendupperbodymodecb()
     {
-        upperbodymode_msg.data = ui_.upperbody_mode->currentIndex()+1;
+        upperbodymode_msg.data = ui_.upperbody_mode->currentIndex() + 1;
         upperbodymode_pub.publish(upperbodymode_msg);
     }
 
     void TocabiGui::sendstillposecalibration()
     {
-        pose_calibration_msg.data  = 1;
-        
+        pose_calibration_msg.data = 1;
+
         pose_calibration_pub.publish(pose_calibration_msg);
     }
     void TocabiGui::sendtposecalibration()
     {
-        pose_calibration_msg.data  = 2;
-        
+        pose_calibration_msg.data = 2;
+
         pose_calibration_pub.publish(pose_calibration_msg);
     }
     void TocabiGui::sendforwardposecalibration()
     {
-        pose_calibration_msg.data  = 3;
-        
+        pose_calibration_msg.data = 3;
+
         pose_calibration_pub.publish(pose_calibration_msg);
     }
     void TocabiGui::sendresetposecalibration()
     {
-        pose_calibration_msg.data  = 4;
-        
+        pose_calibration_msg.data = 4;
+
         pose_calibration_pub.publish(pose_calibration_msg);
     }
     void TocabiGui::sendloadsavedcalibration()
     {
-        pose_calibration_msg.data  = 5;
-        
+        pose_calibration_msg.data = 5;
+
         pose_calibration_pub.publish(pose_calibration_msg);
     }
 
@@ -1794,7 +1796,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     {
         double scale = value;
 
-        vr_slider_msg.data[0] =  scale/100;
+        vr_slider_msg.data[0] = scale / 100;
         vr_slider_pub.publish(vr_slider_msg);
     }
 
@@ -1802,7 +1804,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     {
         double scale = value;
 
-        vr_slider_msg.data[1] =  scale/100;
+        vr_slider_msg.data[1] = scale / 100;
         vr_slider_pub.publish(vr_slider_msg);
     }
     void TocabiGui::torqueCommand()
