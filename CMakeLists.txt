@@ -25,9 +25,9 @@ if($ENV{ROS_DISTRO} STREQUAL "melodic")
 
   ADD_DEFINITIONS(-DCOMPILE_MELODIC)
 
-elseif($ENV{ROS_DISTRO} STREQUAL "Kinetic")
-  message("Using ROS Kinetic")
-  find_package(Qt5 REQUIRED Core Widgets )
+elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
+  message("Using ROS kinetic")
+  find_package(Qt5 REQUIRED Core Widgets)
 
   ADD_DEFINITIONS(-DCOMPILE_KINETIC)
 
@@ -100,7 +100,7 @@ if($ENV{ROS_DISTRO} STREQUAL "melodic")
 
   target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::X11Extras Qt5::GuiPrivate)
 
-elseif($ENV{ROS_DISTRO} STREQUAL "Kinetic")
+elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
   include_directories(
     include
     core
