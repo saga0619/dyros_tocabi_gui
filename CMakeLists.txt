@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(tocabi_gui)
 
-## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
@@ -18,7 +17,25 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 
-find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
+
+if($ENV{ROS_DISTRO} STREQUAL "melodic")
+  message("Using ROS melodic")
+
+  find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
+
+  ADD_DEFINITIONS(-DCOMPILE_MELODIC)
+
+elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
+  message("Using ROS kinetic")
+  find_package(Qt5 REQUIRED Core Widgets)
+
+  ADD_DEFINITIONS(-DCOMPILE_KINETIC)
+
+else()
+  message("Unknown ROS distro:")
+  message($ENV{ROS_DISTRO})
+endif()
+
 set(CMAKE_AUTOMOC ON)
 catkin_python_setup()
 
@@ -60,29 +77,50 @@ qt5_wrap_ui(tocabi_gui_UIS_H ${tocabi_gui_UIS})
 ## Build ##
 ###########
 
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(
-  include
-  core
-  gui
-  ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}/..
-  ${catkin_INCLUDE_DIRS}
-)
+if($ENV{ROS_DISTRO} STREQUAL "melodic")
+  include_directories(
+    include
+    core
+    gui
+    ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}/..
+    ${catkin_INCLUDE_DIRS}
+  )
 
-## Declare a C++ library
-add_library(${PROJECT_NAME}
-  ${tocabi_gui_SRCS}
-  ${tocabi_gui_MOCS}
-  ${tocabi_gui_UIS_H}
-  ${qxtglobalshortcut}
-)
+  add_library(${PROJECT_NAME}
+    ${tocabi_gui_SRCS}
+    ${tocabi_gui_MOCS}
+    ${tocabi_gui_UIS_H}
+    ${qxtglobalshortcut}
+  )
 
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-)
+  target_link_libraries(${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+  )
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::X11Extras Qt5::GuiPrivate)
+  target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::X11Extras Qt5::GuiPrivate)
+
+elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
+  include_directories(
+    include
+    core
+    gui
+    ${CMAKE_CURRENT_BINARY_DIR}/..
+    ${catkin_INCLUDE_DIRS}
+  )
+
+  add_library(${PROJECT_NAME}
+    ${tocabi_gui_SRCS}
+    ${tocabi_gui_MOCS}
+    ${tocabi_gui_UIS_H}
+  )
+
+  target_link_libraries(${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+  )
+
+  target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui)
+endif()
+
 
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
