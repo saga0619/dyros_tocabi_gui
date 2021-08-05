@@ -206,6 +206,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.qdot_lpf, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.qdot_lpf, "enablelpf");
+
+        connect(ui_.forceloadbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.forceloadbtn, "forceload");
+
+
+
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 #ifdef COMPILE_MELODIC
         QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
@@ -1026,6 +1032,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             else if (num_safety == 3)
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("TL"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_safety == 4)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("CL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
             }
 
