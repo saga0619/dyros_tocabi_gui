@@ -4960,7 +4960,7 @@ F3 : HARD DAMPING(E2)</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>191</width>
+        <width>199</width>
         <height>101</height>
        </rect>
       </property>
@@ -5759,6 +5759,28 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="checked">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_sestatus_2">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>900</y>
+     <width>311</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>SAFE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
