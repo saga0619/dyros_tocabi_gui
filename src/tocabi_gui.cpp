@@ -954,20 +954,20 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::safetyresetbtncb()
     {
-        for (int i = 0; i < 33; i++)
-        {
-            safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-        }
+        // for (int i = 0; i < 33; i++)
+        // {
+        //     safetylabels[i]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+        // }
         com_msg.data = std::string("safetyreset");
         com_pub.publish(com_msg);
     }
 
     void TocabiGui::safety2btncb()
     {
-        for (int i = 0; i < 33; i++)
-        {
-            safetylabels[i]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-        }
+        // for (int i = 0; i < 33; i++)
+        // {
+        //     safetylabels[i]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+        // }
         com_msg.data = std::string("safetydisable");
         com_pub.publish(com_msg);
     }

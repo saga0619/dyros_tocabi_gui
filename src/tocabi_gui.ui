@@ -5423,9 +5423,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>280</x>
       <y>40</y>
-      <width>41</width>
+      <width>21</width>
       <height>181</height>
      </rect>
     </property>
@@ -5434,9 +5434,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>80</x>
       <y>40</y>
-      <width>41</width>
+      <width>21</width>
       <height>181</height>
      </rect>
     </property>
@@ -5445,9 +5445,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_11">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>230</y>
-      <width>51</width>
+      <width>21</width>
       <height>131</height>
      </rect>
     </property>
@@ -5456,9 +5456,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_17">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>130</x>
       <y>230</y>
-      <width>51</width>
+      <width>21</width>
       <height>131</height>
      </rect>
     </property>
@@ -5467,9 +5467,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_18">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>180</x>
       <y>10</y>
-      <width>51</width>
+      <width>21</width>
       <height>41</height>
      </rect>
     </property>
@@ -5478,9 +5478,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_19">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>180</x>
       <y>130</y>
-      <width>51</width>
+      <width>21</width>
       <height>61</height>
      </rect>
     </property>
@@ -5491,7 +5491,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>21</width>
+      <width>31</width>
       <height>181</height>
      </rect>
     </property>
@@ -5502,7 +5502,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>210</x>
       <y>40</y>
-      <width>21</width>
+      <width>31</width>
       <height>181</height>
      </rect>
     </property>
@@ -5513,7 +5513,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>110</x>
       <y>10</y>
-      <width>21</width>
+      <width>31</width>
       <height>41</height>
      </rect>
     </property>
@@ -5524,7 +5524,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>110</x>
       <y>130</y>
-      <width>21</width>
+      <width>31</width>
       <height>61</height>
      </rect>
     </property>
@@ -5535,7 +5535,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>60</x>
       <y>230</y>
-      <width>21</width>
+      <width>31</width>
       <height>131</height>
      </rect>
     </property>
@@ -5546,7 +5546,7 @@ F3 : HARD DAMPING(E2)</string>
      <rect>
       <x>170</x>
       <y>230</y>
-      <width>21</width>
+      <width>31</width>
       <height>131</height>
      </rect>
     </property>
@@ -5555,9 +5555,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_48">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>40</x>
       <y>40</y>
-      <width>31</width>
+      <width>41</width>
       <height>181</height>
      </rect>
     </property>
@@ -5566,9 +5566,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_49">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>10</y>
-      <width>21</width>
+      <width>41</width>
       <height>41</height>
      </rect>
     </property>
@@ -5577,9 +5577,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_55">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>130</y>
-      <width>21</width>
+      <width>41</width>
       <height>61</height>
      </rect>
     </property>
@@ -5588,9 +5588,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_56">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>240</x>
       <y>40</y>
-      <width>31</width>
+      <width>41</width>
       <height>181</height>
      </rect>
     </property>
@@ -5599,9 +5599,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_57">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>90</x>
       <y>230</y>
-      <width>21</width>
+      <width>41</width>
       <height>131</height>
      </rect>
     </property>
@@ -5610,9 +5610,9 @@ F3 : HARD DAMPING(E2)</string>
    <widget class="QWidget" name="verticalLayoutWidget_58">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>200</x>
       <y>230</y>
-      <width>21</width>
+      <width>41</width>
       <height>131</height>
      </rect>
     </property>
