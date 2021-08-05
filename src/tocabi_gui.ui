@@ -103,7 +103,7 @@ STOP</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -229,11 +229,24 @@ STOP</string>
       <string>INITIALIZE LOWER</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="testbtn">
+    <widget class="QPushButton" name="forceloadbtn">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>540</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FORCE LOAD ZP</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="testbtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>600</y>
        <width>141</width>
        <height>41</height>
       </rect>
