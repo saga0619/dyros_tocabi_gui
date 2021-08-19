@@ -103,7 +103,7 @@ STOP</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -4808,7 +4808,7 @@ F3 : HARD DAMPING(E2)</string>
        <x>240</x>
        <y>80</y>
        <width>411</width>
-       <height>101</height>
+       <height>103</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
@@ -4973,7 +4973,7 @@ F3 : HARD DAMPING(E2)</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>199</width>
+        <width>200</width>
         <height>101</height>
        </rect>
       </property>
@@ -5007,17 +5007,37 @@ F3 : HARD DAMPING(E2)</string>
          </item>
          <item>
           <property name="text">
-           <string>4. Motion Retargeting(1)</string>
+           <string>4. Ready Pose</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>5. Motion Retargeting(2)</string>
+           <string>5. Head Only Retargeting</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>6. Motion Retargeting(3)</string>
+           <string>6. Motion Retargeting(HQPIK1)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>7. Motion Retargeting(HQPIK2)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>9.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>10.</string>
           </property>
          </item>
         </widget>
