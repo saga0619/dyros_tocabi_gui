@@ -24,14 +24,7 @@ if($ENV{ROS_DISTRO} STREQUAL "melodic")
   find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
 
   ADD_DEFINITIONS(-DCOMPILE_MELODIC)
-
-elseif($ENV{ROS_DISTRO} STREQUAL "noetic")
-  message("Using ROS melodic")
-
-  find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
-
-  ADD_DEFINITIONS(-DCOMPILE_MELODIC)
-
+libqt5x11extras5
 elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
   message("Using ROS kinetic")
   find_package(Qt5 REQUIRED Core Widgets)
@@ -85,29 +78,6 @@ qt5_wrap_ui(tocabi_gui_UIS_H ${tocabi_gui_UIS})
 ###########
 
 if($ENV{ROS_DISTRO} STREQUAL "melodic")
-  include_directories(
-    include
-    core
-    gui
-    ${Qt5Gui_PRIVATE_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_BINARY_DIR}/..
-    ${catkin_INCLUDE_DIRS}
-  )
-
-  add_library(${PROJECT_NAME}
-    ${tocabi_gui_SRCS}
-    ${tocabi_gui_MOCS}
-    ${tocabi_gui_UIS_H}
-    ${qxtglobalshortcut}
-  )
-
-  target_link_libraries(${PROJECT_NAME}
-    ${catkin_LIBRARIES}
-  )
-
-  target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::Gui Qt5::X11Extras Qt5::GuiPrivate)
-
-elseif($ENV{ROS_DISTRO} STREQUAL "noetic")
   include_directories(
     include
     core
