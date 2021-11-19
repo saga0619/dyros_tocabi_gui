@@ -1236,8 +1236,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
         rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
 
-        Pelv->setPos(QPointF((msg->polygon.points[3].y) * 250, (msg->polygon.points[3].x + 0.07) * 250));
-        Pelv->setRotation(msg->polygon.points[4].z * -180.0 / 3.141592);
+        float ang_pelv = msg->polygon.points[4].z;
+
+        Pelv->setPos(QPointF((msg->polygon.points[3].y + 0.07*sin(ang_pelv)) * 250, (msg->polygon.points[3].x + 0.07 * cos(ang_pelv)) * 250));
+        Pelv->setRotation(ang_pelv * -180.0 / 3.141592);
 
         zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
 
