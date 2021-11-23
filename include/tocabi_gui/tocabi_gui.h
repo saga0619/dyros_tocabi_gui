@@ -176,6 +176,7 @@ namespace tocabi_gui
         //virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
+        virtual void comstatecb(const std_msgs::Float32MultiArrayConstPtr &msg);
         virtual void solvermode_cb(int state);
         virtual void sendtaskgaincommand();
         virtual void resettaskgaincommand();
@@ -263,6 +264,8 @@ namespace tocabi_gui
 
         ros::Subscriber ecat_sub;
 
+        ros::Subscriber ecat_comstate_sub;
+        std_msgs::Float32MultiArray comstate_msg;
 
         ros::Publisher poscom_pub;
         tocabi_msgs::positionCommand poscom_msg;
@@ -317,6 +320,7 @@ namespace tocabi_gui
         void imuCallback(const sensor_msgs::ImuConstPtr &msg);
         void sysstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void ecatstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
+        void comstateCallback(const std_msgs::Float32MultiArrayConstPtr &msg);
         void guiLogSignal();
     };
 
@@ -327,5 +331,6 @@ Q_DECLARE_METATYPE(std_msgs::Float32ConstPtr);
 Q_DECLARE_METATYPE(sensor_msgs::ImuConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Int32MultiArrayConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Int8MultiArrayConstPtr);
+Q_DECLARE_METATYPE(std_msgs::Float32MultiArrayConstPtr);
 
 #endif

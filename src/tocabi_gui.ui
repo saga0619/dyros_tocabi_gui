@@ -4973,7 +4973,7 @@ F3 : HARD DAMPING(E2)</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>238</width>
+        <width>330</width>
         <height>101</height>
        </rect>
       </property>
@@ -5195,9 +5195,9 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_32">
    <property name="geometry">
     <rect>
-     <x>1130</x>
+     <x>1160</x>
      <y>450</y>
-     <width>91</width>
+     <width>61</width>
      <height>21</height>
     </rect>
    </property>
@@ -5233,12 +5233,12 @@ F3 : HARD DAMPING(E2)</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_34">
+  <widget class="QLabel" name="label_36">
    <property name="geometry">
     <rect>
-     <x>1130</x>
+     <x>1160</x>
      <y>480</y>
-     <width>91</width>
+     <width>61</width>
      <height>21</height>
     </rect>
    </property>
@@ -5246,13 +5246,13 @@ F3 : HARD DAMPING(E2)</string>
     <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string>ZP</string>
+    <string>FT</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_zpstatus">
+  <widget class="QLabel" name="label_ftstatus">
    <property name="geometry">
     <rect>
      <x>1230</x>
@@ -5277,101 +5277,13 @@ F3 : HARD DAMPING(E2)</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_35">
-   <property name="geometry">
-    <rect>
-     <x>1350</x>
-     <y>480</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>ECAT</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_ecatstatus">
-   <property name="geometry">
-    <rect>
-     <x>1450</x>
-     <y>480</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel { rgb(138, 226, 52)}</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>NOT OK</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_36">
-   <property name="geometry">
-    <rect>
-     <x>1350</x>
-     <y>450</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>FT</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_ftstatus">
-   <property name="geometry">
-    <rect>
-     <x>1450</x>
-     <y>450</y>
-     <width>91</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel { rgb(138, 226, 52)}</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="text">
-    <string>NOT OK</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
      <x>940</x>
-     <y>90</y>
+     <y>70</y>
      <width>591</width>
-     <height>341</height>
+     <height>281</height>
     </rect>
    </property>
    <property name="verticalScrollBarPolicy">
@@ -5672,9 +5584,9 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_136">
    <property name="geometry">
     <rect>
-     <x>910</x>
+     <x>980</x>
      <y>450</y>
-     <width>91</width>
+     <width>61</width>
      <height>21</height>
     </rect>
    </property>
@@ -5691,7 +5603,7 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_sestatus">
    <property name="geometry">
     <rect>
-     <x>1010</x>
+     <x>1050</x>
      <y>450</y>
      <width>91</width>
      <height>21</height>
@@ -5713,9 +5625,9 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_137">
    <property name="geometry">
     <rect>
-     <x>910</x>
+     <x>980</x>
      <y>480</y>
-     <width>91</width>
+     <width>61</width>
      <height>21</height>
     </rect>
    </property>
@@ -5732,7 +5644,7 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_tcstatus">
    <property name="geometry">
     <rect>
-     <x>1010</x>
+     <x>1050</x>
      <y>480</y>
      <width>91</width>
      <height>21</height>
@@ -5811,6 +5723,444 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="text">
     <string>SAFE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_34">
+   <property name="geometry">
+    <rect>
+     <x>1340</x>
+     <y>450</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>ECAT 1</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_35">
+   <property name="geometry">
+    <rect>
+     <x>1340</x>
+     <y>480</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>ECAT 2</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ecat1status">
+   <property name="geometry">
+    <rect>
+     <x>1420</x>
+     <y>450</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>NOT OK</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ecat2status">
+   <property name="geometry">
+    <rect>
+     <x>1420</x>
+     <y>480</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel { rgb(138, 226, 52)}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>NOT OK</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e1ovf">
+   <property name="geometry">
+    <rect>
+     <x>1390</x>
+     <y>390</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e2ovf">
+   <property name="geometry">
+    <rect>
+     <x>1390</x>
+     <y>420</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_155">
+   <property name="geometry">
+    <rect>
+     <x>1050</x>
+     <y>360</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>Lat avg</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_157">
+   <property name="geometry">
+    <rect>
+     <x>1130</x>
+     <y>360</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>Lat max</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_158">
+   <property name="geometry">
+    <rect>
+     <x>1220</x>
+     <y>360</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>Com avg</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_159">
+   <property name="geometry">
+    <rect>
+     <x>1300</x>
+     <y>360</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>Com max</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_160">
+   <property name="geometry">
+    <rect>
+     <x>1390</x>
+     <y>360</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>Com ovf</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e1commax">
+   <property name="geometry">
+    <rect>
+     <x>1300</x>
+     <y>390</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e1comavg">
+   <property name="geometry">
+    <rect>
+     <x>1220</x>
+     <y>390</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e2commax">
+   <property name="geometry">
+    <rect>
+     <x>1300</x>
+     <y>420</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e2comavg">
+   <property name="geometry">
+    <rect>
+     <x>1220</x>
+     <y>420</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e1latavg">
+   <property name="geometry">
+    <rect>
+     <x>1050</x>
+     <y>390</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e1latmax">
+   <property name="geometry">
+    <rect>
+     <x>1130</x>
+     <y>390</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e2latavg">
+   <property name="geometry">
+    <rect>
+     <x>1050</x>
+     <y>420</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_e2latmax">
+   <property name="geometry">
+    <rect>
+     <x>1130</x>
+     <y>420</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_156">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>420</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>ECAT 2</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_161">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>390</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string>ECAT 1</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

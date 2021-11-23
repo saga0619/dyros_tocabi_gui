@@ -60,6 +60,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         qRegisterMetaType<std_msgs::StringConstPtr>();
         qRegisterMetaType<geometry_msgs::PolygonStampedConstPtr>();
         qRegisterMetaType<std_msgs::Float32ConstPtr>();
+        qRegisterMetaType<std_msgs::Float32MultiArrayConstPtr>();
         qRegisterMetaType<sensor_msgs::ImuConstPtr>();
         qRegisterMetaType<std_msgs::Int32MultiArrayConstPtr>();
         qRegisterMetaType<std_msgs::Int8MultiArrayConstPtr>();
@@ -81,6 +82,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //joint_sub = nh_.subscribe("/tocabi/jointstates", 100, &Tocabi::jsCallback,this);
 
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
+        ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 100, &TocabiGui::comstateCallback, this);
 
         //dg
         // walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
@@ -276,6 +278,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(this, &TocabiGui::imuCallback, this, &TocabiGui::imucb);
         connect(this, &TocabiGui::sysstateCallback, this, &TocabiGui::sysstatecb);
         connect(this, &TocabiGui::ecatstateCallback, this, &TocabiGui::ecatstatecb);
+        connect(this, &TocabiGui::comstateCallback, this, &TocabiGui::comstatecb);
 
         //connect(ui_)
         connect(ui_.safetyresetbtn, SIGNAL(pressed()), this, SLOT(safetyresetbtncb()));
@@ -328,14 +331,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (sim_mode)
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
             ui_.label_imustatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
             ui_.label_ftstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
 
-            ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
+            // ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
             ui_.label_imustatus->setText(QString::fromUtf8("SIM MODE"));
-            ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
             ui_.label_ftstatus->setText(QString::fromUtf8("SIM MODE"));
 
             ui_.stackedWidget->setCurrentIndex(2);
@@ -344,9 +347,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             ui_.vjbtn->setDisabled(true);
 
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
             ui_.label_imustatus->setStyleSheet("QLabel { background-color : red; color : white; }");
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
             ui_.label_ftstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
             ui_.stackedWidget->setCurrentIndex(0);
         }
@@ -763,23 +766,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (msg->data[1] == 0) // zp
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
         }
         else if (msg->data[1] == 1)
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("FIND REQ"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("FIND REQ"));
         }
         else if (msg->data[1] == 2)
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
         }
         else if (msg->data[1] == 3)
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
         }
 
         if (msg->data[2] == 0) //ft
@@ -805,23 +808,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (msg->data[3] == 0) //ecat
         {
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
-            ui_.label_ecatstatus->setText(QString::fromUtf8("NOT OK"));
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("NOT OK"));
         }
         else if (msg->data[3] == 1)
         {
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
         }
         else if (msg->data[3] == 2)
         {
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-            ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
         }
         else if (msg->data[3] == 3)
         {
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-            ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
         }
 
         if (msg->data[4] == 1) //se
@@ -1003,6 +1006,22 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.stackedWidget->setCurrentIndex(5);
     }
 
+    void TocabiGui::comstatecb(const std_msgs::Float32MultiArrayConstPtr &msg)
+    {
+        ui_.label_e1latavg->setText(QString::number(msg->data[0],'f',3));
+        ui_.label_e1latmax->setText(QString::number(msg->data[1],'f',3));
+        ui_.label_e1comavg->setText(QString::number(msg->data[2],'f',3));
+        ui_.label_e1commax->setText(QString::number(msg->data[3],'f',3));
+        ui_.label_e1ovf->setText(QString::number(msg->data[4],'d',3));
+
+        ui_.label_e2latavg->setText(QString::number(msg->data[5],'f',3));
+        ui_.label_e2latmax->setText(QString::number(msg->data[6],'f',3));
+        ui_.label_e2comavg->setText(QString::number(msg->data[7],'f',3));
+        ui_.label_e2commax->setText(QString::number(msg->data[8],'f',3));
+        ui_.label_e2ovf->setText(QString::number(msg->data[9],'d',3));
+    
+    }
+
     void TocabiGui::ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
     {
 
@@ -1171,8 +1190,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else if (msg->data == "zpgood")
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
         }
         else if (msg->data == "initreq")
         {
@@ -1186,23 +1205,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         else if (msg->data == "ecatgood")
         {
-            ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
+            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            // ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
         }
         else if (msg->data == "zpnotgood")
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
         }
         else if (msg->data == "ecatcommutationdone")
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
         }
         else if (msg->data == "ecatcommutation")
         {
-            ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
-            ui_.label_zpstatus->setText(QString::fromUtf8("COMMUTATION"));
+            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+            // ui_.label_zpstatus->setText(QString::fromUtf8("COMMUTATION"));
         }
         else
         {
