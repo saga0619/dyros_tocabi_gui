@@ -103,7 +103,7 @@ STOP</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -4986,7 +4986,7 @@ F3 : HARD DAMPING(E2)</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>330</width>
+        <width>191</width>
         <height>101</height>
        </rect>
       </property>
@@ -5208,8 +5208,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_32">
    <property name="geometry">
     <rect>
-     <x>1160</x>
-     <y>450</y>
+     <x>1060</x>
+     <y>460</y>
      <width>61</width>
      <height>21</height>
     </rect>
@@ -5227,8 +5227,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_imustatus">
    <property name="geometry">
     <rect>
-     <x>1230</x>
-     <y>450</y>
+     <x>1130</x>
+     <y>460</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -5249,8 +5249,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_36">
    <property name="geometry">
     <rect>
-     <x>1160</x>
-     <y>480</y>
+     <x>1060</x>
+     <y>490</y>
      <width>61</width>
      <height>21</height>
     </rect>
@@ -5268,8 +5268,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_ftstatus">
    <property name="geometry">
     <rect>
-     <x>1230</x>
-     <y>480</y>
+     <x>1130</x>
+     <y>490</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -5597,8 +5597,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_136">
    <property name="geometry">
     <rect>
-     <x>980</x>
-     <y>450</y>
+     <x>880</x>
+     <y>460</y>
      <width>61</width>
      <height>21</height>
     </rect>
@@ -5616,8 +5616,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_sestatus">
    <property name="geometry">
     <rect>
-     <x>1050</x>
-     <y>450</y>
+     <x>950</x>
+     <y>460</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -5638,8 +5638,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_137">
    <property name="geometry">
     <rect>
-     <x>980</x>
-     <y>480</y>
+     <x>880</x>
+     <y>490</y>
      <width>61</width>
      <height>21</height>
     </rect>
@@ -5657,8 +5657,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_tcstatus">
    <property name="geometry">
     <rect>
-     <x>1050</x>
-     <y>480</y>
+     <x>950</x>
+     <y>490</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -5744,8 +5744,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_34">
    <property name="geometry">
     <rect>
-     <x>1340</x>
-     <y>450</y>
+     <x>1240</x>
+     <y>460</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -5763,8 +5763,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_35">
    <property name="geometry">
     <rect>
-     <x>1340</x>
-     <y>480</y>
+     <x>1240</x>
+     <y>490</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -5782,8 +5782,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_ecat1status">
    <property name="geometry">
     <rect>
-     <x>1420</x>
-     <y>450</y>
+     <x>1320</x>
+     <y>460</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -5804,8 +5804,8 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QLabel" name="label_ecat2status">
    <property name="geometry">
     <rect>
-     <x>1420</x>
-     <y>480</y>
+     <x>1320</x>
+     <y>490</y>
      <width>91</width>
      <height>21</height>
     </rect>
