@@ -62,6 +62,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         qRegisterMetaType<std_msgs::Float32ConstPtr>();
         qRegisterMetaType<std_msgs::Float32MultiArrayConstPtr>();
         qRegisterMetaType<sensor_msgs::ImuConstPtr>();
+        qRegisterMetaType<sensor_msgs::JointStateConstPtr>();
         qRegisterMetaType<std_msgs::Int32MultiArrayConstPtr>();
         qRegisterMetaType<std_msgs::Int8MultiArrayConstPtr>();
         setObjectName("TocabiGui");
@@ -79,7 +80,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         taskgain_pub = nh_.advertise<tocabi_msgs::TaskGainCommand>("/tocabi/taskgaincommand", 100);
         velcommand_pub = nh_.advertise<tocabi_msgs::VelocityCommand>("/tocabi/velcommand", 100);
         poscom_pub = nh_.advertise<tocabi_msgs::positionCommand>("/tocabi/positioncommand", 100);
-        //joint_sub = nh_.subscribe("/tocabi/jointstates", 100, &Tocabi::jsCallback,this);
+        jointsub = nh_.subscribe("/tocabi/jointstates", 100, &TocabiGui::jointstateCallback, this);
+
+        q_.resize(33);
 
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
         ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 100, &TocabiGui::comstateCallback, this);
@@ -212,8 +215,6 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.forceloadbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.forceloadbtn, "forceload");
 
-
-
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 #ifdef COMPILE_MELODIC
         QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
@@ -254,6 +255,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.pcSendCommand, SIGNAL(pressed()), this, SLOT(positionCommand()));
         connect(ui_.pcTorqueStandard, SIGNAL(pressed()), this, SLOT(positionPreset1()));
+        connect(ui_.getcurrentq, SIGNAL(pressed()), this, SLOT(getCurrentPos()));
         connect(ui_.pc4ConStandard, SIGNAL(pressed()), this, SLOT(positionPreset2()));
         connect(ui_.pcTorque3con, SIGNAL(pressed()), this, SLOT(positionPreset4()));
         connect(ui_.pcTorquepos3, SIGNAL(pressed()), this, SLOT(positionPreset3()));
@@ -279,6 +281,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(this, &TocabiGui::sysstateCallback, this, &TocabiGui::sysstatecb);
         connect(this, &TocabiGui::ecatstateCallback, this, &TocabiGui::ecatstatecb);
         connect(this, &TocabiGui::comstateCallback, this, &TocabiGui::comstatecb);
+        connect(this, &TocabiGui::jointstateCallback, this, &TocabiGui::jointstatecb);
 
         //connect(ui_)
         connect(ui_.safetyresetbtn, SIGNAL(pressed()), this, SLOT(safetyresetbtncb()));
@@ -508,8 +511,15 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         scene = new MyQGraphicsScene(widget_);
         //scene->setSceneRect(0, 0, view->width(), view->height());
-
         view->setScene(scene);
+
+        scene2 = new QGraphicsScene(widget_);
+
+        ui_.graphicsView_2->setScene(scene2);
+
+        pbar = new QGraphicsRectItem(QRectF(-30.5, -140.5, 61, 281));
+
+        scene2->addItem(pbar);
 
         //std::cout << widget_->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
 
@@ -517,6 +527,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QBrush bluebrush(Qt::blue);
         QBrush yellowbrush(Qt::yellow);
         QBrush blackbrush(Qt::black);
+
+        pbar->setBrush(QBrush(Qt::yellow));
+
         QPen blackpen(Qt::black);
         Pelv = new QGraphicsRectItem(QRectF(-150 / 4, -40 / 4, 300 / 4, 80 / 4));
         scene->addItem(Pelv);
@@ -741,6 +754,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
+    void TocabiGui::jointstatecb(const sensor_msgs::JointStateConstPtr &msg)
+    {
+        for (int i = 0; i < 33; i++)
+        {
+            q_[i] = msg->position[i];
+        }
+    }
+
     void TocabiGui::sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
     {
         if (msg->data[0] == 0) //imu
@@ -766,23 +787,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (msg->data[1] == 0) // zp
         {
-            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
-            // ui_.label_zpstatus->setText(QString::fromUtf8("NOT OK"));
+            ui_.label_ecat1status->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            ui_.label_ecat1status->setText(QString::fromUtf8("NOT OK"));
         }
         else if (msg->data[1] == 1)
         {
-            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-            // ui_.label_zpstatus->setText(QString::fromUtf8("FIND REQ"));
+            ui_.label_ecat1status->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            ui_.label_ecat1status->setText(QString::fromUtf8("INITIAL"));
         }
         else if (msg->data[1] == 2)
         {
-            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            // ui_.label_zpstatus->setText(QString::fromUtf8("OK"));
+            ui_.label_ecat1status->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            ui_.label_ecat1status->setText(QString::fromUtf8("CONTROL"));
         }
         else if (msg->data[1] == 3)
         {
-            // ui_.label_zpstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-            // ui_.label_zpstatus->setText(QString::fromUtf8("SIM MODE"));
+            ui_.label_ecat1status->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            ui_.label_ecat1status->setText(QString::fromUtf8("SIM MODE"));
         }
 
         if (msg->data[2] == 0) //ft
@@ -808,23 +829,23 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if (msg->data[3] == 0) //ecat
         {
-            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
-            // ui_.label_ecatstatus->setText(QString::fromUtf8("NOT OK"));
+            ui_.label_ecat2status->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            ui_.label_ecat2status->setText(QString::fromUtf8("NOT OK"));
         }
         else if (msg->data[3] == 1)
         {
-            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
-            // ui_.label_ecatstatus->setText(QString::fromUtf8("OK"));
+            ui_.label_ecat2status->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            ui_.label_ecat2status->setText(QString::fromUtf8("INITIAL"));
         }
         else if (msg->data[3] == 2)
         {
-            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
-            // ui_.label_ecatstatus->setText(QString::fromUtf8("COMMUTATION"));
+            ui_.label_ecat2status->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            ui_.label_ecat2status->setText(QString::fromUtf8("CONTROL"));
         }
         else if (msg->data[3] == 3)
         {
-            // ui_.label_ecatstatus->setStyleSheet("QLabel { background-color : yellow; color : black; }");
-            // ui_.label_ecatstatus->setText(QString::fromUtf8("SIM MODE"));
+            ui_.label_ecat2status->setStyleSheet("QLabel { background-color : yellow; color : black; }");
+            ui_.label_ecat2status->setText(QString::fromUtf8("SIM MODE"));
         }
 
         if (msg->data[4] == 1) //se
@@ -1008,18 +1029,35 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::comstatecb(const std_msgs::Float32MultiArrayConstPtr &msg)
     {
-        ui_.label_e1latavg->setText(QString::number(msg->data[0],'f',3));
-        ui_.label_e1latmax->setText(QString::number(msg->data[1],'f',3));
-        ui_.label_e1comavg->setText(QString::number(msg->data[2],'f',3));
-        ui_.label_e1commax->setText(QString::number(msg->data[3],'f',3));
-        ui_.label_e1ovf->setText(QString::number(msg->data[4],'d',3));
+        ui_.label_e1latavg->setText(QString::number(msg->data[0], 'f', 3));
+        ui_.label_e1latmax->setText(QString::number(msg->data[1], 'f', 3));
+        ui_.label_e1comavg->setText(QString::number(msg->data[2], 'f', 3));
+        ui_.label_e1commax->setText(QString::number(msg->data[3], 'f', 3));
+        ui_.label_e1ovf->setText(QString::number((int)msg->data[4]));
 
-        ui_.label_e2latavg->setText(QString::number(msg->data[5],'f',3));
-        ui_.label_e2latmax->setText(QString::number(msg->data[6],'f',3));
-        ui_.label_e2comavg->setText(QString::number(msg->data[7],'f',3));
-        ui_.label_e2commax->setText(QString::number(msg->data[8],'f',3));
-        ui_.label_e2ovf->setText(QString::number(msg->data[9],'d',3));
-    
+        ui_.label_e2latavg->setText(QString::number(msg->data[5], 'f', 3));
+        ui_.label_e2latmax->setText(QString::number(msg->data[6], 'f', 3));
+        ui_.label_e2comavg->setText(QString::number(msg->data[7], 'f', 3));
+        ui_.label_e2commax->setText(QString::number(msg->data[8], 'f', 3));
+        ui_.label_e2ovf->setText(QString::number((int)msg->data[9]));
+
+        ui_.label_e1cnt->setText(QString::number((int)msg->data[10]));
+        ui_.label_e2cnt->setText(QString::number((int)msg->data[11]));
+
+        ui_.label_e1wcnt->setText(QString::number((int)msg->data[12]));
+        ui_.label_e2wcnt->setText(QString::number((int)msg->data[13]));
+
+        int prg_val = (int)(100.0 * msg->data[14]);
+
+        // ui_.torqueStatus->setValue(prg_val);
+
+        pbar->setY(140.5 + 140.5 - 281.0 * msg->data[14]);
+
+        QString str_percentage_;
+
+        str_percentage_.sprintf("%d %%", (int)(100 * msg->data[14]));
+
+        ui_.label_torquerat->setText(str_percentage_);
     }
 
     void TocabiGui::ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
@@ -1257,7 +1295,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         float ang_pelv = msg->polygon.points[4].z;
 
-        Pelv->setPos(QPointF((msg->polygon.points[3].y + 0.07*sin(ang_pelv)) * 250, (msg->polygon.points[3].x + 0.07 * cos(ang_pelv)) * 250));
+        Pelv->setPos(QPointF((msg->polygon.points[3].y + 0.07 * sin(ang_pelv)) * 250, (msg->polygon.points[3].x + 0.07 * cos(ang_pelv)) * 250));
         Pelv->setRotation(ang_pelv * -180.0 / 3.141592);
 
         zmp->setPos(QPointF(msg->polygon.points[7].y * 250, msg->polygon.points[7].x * 250));
@@ -1673,6 +1711,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         }
 
         taskgain_pub.publish(taskgain_msg);
+    }
+
+    void TocabiGui::getCurrentPos()
+    {
+        for (int i = 0; i < 33; i++)
+            ecattexts[i]->setText(QString::number(q_[elng2[i]], 'f', 3));
     }
 
     void TocabiGui::positionCommand()

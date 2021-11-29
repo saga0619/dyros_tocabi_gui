@@ -171,8 +171,6 @@ namespace tocabi_gui
 
         virtual void gs_test();
 
-
-
         //virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
@@ -191,9 +189,13 @@ namespace tocabi_gui
         virtual void positionPreset4();
         virtual void positionRelative(int index);
 
+        virtual void jointstatecb(const sensor_msgs::JointStateConstPtr &msg);
+
         virtual void taskmodecb(int index);
 
         virtual void sendCommand(QString str);
+
+        virtual void getCurrentPos();
 
         //dg
         // virtual void walkingspeedcb(int value);
@@ -201,7 +203,7 @@ namespace tocabi_gui
         // virtual void walkingangvelcb(int value);
         // virtual void kneetargetanglecb(int value);
         // virtual void footheightcb(int value);
-        
+
         virtual void sendupperbodymodecb();
 
         virtual void sendstillposecalibration();
@@ -232,6 +234,7 @@ namespace tocabi_gui
         std::vector<QLineEdit *> ecattexts;
         MyQGraphicsScene *scene;
         MyQGraphicsView *view;
+        QGraphicsScene *scene2;
 
         QGraphicsEllipseItem *com_d;
         QGraphicsRectItem *rfoot_d;
@@ -241,6 +244,7 @@ namespace tocabi_gui
         QGraphicsLineItem *lfoot_l1;
         QGraphicsLineItem *lfoot_l2;
         QGraphicsRectItem *Pelv;
+        QGraphicsRectItem *pbar;
         QGraphicsEllipseItem *zmp;
 
         QGraphicsEllipseItem *rfoot_c;
@@ -309,6 +313,8 @@ namespace tocabi_gui
         //void guiLogCallback(const std_msgs::StringConstPtr &msg);
         std::string logtext;
 
+        std::vector<float> q_;
+
         double com_height = 0;
         double pelv_pitch = 0;
         double upper_pitch = 0;
@@ -321,6 +327,7 @@ namespace tocabi_gui
         void sysstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void ecatstateCallback(const std_msgs::Int8MultiArrayConstPtr &msg);
         void comstateCallback(const std_msgs::Float32MultiArrayConstPtr &msg);
+        void jointstateCallback(const sensor_msgs::JointStateConstPtr &msg);
         void guiLogSignal();
     };
 
@@ -329,6 +336,7 @@ Q_DECLARE_METATYPE(std_msgs::StringConstPtr);
 Q_DECLARE_METATYPE(geometry_msgs::PolygonStampedConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Float32ConstPtr);
 Q_DECLARE_METATYPE(sensor_msgs::ImuConstPtr);
+Q_DECLARE_METATYPE(sensor_msgs::JointStateConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Int32MultiArrayConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Int8MultiArrayConstPtr);
 Q_DECLARE_METATYPE(std_msgs::Float32MultiArrayConstPtr);
