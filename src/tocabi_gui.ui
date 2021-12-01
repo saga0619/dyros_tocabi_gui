@@ -4981,89 +4981,112 @@ F3 : HARD DAMPING(E2)</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_59">
+     <widget class="QLabel" name="label_154">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>211</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upper Body Mode</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="upperbody_mode">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>50</y>
         <width>191</width>
-        <height>101</height>
+        <height>25</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_43">
-       <item>
-        <widget class="QLabel" name="label_154">
-         <property name="text">
-          <string>Upper Body Mode</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="upperbody_mode">
-         <item>
-          <property name="text">
-           <string>1. Init Pose</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2. Zero Pose</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3. Freezing</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>4. Ready Pose</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>5. Head Only Retargeting</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>6. Motion Retargeting(HQPIK1)</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>7. Motion Retargeting(HQPIK2)</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>8. Absolute Hand-Pos Mapping(HQPIK1)</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>9. Proportional Hand-Pos Mapping(HQPIK1)</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>10. N/A</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="send_upperbody_mode_button">
-         <property name="text">
-          <string>Send Mode</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <item>
+       <property name="text">
+        <string>1. Init Pose</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2. Zero Pose</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>3. Freezing</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4. Ready Pose</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>5. Head Only Retargeting</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>6. Motion Retargeting(HQPIK1)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>7. Motion Retargeting(HQPIK2)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8. Absolute Hand-Pos Mapping(HQPIK1)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9. Proportional Hand-Pos Mapping(HQPIK1)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10. N/A</string>
+       </property>
+      </item>
      </widget>
+     <widget class="QPushButton" name="send_upperbody_mode_button">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Send Mode</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_59">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>410</y>
+       <width>339</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_43"/>
     </widget>
    </widget>
   </widget>
