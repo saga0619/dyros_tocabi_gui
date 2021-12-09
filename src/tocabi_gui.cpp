@@ -82,6 +82,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         poscom_pub = nh_.advertise<tocabi_msgs::positionCommand>("/tocabi/positioncommand", 100);
         jointsub = nh_.subscribe("/tocabi/jointstates", 100, &TocabiGui::jointstateCallback, this);
 
+        arm_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
         q_.resize(33);
 
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
@@ -103,6 +104,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         taskgain_msg.dgain.resize(6);
 
         gain_msg.data.resize(33);
+
+        arm_gain_msg.data.resize(16);
         //ecatlabels = {ui_.}
     }
 
@@ -331,6 +334,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.vr_eye_distance_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_distance_cb(int)));
         connect(ui_.vr_eye_depth_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_depth_cb(int)));
+
+        connect(ui_.ArmGainSendBtn, SIGNAL(pressed()), this, SLOT(armGainSend()));
+        
+        connect(ui_.callStiffGainsButton, SIGNAL(pressed()), this, SLOT(setArmStiffPDGain()));
+        connect(ui_.callSoftGainsButton, SIGNAL(pressed()), this, SLOT(setArmSoftPDGain()));
 
         if (sim_mode)
         {
@@ -1776,7 +1784,29 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
         }
     }
+    
+    void TocabiGui::armGainSend()
+    {
+        arm_gain_msg.data[0] = ui_.arm_P_1->text().toFloat();
+        arm_gain_msg.data[1] = ui_.arm_P_2->text().toFloat();
+        arm_gain_msg.data[2] = ui_.arm_P_3->text().toFloat();
+        arm_gain_msg.data[3] = ui_.arm_P_4->text().toFloat();
+        arm_gain_msg.data[4] = ui_.arm_P_5->text().toFloat();
+        arm_gain_msg.data[5] = ui_.arm_P_6->text().toFloat();
+        arm_gain_msg.data[6] = ui_.arm_P_7->text().toFloat();
+        arm_gain_msg.data[7] = ui_.arm_P_8->text().toFloat();
 
+        arm_gain_msg.data[8] = ui_.arm_D_1->text().toFloat();
+        arm_gain_msg.data[9] = ui_.arm_D_2->text().toFloat();
+        arm_gain_msg.data[10] = ui_.arm_D_3->text().toFloat();
+        arm_gain_msg.data[11] = ui_.arm_D_4->text().toFloat();
+        arm_gain_msg.data[12] = ui_.arm_D_5->text().toFloat();
+        arm_gain_msg.data[13] = ui_.arm_D_6->text().toFloat();
+        arm_gain_msg.data[14] = ui_.arm_D_7->text().toFloat();
+        arm_gain_msg.data[15] = ui_.arm_D_8->text().toFloat();
+
+        arm_gain_pub.publish(arm_gain_msg);
+    }
     //dg
     // void TocabiGui::walkingspeedcb(int value)
     // {
@@ -1883,8 +1913,45 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         vr_slider_msg.data[1] = scale / 100;
         vr_slider_pub.publish(vr_slider_msg);
     }
-    void TocabiGui::torqueCommand()
+    void TocabiGui::setArmStiffPDGain()
     {
+        ui_.arm_P_1->setText(QString::number(armPDgainStiff[0], 'f', 2));
+        ui_.arm_P_2->setText(QString::number(armPDgainStiff[1], 'f', 2));
+        ui_.arm_P_3->setText(QString::number(armPDgainStiff[2], 'f', 2));
+        ui_.arm_P_4->setText(QString::number(armPDgainStiff[3], 'f', 2));
+        ui_.arm_P_5->setText(QString::number(armPDgainStiff[4], 'f', 2));
+        ui_.arm_P_6->setText(QString::number(armPDgainStiff[5], 'f', 2));
+        ui_.arm_P_7->setText(QString::number(armPDgainStiff[6], 'f', 2));
+        ui_.arm_P_8->setText(QString::number(armPDgainStiff[7], 'f', 2));
+
+        ui_.arm_D_1->setText(QString::number(armPDgainStiff[8], 'f', 2));
+        ui_.arm_D_2->setText(QString::number(armPDgainStiff[9], 'f', 2));
+        ui_.arm_D_3->setText(QString::number(armPDgainStiff[10], 'f', 2));
+        ui_.arm_D_4->setText(QString::number(armPDgainStiff[11], 'f', 2));
+        ui_.arm_D_5->setText(QString::number(armPDgainStiff[12], 'f', 2));
+        ui_.arm_D_6->setText(QString::number(armPDgainStiff[13], 'f', 2));
+        ui_.arm_D_7->setText(QString::number(armPDgainStiff[14], 'f', 2));
+        ui_.arm_D_8->setText(QString::number(armPDgainStiff[15], 'f', 2));
+    }
+    void TocabiGui::setArmSoftPDGain()
+    {
+        ui_.arm_P_1->setText(QString::number(armPDgainSoft[0], 'f', 2));
+        ui_.arm_P_2->setText(QString::number(armPDgainSoft[1], 'f', 2));
+        ui_.arm_P_3->setText(QString::number(armPDgainSoft[2], 'f', 2));
+        ui_.arm_P_4->setText(QString::number(armPDgainSoft[3], 'f', 2));
+        ui_.arm_P_5->setText(QString::number(armPDgainSoft[4], 'f', 2));
+        ui_.arm_P_6->setText(QString::number(armPDgainSoft[5], 'f', 2));
+        ui_.arm_P_7->setText(QString::number(armPDgainSoft[6], 'f', 2));
+        ui_.arm_P_8->setText(QString::number(armPDgainSoft[7], 'f', 2));
+
+        ui_.arm_D_1->setText(QString::number(armPDgainSoft[8], 'f', 2));
+        ui_.arm_D_2->setText(QString::number(armPDgainSoft[9], 'f', 2));
+        ui_.arm_D_3->setText(QString::number(armPDgainSoft[10], 'f', 2));
+        ui_.arm_D_4->setText(QString::number(armPDgainSoft[11], 'f', 2));
+        ui_.arm_D_5->setText(QString::number(armPDgainSoft[12], 'f', 2));
+        ui_.arm_D_6->setText(QString::number(armPDgainSoft[13], 'f', 2));
+        ui_.arm_D_7->setText(QString::number(armPDgainSoft[14], 'f', 2));
+        ui_.arm_D_8->setText(QString::number(armPDgainSoft[15], 'f', 2));
     }
 
 } // namespace tocabi_gui

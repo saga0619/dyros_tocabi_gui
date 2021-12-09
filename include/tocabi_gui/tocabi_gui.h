@@ -97,6 +97,9 @@ const double posStandard3[33] = {0.01920543546875, 0.014871940644527501, -0.9358
 
 const double posStandard4[33] = {-0.0024006794335925006, -0.0163752415038875, -0.2397534773632875, 0.5841320925976938, -0.37639278761696876, 0.013966892167993749, -0.013956522459999999, -0.05586756867183125, -0.24702454478515623, 0.604725780390375, -0.36744968148409374, 0.06033145183595626, 0.00328563609915, -0.0002761164843624996, -0.005580197773481246, 0.7394552849604688, -0.06400917000946874, 1.3822352858254687, -2.512951525376063, -2.2867085197168064, -0.15787726984375625, 0.9463700754394188, -0.10044504109376251, -0.039350433974599995, 0.07545266430668125, -0.2857076972558437, -0.28594929917966877, -1.4355986313832814, 1.2741931502969999, 0.9974094405859125, -0.0015378154198750216, 0.9348268724121, -0.07143747042969376};
 
+const double armPDgainStiff[16] = {200, 400, 200, 200, 125, 125, 25, 25, 7, 5, 2.5, 2.5, 2.5, 2, 2, 2};
+const double armPDgainSoft[16] = {200, 80, 60, 60, 60, 60, 20, 20, 7, 5, 2.5, 2.5, 2.5, 2, 2, 2};
+
 struct task_que
 {
     std::string task_title;
@@ -215,7 +218,11 @@ namespace tocabi_gui
         virtual void vr_eye_depth_cb(int value);
         virtual void vr_eye_distance_cb(int value);
 
-        virtual void torqueCommand();
+        virtual void armGainSend();
+
+        virtual void setArmStiffPDGain();
+        virtual void setArmSoftPDGain();
+
         void handletaskmsg();
 
     private:
@@ -232,6 +239,8 @@ namespace tocabi_gui
         std::vector<QLabel *> safetylabels;
         std::vector<QLabel *> zplabels;
         std::vector<QLineEdit *> ecattexts;
+        // std::vector<QLineEdit *> armgaintexts;
+
         MyQGraphicsScene *scene;
         MyQGraphicsView *view;
         QGraphicsScene *scene2;
@@ -286,6 +295,8 @@ namespace tocabi_gui
         ros::Publisher velcommand_pub;
         tocabi_msgs::VelocityCommand velcmd_msg;
 
+        ros::Publisher arm_gain_pub;
+        std_msgs::Float32MultiArray arm_gain_msg;
         //dg
         // ros::Publisher walkingspeed_pub;
         // std_msgs::Float32 walkingspeed_msg;
