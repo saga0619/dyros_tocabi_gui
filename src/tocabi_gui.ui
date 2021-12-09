@@ -31,9 +31,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>870</x>
+     <x>880</x>
      <y>0</y>
-     <width>181</width>
+     <width>151</width>
      <height>61</height>
     </rect>
    </property>
@@ -61,10 +61,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>1230</x>
-     <y>0</y>
-     <width>181</width>
-     <height>61</height>
+     <x>1510</x>
+     <y>70</y>
+     <width>81</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="font">
@@ -80,8 +80,9 @@
 color: rgb(238, 238, 236);</string>
    </property>
    <property name="text">
-    <string>EMERGENCY
-STOP</string>
+    <string>EM
+OFF
+(F1)</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5061,7 +5062,7 @@ F3 : HARD DAMPING(E2)</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>80</y>
         <width>191</width>
         <height>25</height>
        </rect>
@@ -5087,6 +5088,116 @@ F3 : HARD DAMPING(E2)</string>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_43"/>
+    </widget>
+    <widget class="QFrame" name="frame_21">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>550</y>
+       <width>211</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="button_resetusb">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RESET USB</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_164">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HAND</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_rungripper">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN GRIPPER</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_22">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>700</y>
+       <width>211</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN MUMBLE</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_165">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HEAD</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN EYE</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -5158,9 +5269,9 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QPushButton" name="torqueoff_button">
    <property name="geometry">
     <rect>
-     <x>1050</x>
+     <x>1030</x>
      <y>0</y>
-     <width>181</width>
+     <width>151</width>
      <height>61</height>
     </rect>
    </property>
@@ -5204,7 +5315,7 @@ F3 : HARD DAMPING(E2)</string>
     <rect>
      <x>660</x>
      <y>10</y>
-     <width>194</width>
+     <width>198</width>
      <height>41</height>
     </rect>
    </property>
@@ -5318,7 +5429,7 @@ F3 : HARD DAMPING(E2)</string>
     <rect>
      <x>960</x>
      <y>70</y>
-     <width>621</width>
+     <width>531</width>
      <height>281</height>
     </rect>
    </property>
@@ -5593,10 +5704,10 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>1410</x>
-     <y>0</y>
-     <width>91</width>
-     <height>61</height>
+     <x>1510</x>
+     <y>170</y>
+     <width>81</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="font">
@@ -5608,7 +5719,9 @@ F3 : HARD DAMPING(E2)</string>
     </font>
    </property>
    <property name="text">
-    <string>E1</string>
+    <string>EM
+STOP
+(F2)</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5718,10 +5831,10 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>1500</x>
-     <y>0</y>
+     <x>1510</x>
+     <y>270</y>
      <width>81</width>
-     <height>61</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
@@ -6364,6 +6477,66 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="horizontalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="systemon_button">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1290</x>
+     <y>0</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>SYSTEM ON</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="systemoff_button">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1440</x>
+     <y>0</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>SYSTEM OFF</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

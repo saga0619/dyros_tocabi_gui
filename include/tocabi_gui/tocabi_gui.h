@@ -16,6 +16,7 @@
 #include <QStateMachine>
 #include <QState>
 #include <QEventTransition>
+#include <QTimer>
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
@@ -218,12 +219,20 @@ namespace tocabi_gui
         virtual void torqueCommand();
         void handletaskmsg();
 
+        virtual void tocabiStarter();
+        virtual void tocabiStopper();
+
+        virtual void QTimerCallback();
+
+
     private:
         //ROS_DEPRECATED virtual QList<QString>
         std::vector<task_que> tq_;
 
         Ui::TocabiGuiWidget ui_;
         QWidget *widget_;
+
+        QTimer *timer_;
 
         //QStringListModel *model;
         //QStringList list;
@@ -285,6 +294,10 @@ namespace tocabi_gui
 
         ros::Publisher velcommand_pub;
         tocabi_msgs::VelocityCommand velcmd_msg;
+
+        ros::Publisher tocabi_starter_pub;
+
+        ros::Publisher tocabi_stopper_pub;
 
         //dg
         // ros::Publisher walkingspeed_pub;
