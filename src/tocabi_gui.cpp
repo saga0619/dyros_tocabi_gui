@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <QDebug>
+
 #ifdef COMPILE_MELODIC
 #include "qxtglobalshortcut.h"
 #endif
@@ -83,6 +84,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         jointsub = nh_.subscribe("/tocabi/jointstates", 100, &TocabiGui::jointstateCallback, this);
 
         arm_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
+        
+        tocabi_starter_pub = nh_.advertise<std_msgs::String>("/tocabi/starter", 100);
+        tocabi_stopper_pub = nh_.advertise<std_msgs::String>("/tocabi/stopper", 100);
         q_.resize(33);
 
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
@@ -109,10 +113,55 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //ecatlabels = {ui_.}
     }
 
+    void TocabiGui::QTimerCallback()
+    {
+        static double stored_timer = 0;
+
+        static bool connected = false;
+
+        if (connected)
+        {
+
+            if (stored_timer == robot_time)
+            {
+                std::cout << "Disconnected" << std::endl;
+                ui_.currenttime->setText(QString::fromUtf8("DISCON"));
+                connected = false;
+            }
+        }
+        else
+        {
+            if (robot_time > stored_timer)
+            {
+                std::cout << "Connected" << std::endl;
+                connected = true;
+            }
+        }
+
+        stored_timer = robot_time;
+    }
+
     void TocabiGui::sendCommand(QString str)
     {
         com_msg.data = str.toStdString();
         com_pub.publish(com_msg);
+    }
+
+    void TocabiGui::tocabiStarter()
+    {
+        std_msgs::String msg_starter;
+
+        msg_starter.data = "start_tocabi";
+
+        tocabi_starter_pub.publish(msg_starter);
+    }
+    void TocabiGui::tocabiStopper()
+    {
+        std_msgs::String msg_stopper;
+
+        msg_stopper.data = "stop_tocabi";
+
+        tocabi_stopper_pub.publish(msg_stopper);
     }
 
     void TocabiGui::initPlugin(qt_gui_cpp::PluginContext &context)
@@ -134,6 +183,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.safetyresetbtn->setShortcut(QKeySequence(Qt::Key_R));
         //ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
         //ui_.emergencyoff_button_2->setShortcut(QkeySequence(Qr))
+
+        timer_ = new QTimer();
+
+        connect(timer_, SIGNAL(timeout()), this, SLOT(QTimerCallback()));
+
+        timer_->start(100);
 
         QSignalMapper *signalMapper = new QSignalMapper(this);
 
@@ -218,6 +273,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.forceloadbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.forceloadbtn, "forceload");
 
+        connect(ui_.systemon_button, SIGNAL(pressed()), this, SLOT(tocabiStarter()));
+        connect(ui_.systemoff_button, SIGNAL(pressed()), this, SLOT(tocabiStopper()));
+
         //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 #ifdef COMPILE_MELODIC
         QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
@@ -238,7 +296,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QxtGlobalShortcut *sc_grav = new QxtGlobalShortcut(this);
         sc_grav->setShortcut(QKeySequence("F4"));
         connect(sc_grav, SIGNAL(activated()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(sc_grav, "gravity");
+        signalMapper->setMapping(sc_grav, "positioncontrol");
 
 #endif
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));

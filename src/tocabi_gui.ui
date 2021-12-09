@@ -31,9 +31,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>870</x>
+     <x>880</x>
      <y>0</y>
-     <width>181</width>
+     <width>151</width>
      <height>61</height>
     </rect>
    </property>
@@ -61,10 +61,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>1230</x>
-     <y>0</y>
-     <width>181</width>
-     <height>61</height>
+     <x>1510</x>
+     <y>70</y>
+     <width>81</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="font">
@@ -80,8 +80,9 @@
 color: rgb(238, 238, 236);</string>
    </property>
    <property name="text">
-    <string>EMERGENCY
-STOP</string>
+    <string>EM
+OFF
+(F1)</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5061,7 +5062,7 @@ F3 : HARD DAMPING(E2)</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>80</y>
         <width>191</width>
         <height>25</height>
        </rect>
@@ -5077,245 +5078,12 @@ F3 : HARD DAMPING(E2)</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_59">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>370</y>
-       <width>160</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_43">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12"/>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="gridLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>720</y>
-       <width>781</width>
-       <height>125</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QLineEdit" name="arm_P_1"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_2"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_3"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_4"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_5"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_6"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_7"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_P_8"/>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_13">
-        <item>
-         <widget class="QLineEdit" name="arm_D_1"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_2"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_3"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_4"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_5"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_6"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_7"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arm_D_8"/>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
-        <item>
-         <widget class="QLabel" name="label_164">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_165">
-          <property name="text">
-           <string>2</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_167">
-          <property name="text">
-           <string>3</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_166">
-          <property name="text">
-           <string>4</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_168">
-          <property name="text">
-           <string>5</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_169">
-          <property name="text">
-           <string>6</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_170">
-          <property name="text">
-           <string>7</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_171">
-          <property name="text">
-           <string>8</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_175">
-        <property name="text">
-         <string>P gain</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_176">
-        <property name="text">
-         <string>Arm Joints</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_177">
-        <property name="text">
-         <string>D gain</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="ArmGainSendBtn">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>690</y>
-       <width>101</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Send Gains</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="callStiffGainsButton">
-     <property name="geometry">
-      <rect>
-       <x>158</x>
-       <y>690</y>
-       <width>131</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Call Stiff Gains</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="callSoftGainsButton">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>690</y>
-       <width>131</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Call Soft Gains</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame_21">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>650</y>
-       <width>821</width>
+       <x>20</x>
+       <y>640</y>
+       <width>801</width>
        <height>221</height>
       </rect>
      </property>
@@ -5338,15 +5106,340 @@ F3 : HARD DAMPING(E2)</string>
        <string>ARM JOINT GAIN SETTING</string>
       </property>
      </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>761</width>
+        <height>125</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLineEdit" name="arm_P_1"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_2"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_3"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_4"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_5"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_6"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_7"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_P_8"/>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QLineEdit" name="arm_D_1"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_2"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_3"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_4"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_5"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_6"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_7"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="arm_D_8"/>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_164">
+           <property name="text">
+            <string>1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_165">
+           <property name="text">
+            <string>2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_167">
+           <property name="text">
+            <string>3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_166">
+           <property name="text">
+            <string>4</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_168">
+           <property name="text">
+            <string>5</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_169">
+           <property name="text">
+            <string>6</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_170">
+           <property name="text">
+            <string>7</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_171">
+           <property name="text">
+            <string>8</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_175">
+         <property name="text">
+          <string>P gain</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_176">
+         <property name="text">
+          <string>Arm Joints</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_177">
+         <property name="text">
+          <string>D gain</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="callSoftGainsButton">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>34</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Call Soft Gains</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="callStiffGainsButton">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>34</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Call Stiff Gains</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ArmGainSendBtn">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>91</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Send Gains</string>
+      </property>
+     </widget>
     </widget>
+    <widget class="QFrame" name="frame_21">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>310</y>
+       <width>211</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="button_resetusb">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RESET USB</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_164">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HAND</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_rungripper">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN GRIPPER</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_22">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>310</y>
+       <width>211</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN MUMBLE</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_165">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HEAD</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>191</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RUN EYE</string>
+      </property>
+     </widget>
+    </widget>
+    <zorder>frame_21</zorder>
+    <zorder>frame_22</zorder>
     <zorder>frame_21</zorder>
     <zorder>gridLayoutWidget_4</zorder>
     <zorder>frame_23</zorder>
-    <zorder>verticalLayoutWidget_59</zorder>
-    <zorder>gridLayoutWidget</zorder>
-    <zorder>ArmGainSendBtn</zorder>
-    <zorder>callStiffGainsButton</zorder>
-    <zorder>callSoftGainsButton</zorder>
    </widget>
   </widget>
   <widget class="QPushButton" name="ecat_btn">
@@ -5417,9 +5510,9 @@ F3 : HARD DAMPING(E2)</string>
   <widget class="QPushButton" name="torqueoff_button">
    <property name="geometry">
     <rect>
-     <x>1050</x>
+     <x>1030</x>
      <y>0</y>
-     <width>181</width>
+     <width>151</width>
      <height>61</height>
     </rect>
    </property>
@@ -5463,7 +5556,7 @@ F3 : HARD DAMPING(E2)</string>
     <rect>
      <x>660</x>
      <y>10</y>
-     <width>194</width>
+     <width>198</width>
      <height>41</height>
     </rect>
    </property>
@@ -5577,7 +5670,7 @@ F3 : HARD DAMPING(E2)</string>
     <rect>
      <x>960</x>
      <y>70</y>
-     <width>621</width>
+     <width>531</width>
      <height>281</height>
     </rect>
    </property>
@@ -5852,10 +5945,10 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>1410</x>
-     <y>0</y>
-     <width>91</width>
-     <height>61</height>
+     <x>1510</x>
+     <y>170</y>
+     <width>81</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="font">
@@ -5867,7 +5960,9 @@ F3 : HARD DAMPING(E2)</string>
     </font>
    </property>
    <property name="text">
-    <string>E1</string>
+    <string>EM
+STOP
+(F2)</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -5977,10 +6072,10 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>1500</x>
-     <y>0</y>
+     <x>1510</x>
+     <y>270</y>
      <width>81</width>
-     <height>61</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
@@ -6623,6 +6718,66 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="horizontalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="systemon_button">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1290</x>
+     <y>0</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>SYSTEM ON</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="systemoff_button">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>1440</x>
+     <y>0</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>SYSTEM OFF</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
