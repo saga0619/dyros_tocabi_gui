@@ -5078,7 +5078,7 @@ F3 : HARD DAMPING(E2)</string>
       </property>
      </widget>
     </widget>
-    <widget class="QFrame" name="frame_21">
+    <widget class="QFrame" name="frame_24">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -5175,7 +5175,7 @@ F3 : HARD DAMPING(E2)</string>
        <item row="0" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <item>
-          <widget class="QLabel" name="label_164">
+          <widget class="QLabel" name="label_164_0">
            <property name="text">
             <string>1</string>
            </property>
@@ -5185,7 +5185,7 @@ F3 : HARD DAMPING(E2)</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_165">
+          <widget class="QLabel" name="label_165_0">
            <property name="text">
             <string>2</string>
            </property>
@@ -5435,7 +5435,7 @@ F3 : HARD DAMPING(E2)</string>
       </property>
      </widget>
     </widget>
-    <zorder>frame_21</zorder>
+    <zorder>frame_24</zorder>
     <zorder>frame_22</zorder>
     <zorder>frame_21</zorder>
     <zorder>gridLayoutWidget_4</zorder>
