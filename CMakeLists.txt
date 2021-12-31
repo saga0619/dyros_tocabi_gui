@@ -18,19 +18,14 @@ find_package(catkin REQUIRED COMPONENTS
 
 
 
-if($ENV{ROS_DISTRO} STREQUAL "melodic")
+if($ENV{ROS_DISTRO} STREQUAL "melodic" OR $ENV{ROS_DISTRO} STREQUAL "noetic")
   message("Using ROS melodic")
-
   find_package(Qt5 REQUIRED Core Widgets X11Extras Gui)
-
   ADD_DEFINITIONS(-DCOMPILE_MELODIC)
-
 elseif($ENV{ROS_DISTRO} STREQUAL "kinetic")
   message("Using ROS kinetic")
   find_package(Qt5 REQUIRED Core Widgets)
-
   ADD_DEFINITIONS(-DCOMPILE_KINETIC)
-
 else()
   message("Unknown ROS distro:")
   message($ENV{ROS_DISTRO})
@@ -77,7 +72,7 @@ qt5_wrap_ui(tocabi_gui_UIS_H ${tocabi_gui_UIS})
 ## Build ##
 ###########
 
-if($ENV{ROS_DISTRO} STREQUAL "melodic")
+if($ENV{ROS_DISTRO} STREQUAL "melodic" OR $ENV{ROS_DISTRO} STREQUAL "noetic")
   include_directories(
     include
     core
