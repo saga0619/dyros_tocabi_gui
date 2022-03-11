@@ -269,6 +269,10 @@ namespace tocabi_gui
         QGraphicsEllipseItem *rhand_c;
         QGraphicsEllipseItem *lhand_c;
 
+
+        QGraphicsEllipseItem *rfoot_zmp;
+        QGraphicsEllipseItem *lfoot_zmp;
+
         double robot_time;
 
         ros::NodeHandle nh_;
