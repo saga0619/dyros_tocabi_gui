@@ -29,11 +29,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }*/
     void MyQGraphicsScene::wheelEvent(QGraphicsSceneWheelEvent *event)
     {
-        //std::cout << parent()->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
+        // std::cout << parent()->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
 
         QGraphicsView *view_ = parent()->findChild<QGraphicsView *>("graphicsViewCustom");
 
-        //view_->setViewport();
+        // view_->setViewport();
 
         double scaleFactor = 0.1;
         const qreal minFactor = 1.0;
@@ -68,7 +68,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         qRegisterMetaType<std_msgs::Int8MultiArrayConstPtr>();
         setObjectName("TocabiGui");
 
-        //initPlugin()
+        // initPlugin()
         pointsub = nh_.subscribe("/tocabi/point", 100, &TocabiGui::pointCallback, this);
         timesub = nh_.subscribe("/tocabi/time", 100, &TocabiGui::timerCallback, this);
         sysstatesub = nh_.subscribe("/tocabi/systemstate", 1000, &TocabiGui::sysstateCallback, this);
@@ -84,7 +84,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         jointsub = nh_.subscribe("/tocabi/jointstates", 100, &TocabiGui::jointstateCallback, this);
 
         arm_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
-        
+
         tocabi_starter_pub = nh_.advertise<std_msgs::String>("/tocabi/starter", 100);
         tocabi_stopper_pub = nh_.advertise<std_msgs::String>("/tocabi/stopper", 100);
         q_.resize(33);
@@ -92,14 +92,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
         ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 100, &TocabiGui::comstateCallback, this);
 
-        //dg
-        // walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
-        // walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
-        // walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
-        // kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
-        // footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
+        // dg
+        //  walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
+        //  walkingduration_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingdurationcommand", 100);
+        //  walkingangvel_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingangvelcommand", 100);
+        //  kneetargetangle_pub = nh_.advertise<std_msgs::Float32>("/tocabi/kneetargetanglecommand", 100);
+        //  footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
 
-        //avatar
+        // avatar
         upperbodymode_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/upperbodymodecommand", 100);
         pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/pose_calibration_flag", 100);
         vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/avatar/vr_caliabration_param", 100);
@@ -110,7 +110,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         gain_msg.data.resize(33);
 
         arm_gain_msg.data.resize(16);
-        //ecatlabels = {ui_.}
+        // ecatlabels = {ui_.}
     }
 
     void TocabiGui::QTimerCallback()
@@ -181,8 +181,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.torqueon_button->setShortcut(QKeySequence(Qt::Key_E));
         ui_.torqueoff_button->setShortcut(QKeySequence(Qt::Key_C));
         ui_.safetyresetbtn->setShortcut(QKeySequence(Qt::Key_R));
-        //ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
-        //ui_.emergencyoff_button_2->setShortcut(QkeySequence(Qr))
+        // ui_.emergencyoff_button->setShortcut(QKeySequence(Qt::Key_Escape));
+        // ui_.emergencyoff_button_2->setShortcut(QkeySequence(Qr))
 
         timer_ = new QTimer();
 
@@ -240,8 +240,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.torqueredis, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.torqueredis, "torqueredis");
 
-        //connect(ui_.qp2nd, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        //signalMapper->setMapping(ui_.qp2nd, "qp2nd");
+        // connect(ui_.qp2nd, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        // signalMapper->setMapping(ui_.qp2nd, "qp2nd");
 
         connect(ui_.gravity_button_4, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.gravity_button_4, "gravity");
@@ -276,7 +276,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.systemon_button, SIGNAL(pressed()), this, SLOT(tocabiStarter()));
         connect(ui_.systemoff_button, SIGNAL(pressed()), this, SLOT(tocabiStopper()));
 
-        //connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
+        // connect(ui_.contact_button_4, SIGNAL(pressed()), this, SLOT(fixedgravcb()));
 #ifdef COMPILE_MELODIC
         QxtGlobalShortcut *sc_E0 = new QxtGlobalShortcut(this);
         sc_E0->setShortcut(QKeySequence("F1"));
@@ -301,9 +301,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 #endif
         connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(sendCommand(QString)));
 
-        //Sending command end!
+        // Sending command end!
 
-        //Select tabs..
+        // Select tabs..
         connect(ui_.ecat_btn, SIGNAL(pressed()), this, SLOT(ecatpbtn()));
         connect(ui_.stat_btn, SIGNAL(pressed()), this, SLOT(statpbtn()));
         connect(ui_.command_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
@@ -344,7 +344,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(this, &TocabiGui::comstateCallback, this, &TocabiGui::comstatecb);
         connect(this, &TocabiGui::jointstateCallback, this, &TocabiGui::jointstatecb);
 
-        //connect(ui_)
+        // connect(ui_)
         connect(ui_.safetyresetbtn, SIGNAL(pressed()), this, SLOT(safetyresetbtncb()));
         connect(ui_.safetyresetbtn_2, SIGNAL(pressed()), this, SLOT(safety2btncb()));
 
@@ -354,7 +354,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
 
-        //connect(ui_.)
+        // connect(ui_.)
 
         connect(ui_.que_add, SIGNAL(pressed()), this, SLOT(que_addquebtn()));
         connect(ui_.que_delete, SIGNAL(pressed()), this, SLOT(que_deletebtn()));
@@ -374,14 +374,14 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.horizontalSlider_2, SIGNAL(sliderReleased()), this, SLOT(sliderrel2()));
         connect(ui_.horizontalSlider_3, SIGNAL(sliderReleased()), this, SLOT(sliderrel3()));
 
-        //dg
-        // connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
-        // connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
-        // connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
-        // connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
-        // connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
+        // dg
+        //  connect(ui_.walking_speed_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingspeedcb(int)));
+        //  connect(ui_.walking_duration_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingdurationcb(int)));
+        //  connect(ui_.walking_angvel_slider_2, SIGNAL(valueChanged(int)), this, SLOT(walkingangvelcb(int)));
+        //  connect(ui_.knee_target_angle_slider_2, SIGNAL(valueChanged(int)), this, SLOT(kneetargetanglecb(int)));
+        //  connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
 
-        //avatar
+        // avatar
         connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
 
         connect(ui_.still_pose_button, SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
@@ -394,7 +394,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.vr_eye_depth_slider, SIGNAL(valueChanged(int)), this, SLOT(vr_eye_depth_cb(int)));
 
         connect(ui_.ArmGainSendBtn, SIGNAL(pressed()), this, SLOT(armGainSend()));
-        
+
         connect(ui_.callStiffGainsButton, SIGNAL(pressed()), this, SLOT(setArmStiffPDGain()));
         connect(ui_.callSoftGainsButton, SIGNAL(pressed()), this, SLOT(setArmSoftPDGain()));
 
@@ -427,7 +427,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         safetylabels.resize(33);
         zplabels.resize(33);
 
-        //head
+        // head
         for (int i = 0; i < 2; i++)
         {
             ecatlabels[i] = new QLabel(ui_.head_layout->parentWidget());
@@ -518,7 +518,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             zplabels[i]->setFrameShape(QFrame::Panel);
         }
 
-        //ecat constant tune
+        // ecat constant tune
         ecattexts.resize(33);
         for (int i = 0; i < 2; i++)
         {
@@ -576,7 +576,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         view->setResizeAnchor(QGraphicsView::NoAnchor);
 
         scene = new MyQGraphicsScene(widget_);
-        //scene->setSceneRect(0, 0, view->width(), view->height());
+        // scene->setSceneRect(0, 0, view->width(), view->height());
         view->setScene(scene);
 
         scene2 = new QGraphicsScene(widget_);
@@ -587,7 +587,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         scene2->addItem(pbar);
 
-        //std::cout << widget_->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
+        // std::cout << widget_->findChild<QObject *>("graphicsViewCustom")->objectName().toStdString() << std::endl;
 
         QBrush redbrush(Qt::red);
         QBrush bluebrush(Qt::blue);
@@ -624,19 +624,19 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QGraphicsTextItem *front = scene->addText("front");
         front->setPos(0, 50);
 
-        //ui_.graphicsView->scale(10, 10);
+        // ui_.graphicsView->scale(10, 10);
 
-        //ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
+        // ui_.graphicsView->setSceneRect(-210, -260, 421, 521);
 
-        //for(int i=0;i<)
+        // for(int i=0;i<)
 
         //    label_40 = new QLabel(verticalLayoutWidget);
         //    label_40->setObjectName(QStringLiteral("label_40"));
 
         //    leftarm_layout->addWidget(label_40);
 
-        //widget_->s
-        //connect(ui_.log_btn,SIGNAL(pressed()),this,SLOR(ui_.))
+        // widget_->s
+        // connect(ui_.log_btn,SIGNAL(pressed()),this,SLOR(ui_.))
         /*
     line = new QLineSeries();
     chart = new QChart();
@@ -696,8 +696,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     ui_.imu_yaw->setChart(chart_yaw);
     ui_.imu_yaw->setRenderHint(QPainter::Antialiasing);*/
 
-        //QChartView *chartView = new QChartView(chart, ui_.widget);
-        //chartView->setRenderHint(QPainter::Antialiasing);
+        // QChartView *chartView = new QChartView(chart, ui_.widget);
+        // chartView->setRenderHint(QPainter::Antialiasing);
     }
     void TocabiGui::shutdownPlugin()
     {
@@ -833,7 +833,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg)
     {
-        if (msg->data[0] == 0) //imu
+        if (msg->data[0] == 0) // imu
         {
             ui_.label_imustatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
             ui_.label_imustatus->setText(QString::fromUtf8("NOT OK"));
@@ -875,7 +875,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_ecat1status->setText(QString::fromUtf8("SIM MODE"));
         }
 
-        if (msg->data[2] == 0) //ft
+        if (msg->data[2] == 0) // ft
         {
             ui_.label_ftstatus->setStyleSheet("QLabel { background-color : red ; color : white; }");
             ui_.label_ftstatus->setText(QString::fromUtf8("NOT OK"));
@@ -896,7 +896,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_ftstatus->setText(QString::fromUtf8("SIM MODE"));
         }
 
-        if (msg->data[3] == 0) //ecat
+        if (msg->data[3] == 0) // ecat
         {
             ui_.label_ecat2status->setStyleSheet("QLabel { background-color : red ; color : white; }");
             ui_.label_ecat2status->setText(QString::fromUtf8("NOT OK"));
@@ -917,7 +917,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_ecat2status->setText(QString::fromUtf8("SIM MODE"));
         }
 
-        if (msg->data[4] == 1) //se
+        if (msg->data[4] == 1) // se
         {
             ui_.label_sestatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
             ui_.label_sestatus->setText(QString::fromUtf8("ON"));
@@ -928,7 +928,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             ui_.label_sestatus->setText(QString::fromUtf8("OFF"));
         }
 
-        if (msg->data[5] == 0) //tc
+        if (msg->data[5] == 0) // tc
         {
             ui_.label_tcstatus->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
             ui_.label_tcstatus->setText(QString::fromUtf8("ON"));
@@ -1138,7 +1138,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             int num_zp = msg->data[i + 33];
             int num_safety = msg->data[i + 66];
 
-            //safety->elmo->zp
+            // safety->elmo->zp
 
             if (num_safety == 0)
             {
@@ -1166,7 +1166,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
             }
 
-            if (num_ecat == 0) //zp started
+            if (num_ecat == 0) // zp started
             {
                 ecatlabels[mo2g[i]]->setText(QString::fromUtf8("0"));
                 ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
@@ -1192,7 +1192,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
             }
 
-            if (num_zp == 0) //zp started
+            if (num_zp == 0) // zp started
             {
                 zplabels[mo2g[i]]->setText(QString::fromUtf8("zp"));
                 zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
@@ -1227,7 +1227,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::plainTextEditcb(const std_msgs::StringConstPtr &msg)
     {
-        //std::cout << msg->data << std::endl;
+        // std::cout << msg->data << std::endl;
         std::string rcv_msg;
         rcv_msg = msg->data;
         std::string word;
@@ -1246,22 +1246,22 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         if (words[0] == "jointzp")
         {
             int num = elng[atoi(words[1].c_str())];
-            if (atoi(words[2].c_str()) == 0) //zp started
+            if (atoi(words[2].c_str()) == 0) // zp started
             {
                 ecatlabels[num]->setText(QString::fromUtf8("zp"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
-            else if (atoi(words[2].c_str()) == 1) //zp success
+            else if (atoi(words[2].c_str()) == 1) // zp success
             {
                 ecatlabels[num]->setText(QString::fromUtf8("ok"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
             }
-            else if (atoi(words[2].c_str()) == 2) //zp manual
+            else if (atoi(words[2].c_str()) == 2) // zp manual
             {
                 ecatlabels[num]->setText(QString::fromUtf8("manual"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
             }
-            else if (atoi(words[2].c_str()) == 3) //failed
+            else if (atoi(words[2].c_str()) == 3) // failed
             {
                 ecatlabels[num]->setText(QString::fromUtf8("fail"));
                 ecatlabels[num]->setStyleSheet("QLabel { background-color : red ; color : white; }");
@@ -1277,7 +1277,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             int num = mo2g[atoi(words[1].c_str())];
             if ((num < 0) || (num > 32))
             {
-                //std::cout << "Joint Number Exceed" << std::endl;
+                // std::cout << "Joint Number Exceed" << std::endl;
             }
             else
             {
@@ -1338,10 +1338,10 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::pointcb(const geometry_msgs::PolygonStampedConstPtr &msg)
     {
-        //msg->polygon.points[0].x;
-        //msg->polygon.points[0].y;
+        // msg->polygon.points[0].x;
+        // msg->polygon.points[0].y;
 
-        //std::cout<<msg->polygon.points[0].x*25<<std::endl;
+        // std::cout<<msg->polygon.points[0].x*25<<std::endl;
 
         com_d->setPos(QPointF(msg->polygon.points[0].y * 250, msg->polygon.points[0].x * 250));
 
@@ -1363,8 +1363,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
 
         lfoot_zmp->setPos(QPointF(msg->polygon.points[13].y * 250, msg->polygon.points[13].x * 250));
+
         rfoot_zmp->setPos(QPointF(msg->polygon.points[14].y * 250, msg->polygon.points[14].x * 250));
-        
+
         float ang_pelv = msg->polygon.points[4].z;
 
         Pelv->setPos(QPointF((msg->polygon.points[3].y + 0.07 * sin(ang_pelv)) * 250, (msg->polygon.points[3].x + 0.07 * cos(ang_pelv)) * 250));
@@ -1375,7 +1376,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_64->setText(QString::number(msg->polygon.points[2].x, 'f', 5));
         ui_.label_65->setText(QString::number(msg->polygon.points[2].y, 'f', 5));
 
-        //pelvis rpy
+        // pelvis rpy
 
         pelv_pitch = msg->polygon.points[4].y * 180.0 / 3.141592;
         upper_pitch = msg->polygon.points[14].y * 180.0 / 3.141592;
@@ -1388,35 +1389,51 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ui_.label_21->setText(QString::number(msg->polygon.points[3].y, 'f', 5));
         ui_.label_91->setText(QString::number(msg->polygon.points[3].z, 'f', 5));
 
-        //zmp by ft
+        // zmp by ft
 
         ui_.label_22->setText(QString::number(msg->polygon.points[7].x, 'f', 5));
         ui_.label_23->setText(QString::number(msg->polygon.points[7].y, 'f', 5));
 
-        //Right hand
+        // Right hand
         ui_.label_126->setText(QString::number(msg->polygon.points[5].x, 'f', 5));
         ui_.label_127->setText(QString::number(msg->polygon.points[5].y, 'f', 5));
         ui_.label_128->setText(QString::number(msg->polygon.points[5].z, 'f', 5));
 
-        //Left hand
+        // Left hand
         ui_.label_119->setText(QString::number(msg->polygon.points[6].x, 'f', 5));
         ui_.label_120->setText(QString::number(msg->polygon.points[6].y, 'f', 5));
         ui_.label_121->setText(QString::number(msg->polygon.points[6].z, 'f', 5));
 
-        //LF orient
+        // LF orient
         ui_.label_105->setText(QString::number(msg->polygon.points[8].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_106->setText(QString::number(msg->polygon.points[8].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_107->setText(QString::number(msg->polygon.points[8].z * 180.0 / 3.141592, 'f', 5));
 
-        //RF orient
+        // RF orient
         ui_.label_112->setText(QString::number(msg->polygon.points[9].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_113->setText(QString::number(msg->polygon.points[9].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_114->setText(QString::number(msg->polygon.points[9].z * 180.0 / 3.141592, 'f', 5));
 
-        //Upper orient
+        // Upper orient
         ui_.label_96->setText(QString::number(msg->polygon.points[10].x * 180.0 / 3.141592, 'f', 5));
         ui_.label_97->setText(QString::number(msg->polygon.points[10].y * 180.0 / 3.141592, 'f', 5));
         ui_.label_98->setText(QString::number(msg->polygon.points[10].z * 180.0 / 3.141592, 'f', 5));
+
+        // ft display
+
+        ui_.ft0->setText(QString::number(msg->polygon.points[15].x, 'f', 5));
+        ui_.ft1->setText(QString::number(msg->polygon.points[15].y, 'f', 5));
+        ui_.ft2->setText(QString::number(msg->polygon.points[15].z, 'f', 5));
+        ui_.ft3->setText(QString::number(msg->polygon.points[16].x, 'f', 5));
+        ui_.ft4->setText(QString::number(msg->polygon.points[16].y, 'f', 5));
+        ui_.ft5->setText(QString::number(msg->polygon.points[16].z, 'f', 5));
+
+        ui_.ft6->setText(QString::number(msg->polygon.points[17].x, 'f', 5));
+        ui_.ft7->setText(QString::number(msg->polygon.points[17].y, 'f', 5));
+        ui_.ft8->setText(QString::number(msg->polygon.points[17].z, 'f', 5));
+        ui_.ft9->setText(QString::number(msg->polygon.points[18].x, 'f', 5));
+        ui_.ft10->setText(QString::number(msg->polygon.points[18].y, 'f', 5));
+        ui_.ft11->setText(QString::number(msg->polygon.points[18].z, 'f', 5));
 
         double com_x = msg->polygon.points[0].x;
         double com_y = msg->polygon.points[0].y;
@@ -1435,7 +1452,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         double dis = ((a * com_x + b * com_y + c)) / sqrt(a * a + b * b);
 
-        //com distance from both foot
+        // com distance from both foot
 
         dis = msg->polygon.points[0].z;
         ui_.label_3->setText(QString::number(dis, 'f', 5));
@@ -1451,7 +1468,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         ui_.label_42->setText(QString::number(dis, 'f', 5));
 
-        //ui_.graphicsView->setSceneRect(0, 0, 0, 0);
+        // ui_.graphicsView->setSceneRect(0, 0, 0, 0);
     }
 
     void TocabiGui::sendtunebtn()
@@ -1535,7 +1552,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         handletaskmsg();
         tq_temp.tc_ = task_msg;
-        //ui_.text_que->text().toStdString();
+        // ui_.text_que->text().toStdString();
 
         std::stringstream ss;
         ss << "task " << tq_.size() + 1 << " : ";
@@ -1544,9 +1561,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         tq_.push_back(tq_temp);
 
-        //list.append(ui_.text_que->text());
+        // list.append(ui_.text_que->text());
 
-        //ui_.que_list->set
+        // ui_.que_list->set
     }
 
     void TocabiGui::tasksendcb()
@@ -1848,7 +1865,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         {
         }
     }
-    
+
     void TocabiGui::armGainSend()
     {
         arm_gain_msg.data[0] = ui_.arm_P_1->text().toFloat();
@@ -1871,12 +1888,12 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
 
         arm_gain_pub.publish(arm_gain_msg);
     }
-    //dg
-    // void TocabiGui::walkingspeedcb(int value)
-    // {
-    //     double max_speed = 0.6;
-    //     double min_speed = -0.4;
-    //     double scale = value;
+    // dg
+    //  void TocabiGui::walkingspeedcb(int value)
+    //  {
+    //      double max_speed = 0.6;
+    //      double min_speed = -0.4;
+    //      double scale = value;
 
     //     walkingspeed_msg.data = scale / 100 * (max_speed - min_speed) + min_speed;
     //     walkingspeed_pub.publish(walkingspeed_msg);
@@ -1924,7 +1941,7 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     //     footheight_pub.publish(footheight_msg);
     // }
 
-    //avatar
+    // avatar
     void TocabiGui::sendupperbodymodecb()
     {
         upperbodymode_msg.data = ui_.upperbody_mode->currentIndex() + 1;
