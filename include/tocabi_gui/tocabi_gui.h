@@ -40,42 +40,61 @@
 #include "tocabi_msgs/positionCommand.h"
 
 const double NM2CNT[33] =
-    {       //Elmo 순서
-        95, //head
+    {       // Elmo 순서
+        95, // head
         95,
-        95, //wrist
+        95, // wrist
         95,
         95,
         95,
-        15.5, //shoulder3
-        15.5, //arm
-        15.5, //arm
-        15.5, //shoulder3
-        42,   //Elbow
-        42,   //Forearm
-        42,   //Forearm
-        42,   //Elbow
-        15.5, //shoulder1
-        15.5, //shoulder2
-        15.5, //shoulder2
-        15.5, //shoulder1
-        3.3,  //Waist
+        15.5, // shoulder3
+        15.5, // arm
+        15.5, // arm
+        15.5, // shoulder3
+        42,   // Elbow
+        42,   // Forearm
+        42,   // Forearm
+        42,   // Elbow
+        15.5, // shoulder1
+        15.5, // shoulder2
+        15.5, // shoulder2
+        15.5, // shoulder1
+        3.3,  // Waist
         3.3,
-        5.8, //rightLeg
+        5.8, // rightLeg
         4.3,
         3.8,
         3.46,
         3.52,
         12.33,
-        3.3, //upperbody
-        5.8, //leftLeg
+        3.3, // upperbody
+        5.8, // leftLeg
         4.3,
         3.8,
         3.46,
         3.52,
         12.33};
 
-//leftleg rightleg waist leftarm head rightarm
+const double NM2CNT_J[15] =
+    {
+        3.0, // rightLeg
+        4.3,
+        3.8,
+        3.46,
+        4.5,
+        6.0,
+        3.0, // rightLeg
+        4.3,
+        3.8,
+        3.46,
+        4.5,
+        6.0,
+        3.3, // Waist
+        3.3,
+        3.3, // upperbody
+};
+
+// leftleg rightleg waist leftarm head rightarm
 
 const double posStandard[33] = {0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
                                 0.0, 0.0, -0.24, 0.6, -0.36, 0.0,
@@ -116,7 +135,7 @@ namespace tocabi_gui
     public:
         explicit MyQGraphicsScene(QWidget *parent = 0);
         virtual void wheelEvent(QGraphicsSceneWheelEvent *event);
-        //virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+        // virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
 
     public slots:
 
@@ -128,8 +147,8 @@ namespace tocabi_gui
         Q_OBJECT
     public:
         explicit MyQGraphicsView(QWidget *parent = 0);
-        //virtual void wheelEvent(QGraphicsViewWheelEvent *event);
-        //virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+        // virtual void wheelEvent(QGraphicsViewWheelEvent *event);
+        // virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
 
     public slots:
 
@@ -175,7 +194,7 @@ namespace tocabi_gui
 
         virtual void gs_test();
 
-        //virtual void turnon_robot();
+        // virtual void turnon_robot();
         virtual void sysstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void ecatstatecb(const std_msgs::Int8MultiArrayConstPtr &msg);
         virtual void comstatecb(const std_msgs::Float32MultiArrayConstPtr &msg);
@@ -201,12 +220,12 @@ namespace tocabi_gui
 
         virtual void getCurrentPos();
 
-        //dg
-        // virtual void walkingspeedcb(int value);
-        // virtual void walkingdurationcb(int value);
-        // virtual void walkingangvelcb(int value);
-        // virtual void kneetargetanglecb(int value);
-        // virtual void footheightcb(int value);
+        // dg
+        //  virtual void walkingspeedcb(int value);
+        //  virtual void walkingdurationcb(int value);
+        //  virtual void walkingangvelcb(int value);
+        //  virtual void kneetargetanglecb(int value);
+        //  virtual void footheightcb(int value);
 
         virtual void sendupperbodymodecb();
 
@@ -231,9 +250,8 @@ namespace tocabi_gui
 
         virtual void QTimerCallback();
 
-
     private:
-        //ROS_DEPRECATED virtual QList<QString>
+        // ROS_DEPRECATED virtual QList<QString>
         std::vector<task_que> tq_;
 
         Ui::TocabiGuiWidget ui_;
@@ -241,13 +259,20 @@ namespace tocabi_gui
 
         QTimer *timer_;
 
-        //QStringListModel *model;
-        //QStringList list;
+        // QStringListModel *model;
+        // QStringList list;
 
         std::vector<QLabel *> ecatlabels;
         std::vector<QLabel *> safetylabels;
         std::vector<QLabel *> zplabels;
         std::vector<QLineEdit *> ecattexts;
+
+        std::vector<QLabel *> positionlabels;
+        std::vector<QLabel *> vellabels;
+        std::vector<QLabel *> torquelabels;
+        std::vector<QLabel *> torquelabels2;
+
+        std::vector<QVBoxLayout *> torquelayout_;
 
         MyQGraphicsScene *scene;
         MyQGraphicsView *view;
@@ -268,7 +293,6 @@ namespace tocabi_gui
         QGraphicsEllipseItem *lfoot_c;
         QGraphicsEllipseItem *rhand_c;
         QGraphicsEllipseItem *lhand_c;
-
 
         QGraphicsEllipseItem *rfoot_zmp;
         QGraphicsEllipseItem *lfoot_zmp;
@@ -314,19 +338,19 @@ namespace tocabi_gui
 
         ros::Publisher tocabi_stopper_pub;
 
-        //dg
-        // ros::Publisher walkingspeed_pub;
-        // std_msgs::Float32 walkingspeed_msg;
-        // ros::Publisher walkingduration_pub;
-        // std_msgs::Float32 walkingduration_msg;
-        // ros::Publisher walkingangvel_pub;
-        // std_msgs::Float32 walkingangvel_msg;
-        // ros::Publisher kneetargetangle_pub;
-        // std_msgs::Float32 kneetargetangle_msg;
-        // ros::Publisher footheight_pub;
-        // std_msgs::Float32 footheight_msg;
+        // dg
+        //  ros::Publisher walkingspeed_pub;
+        //  std_msgs::Float32 walkingspeed_msg;
+        //  ros::Publisher walkingduration_pub;
+        //  std_msgs::Float32 walkingduration_msg;
+        //  ros::Publisher walkingangvel_pub;
+        //  std_msgs::Float32 walkingangvel_msg;
+        //  ros::Publisher kneetargetangle_pub;
+        //  std_msgs::Float32 kneetargetangle_msg;
+        //  ros::Publisher footheight_pub;
+        //  std_msgs::Float32 footheight_msg;
 
-        //avatar
+        // avatar
         ros::Publisher upperbodymode_pub;
         std_msgs::Int8 upperbodymode_msg;
         ros::Publisher pose_calibration_pub;
@@ -338,10 +362,12 @@ namespace tocabi_gui
 
         ros::Subscriber imusub;
 
-        //void guiLogCallback(const std_msgs::StringConstPtr &msg);
+        // void guiLogCallback(const std_msgs::StringConstPtr &msg);
         std::string logtext;
 
         std::vector<float> q_;
+        std::vector<float> q_dot_;
+        std::vector<float> torque_desired_;
 
         double com_height = 0;
         double pelv_pitch = 0;

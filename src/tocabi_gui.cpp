@@ -88,6 +88,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         tocabi_starter_pub = nh_.advertise<std_msgs::String>("/tocabi/starter", 100);
         tocabi_stopper_pub = nh_.advertise<std_msgs::String>("/tocabi/stopper", 100);
         q_.resize(33);
+        q_dot_.resize(33);
+        torque_desired_.resize(33);
 
         ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
         ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 100, &TocabiGui::comstateCallback, this);
@@ -426,6 +428,49 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         ecatlabels.resize(33);
         safetylabels.resize(33);
         zplabels.resize(33);
+
+        positionlabels.resize(15);
+        torquelayout_.resize(15);
+        torquelabels.resize(15);
+        torquelabels2.resize(15);
+        vellabels.resize(15);
+
+        for (int i = 0; i < 15; i++)
+        {
+            positionlabels[i] = new QLabel(ui_.position_layout->parentWidget());
+            ui_.position_layout->addWidget(positionlabels[i]);
+            positionlabels[i]->setFrameShape(QFrame::Panel);
+
+            vellabels[i] = new QLabel(ui_.velocity_layout->parentWidget());
+            ui_.velocity_layout->addWidget(vellabels[i]);
+            vellabels[i]->setFrameShape(QFrame::Panel);
+
+            torquelayout_[i] = new QVBoxLayout();
+            ui_.torque_layout->addLayout(torquelayout_[i]);
+
+            torquelayout_[i]->setSpacing(0);
+
+            // ui_.torque_layout2->setSpacing(0);
+            // ui_.torque_layout->setSpacing(0);
+
+            torquelabels2[i] = new QLabel(torquelayout_[i]->parentWidget());
+            torquelayout_[i]->addWidget(torquelabels2[i]);
+            torquelabels2[i]->setFrameShape(QFrame::Panel);
+
+            torquelabels[i] = new QLabel(torquelayout_[i]->parentWidget());
+            torquelayout_[i]->addWidget(torquelabels[i]);
+            torquelabels[i]->setFrameShape(QFrame::NoFrame);
+            // int top, bottom, left, right;
+            // torquelabels2[i]->getContentsMargins(&left, &top, &right, &bottom);
+
+            // torquelabels2[i]->setContentsMargins(left, top, right, 0);
+
+            // torquelabels[i] = new QLabel(ui_.torque_layout->parentWidget());
+            // ui_.torque_layout->addWidget(torquelabels[i]);
+            // torquelabels[i]->setFrameShape(QFrame::Panel);
+
+            // torquelabels[i]->setContentsMargins(left, 0, right, bottom);
+        }
 
         // head
         for (int i = 0; i < 2; i++)
@@ -828,6 +873,66 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         for (int i = 0; i < 33; i++)
         {
             q_[i] = msg->position[i];
+            q_dot_[i] = msg->velocity[i];
+            torque_desired_[i] = msg->effort[i];
+        }
+
+        if (ui_.stackedWidget->currentIndex() == 1)
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                positionlabels[i]->setText(QString::number(msg->position[i], 'f', 4));
+                vellabels[i]->setText(QString::number(msg->velocity[i], 'f', 4));
+
+                int h = torquelabels[i]->height();
+                int w = torquelabels[i]->width();
+
+                torquelabels[i]->setMaximumHeight(5);
+                torquelabels[i]->setMaximumWidth(w);
+
+                // torquelabels[i]->setFixedHeight(h);
+
+                QPixmap pix(w, 5);
+                QPainter paint(&pix);
+                pix.fill(Qt::lightGray);
+
+                double max_per = abs(msg->effort[i]) / (1000 / NM2CNT_J[i]);
+
+                int bw = w * max_per;
+
+                paint.setPen(QPen(QColor(0, 0, 0, 0)));
+
+                if (max_per > 1)
+                {
+                    max_per = 1.0;
+                }
+
+                int red; // = 255 * max_per;
+
+                int green; // = 255 * (1 - max_per);
+                if (max_per < 0.5)
+                {
+                    red = 255 * max_per * 2;
+                    green = 255;
+                }
+                else if (max_per >= 0.5 && max_per < 1)
+                {
+                    red = 255;
+                    green = 255 - 255 * (max_per - 0.5) * 2;
+                }
+                else if (max_per >= 1)
+                {
+                    red = 255;
+                    green = 0;
+                }
+
+                paint.setBrush(QColor(red, green, 0));
+
+                paint.drawRect(QRect(0, 0, bw, 5));
+
+                torquelabels[i]->setPixmap(pix);
+                torquelabels2[i]->setText(QString::number(msg->effort[i], 'f', 4));
+            }
         }
     }
 
