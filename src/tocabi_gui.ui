@@ -204,7 +204,7 @@ OFF
       <string>IMU EF RESET</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="lowerdisable">
+    <widget class="QPushButton" name="qdotest">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -214,7 +214,7 @@ OFF
       </rect>
      </property>
      <property name="text">
-      <string>DISABLE LOWER</string>
+      <string>QDOT EST</string>
      </property>
     </widget>
     <widget class="QPushButton" name="initializebtn_3">
@@ -243,7 +243,7 @@ OFF
       <string>FORCE LOAD ZP</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="testbtn">
+    <widget class="QPushButton" name="disablelower">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -253,7 +253,20 @@ OFF
       </rect>
      </property>
      <property name="text">
-      <string>testbtn</string>
+      <string>DISABLE LOWER</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="locklower">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>660</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>LOCK LOWER</string>
      </property>
     </widget>
    </widget>
@@ -4496,7 +4509,7 @@ F3 : HARD DAMPING(E2)</string>
       </rect>
      </property>
      <property name="text">
-      <string>4 Con Standard</string>
+      <string>Mobile Standard</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="poscomgravity">

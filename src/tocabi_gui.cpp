@@ -203,8 +203,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.emergencyoff_button, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.emergencyoff_button, "emergencyoff");
 
-        connect(ui_.testbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.testbtn, "testbtn");
+        connect(ui_.qdotest, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.qdotest, "qdot_est");
+
+        connect(ui_.locklower, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.locklower, "locklower");
 
         connect(ui_.vjbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.vjbtn, "simvirtualjoint");
@@ -218,8 +221,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.sebyftbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.sebyftbtn, "sebyft");
 
-        connect(ui_.lowerdisable, SIGNAL(pressed()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(ui_.lowerdisable, "disablelower");
+        connect(ui_.disablelower, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.disablelower, "disablelower");
 
         connect(ui_.emergencyoff_button_2, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.emergencyoff_button_2, "E1");
@@ -1269,6 +1272,21 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("CL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
+            }
+            else if (num_safety == 6)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("NOT"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : black ; color : white; }");
+            }
+            else if (num_safety == 6)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("LL"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
+            }
+            else if (num_safety == 9)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("NOS"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : gray ; color : white; }");
             }
 
             if (num_ecat == 0) // zp started
