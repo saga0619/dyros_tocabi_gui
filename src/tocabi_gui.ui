@@ -256,6 +256,19 @@ OFF
       <string>testbtn</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="handftbtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>420</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>HAND FT CALIB</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="STAT">
     <widget class="QFrame" name="frame_10">
