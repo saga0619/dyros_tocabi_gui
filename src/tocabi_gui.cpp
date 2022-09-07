@@ -69,30 +69,30 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         setObjectName("TocabiGui");
 
         // initPlugin()
-        pointsub = nh_.subscribe("/tocabi/point", 100, &TocabiGui::pointCallback, this);
-        timesub = nh_.subscribe("/tocabi/time", 100, &TocabiGui::timerCallback, this);
-        sysstatesub = nh_.subscribe("/tocabi/systemstate", 1000, &TocabiGui::sysstateCallback, this);
-        com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 100);
-        guilogsub = nh_.subscribe("/tocabi/guilog", 1000, &TocabiGui::guiLogCallback, this);
-        gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 100);
-        imusub = nh_.subscribe("/tocabi/imu", 100, &TocabiGui::imuCallback, this);
-        task_pub = nh_.advertise<tocabi_msgs::TaskCommand>("/tocabi/taskcommand", 100);
-        task_que_pub = nh_.advertise<tocabi_msgs::TaskCommandQue>("/tocabi/taskquecommand", 100);
-        taskgain_pub = nh_.advertise<tocabi_msgs::TaskGainCommand>("/tocabi/taskgaincommand", 100);
-        velcommand_pub = nh_.advertise<tocabi_msgs::VelocityCommand>("/tocabi/velcommand", 100);
-        poscom_pub = nh_.advertise<tocabi_msgs::positionCommand>("/tocabi/positioncommand", 100);
-        jointsub = nh_.subscribe("/tocabi/jointstates", 100, &TocabiGui::jointstateCallback, this);
+        pointsub = nh_.subscribe("/tocabi/point", 3, &TocabiGui::pointCallback, this, ros::TransportHints().tcpNoDelay(true));
+        timesub = nh_.subscribe("/tocabi/time", 3, &TocabiGui::timerCallback, this, ros::TransportHints().tcpNoDelay(true));
+        sysstatesub = nh_.subscribe("/tocabi/systemstate", 10, &TocabiGui::sysstateCallback, this, ros::TransportHints().tcpNoDelay(true));
+        com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 10);
+        guilogsub = nh_.subscribe("/tocabi/guilog", 10, &TocabiGui::guiLogCallback, this);
+        gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 10);
+        imusub = nh_.subscribe("/tocabi/imu", 10, &TocabiGui::imuCallback, this, ros::TransportHints().tcpNoDelay(true));
+        task_pub = nh_.advertise<tocabi_msgs::TaskCommand>("/tocabi/taskcommand", 10);
+        task_que_pub = nh_.advertise<tocabi_msgs::TaskCommandQue>("/tocabi/taskquecommand", 10);
+        taskgain_pub = nh_.advertise<tocabi_msgs::TaskGainCommand>("/tocabi/taskgaincommand", 10);
+        velcommand_pub = nh_.advertise<tocabi_msgs::VelocityCommand>("/tocabi/velcommand", 10);
+        poscom_pub = nh_.advertise<tocabi_msgs::positionCommand>("/tocabi/positioncommand", 10);
+        jointsub = nh_.subscribe("/tocabi/jointstates", 10, &TocabiGui::jointstateCallback, this);
 
-        arm_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 100);
+        arm_gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/dg/armpdgain", 10);
 
-        tocabi_starter_pub = nh_.advertise<std_msgs::String>("/tocabi/starter", 100);
-        tocabi_stopper_pub = nh_.advertise<std_msgs::String>("/tocabi/stopper", 100);
+        tocabi_starter_pub = nh_.advertise<std_msgs::String>("/tocabi/starter", 10);
+        tocabi_stopper_pub = nh_.advertise<std_msgs::String>("/tocabi/stopper", 10);
         q_.resize(33);
         q_dot_.resize(33);
         torque_desired_.resize(33);
 
-        ecat_sub = nh_.subscribe("/tocabi/ecatstates", 100, &TocabiGui::ecatstateCallback, this);
-        ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 100, &TocabiGui::comstateCallback, this);
+        ecat_sub = nh_.subscribe("/tocabi/ecatstates", 10, &TocabiGui::ecatstateCallback, this);
+        ecat_comstate_sub = nh_.subscribe("/tocabi/comstates", 10, &TocabiGui::comstateCallback, this);
 
         // dg
         //  walkingspeed_pub = nh_.advertise<std_msgs::Float32>("/tocabi/walkingspeedcommand", 100);
@@ -102,9 +102,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //  footheight_pub = nh_.advertise<std_msgs::Float32>("/tocabi/footheightcommand", 100);
 
         // avatar
-        upperbodymode_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/upperbodymodecommand", 100);
-        pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/pose_calibration_flag", 100);
-        vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/avatar/vr_caliabration_param", 100);
+        upperbodymode_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/upperbodymodecommand", 10);
+        pose_calibration_pub = nh_.advertise<std_msgs::Int8>("/tocabi/avatar/pose_calibration_flag", 10);
+        vr_slider_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/avatar/vr_caliabration_param", 10);
 
         taskgain_msg.pgain.resize(6);
         taskgain_msg.dgain.resize(6);
@@ -119,6 +119,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         static double stored_timer = 0;
 
+        const double time_err = 0.1;
+
         static bool connected = false;
 
         if (connected)
@@ -126,7 +128,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             if (stored_timer == robot_time)
             {
-                std::cout << "Disconnected" << std::endl;
+                std::cout << "Disconnected at " << robot_time << std::endl;
                 ui_.currenttime->setText(QString::fromUtf8("DISCON"));
                 connected = false;
             }
@@ -135,7 +137,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             if (robot_time > stored_timer)
             {
-                std::cout << "Connected" << std::endl;
+                std::cout << "Connected at" << robot_time << std::endl;
                 connected = true;
             }
         }
@@ -190,7 +192,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(timer_, SIGNAL(timeout()), this, SLOT(QTimerCallback()));
 
-        timer_->start(100);
+        timer_->start(50);
 
         QSignalMapper *signalMapper = new QSignalMapper(this);
 
@@ -1273,12 +1275,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("CL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
             }
-            else if (num_safety == 6)
+            else if (num_safety == 6) //No Torque
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("NOT"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : black ; color : white; }");
             }
-            else if (num_safety == 6)
+            else if (num_safety == 7) //Lock Lower
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("LL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
