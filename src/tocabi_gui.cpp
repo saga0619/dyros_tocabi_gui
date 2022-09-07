@@ -260,6 +260,9 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.ftcalibbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.ftcalibbtn, "ftcalib");
 
+        connect(ui_.handftbtn, SIGNAL(pressed()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(ui_.handftbtn, "handftcalib");
+
         connect(ui_.data_button_4, SIGNAL(pressed()), signalMapper, SLOT(map()));
         signalMapper->setMapping(ui_.data_button_4, "showdata");
 
