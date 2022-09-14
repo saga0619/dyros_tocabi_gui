@@ -9,8 +9,7 @@
 ## Prerequisities
   * This project is working with Ubuntu 20.04, Noetic!
   * For Noetic, `sudo apt install python-is-python3`
-  * If you want to use this package in 18.04, change shebang python version 'python3 to python'
-  * Or change branch to 18.04
+
 
 
 ## Installation
