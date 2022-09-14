@@ -227,6 +227,18 @@ namespace tocabi_gui
         //  virtual void kneetargetanglecb(int value);
         //  virtual void footheightcb(int value);
 
+        // JHRui edit
+        virtual void sendupperbodymodecb_1();
+        virtual void sendupperbodymodecb_2();
+        virtual void sendupperbodymodecb_3();
+        virtual void sendupperbodymodecb_4();
+        virtual void sendupperbodymodecb_5();
+        virtual void sendupperbodymodecb_6();
+        virtual void sendupperbodymodecb_7();
+        virtual void sendupperbodymodecb_8();
+        virtual void sendupperbodymodecb_9();
+        // JHRui edit
+        
         virtual void sendupperbodymodecb();
 
         virtual void sendstillposecalibration();
