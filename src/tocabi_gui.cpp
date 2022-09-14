@@ -392,6 +392,19 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         //  connect(ui_.foot_height_slider_2, SIGNAL(valueChanged(int)), this, SLOT(footheightcb(int)));
 
         // avatar
+        // JHRui edit
+        connect(ui_.upperbody_mode_init_pose, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_1()));
+        connect(ui_.upperbody_mode_zero_pose, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_2()));
+        connect(ui_.upperbody_mode_freezing, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_3()));
+        connect(ui_.upperbody_mode_ready_pose, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_4()));
+        connect(ui_.upperbody_mode_head_only_ret, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_5()));
+        connect(ui_.upperbody_mode_motion_ret_1, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_6()));
+        connect(ui_.upperbody_mode_motion_ret_2, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_7()));
+        connect(ui_.upperbody_mode_abs_hand_pos, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_8()));
+        connect(ui_.upperbody_mode_prop_hand_pos, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_9()));
+        // connect(ui_.upperbody_mode_NA, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
+        // JHRui edit
+        
         connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
 
         connect(ui_.still_pose_button, SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
@@ -2070,6 +2083,64 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
     // }
 
     // avatar
+    // JHRui edit
+    void TocabiGui::sendupperbodymodecb_1()
+    {
+        upperbodymode_msg.data = 1;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_2()
+    {
+        upperbodymode_msg.data = 2;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_3()
+    {
+        upperbodymode_msg.data = 3;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_4()
+    {
+        upperbodymode_msg.data = 4;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_5()
+    {
+        upperbodymode_msg.data = 5;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_6()
+    {
+        upperbodymode_msg.data = 6;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_7()
+    {
+        upperbodymode_msg.data = 7;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_8()
+    {
+        upperbodymode_msg.data = 8;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    void TocabiGui::sendupperbodymodecb_9()
+    {
+        upperbodymode_msg.data = 9;
+        upperbodymode_pub.publish(upperbodymode_msg);
+        // std::cout << upperbodymode_msg.data << std::endl;
+    }
+    // JHRui edit
+
+
     void TocabiGui::sendupperbodymodecb()
     {
         upperbodymode_msg.data = ui_.upperbody_mode->currentIndex() + 1;
