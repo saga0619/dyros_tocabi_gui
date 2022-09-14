@@ -3950,7 +3950,8 @@ OFF
       <string>--Emergency Shortcut--
 F1 : EMERGENCY Off (E0)
 F2 : EMERGENCY HOLD(E1)
-F3 : HARD DAMPING(E2)</string>
+F3 : HARD DAMPING(E2)
+F4 : POSITION HOLD</string>
      </property>
     </widget>
    </widget>
