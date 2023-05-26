@@ -404,7 +404,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.upperbody_mode_prop_hand_pos, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb_9()));
         // connect(ui_.upperbody_mode_NA, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
         // JHRui edit
-        
+
         connect(ui_.send_upperbody_mode_button, SIGNAL(pressed()), this, SLOT(sendupperbodymodecb()));
 
         connect(ui_.still_pose_button, SIGNAL(pressed()), this, SLOT(sendstillposecalibration()));
@@ -1291,12 +1291,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("CL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
             }
-            else if (num_safety == 6) //No Torque
+            else if (num_safety == 6) // No Torque
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("NOT"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : black ; color : white; }");
             }
-            else if (num_safety == 7) //Lock Lower
+            else if (num_safety == 7) // Lock Lower
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("LL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : orange ; color : black; }");
@@ -1503,9 +1503,24 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         lhand_c->setPos(QPointF(msg->polygon.points[6].y * 250, msg->polygon.points[6].x * 250));
         rhand_c->setPos(QPointF(msg->polygon.points[5].y * 250, msg->polygon.points[5].x * 250));
 
+        double lz_scale = abs(msg->polygon.points[13].z / 1000.0);
+        double rz_scale = abs(msg->polygon.points[14].z / 1000.0);
+        // min of lzscale and rz scale is 0 and max is 1.0
+        if (lz_scale > 1.0)
+            lz_scale = 1.0;
+        if (rz_scale > 1.0)
+            rz_scale = 1.0;
+        if (lz_scale < 0.0)
+            lz_scale = 0.0;
+        if (rz_scale < 0.0)
+            rz_scale = 0.0;
+
+
         lfoot_zmp->setPos(QPointF(msg->polygon.points[13].y * 250, msg->polygon.points[13].x * 250));
+        lfoot_zmp->setScale(lz_scale * 4.0 + 1.0);
 
         rfoot_zmp->setPos(QPointF(msg->polygon.points[14].y * 250, msg->polygon.points[14].x * 250));
+        rfoot_zmp->setScale(rz_scale * 4.0 + 1.0);
 
         float ang_pelv = msg->polygon.points[4].z;
 
@@ -2139,7 +2154,6 @@ void TocabiGui::wheelEvent(QWheelEvent *event)
         // std::cout << upperbodymode_msg.data << std::endl;
     }
     // JHRui edit
-
 
     void TocabiGui::sendupperbodymodecb()
     {
