@@ -8,9 +8,6 @@
 
 ## Prerequisities
   * This project is working with Ubuntu 20.04, Noetic!
-  * For Noetic, `sudo apt install python-is-python3`
-
-
 
 ## Installation
 ```sh
